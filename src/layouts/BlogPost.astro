@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+// Adicionado 'author' na desestruturação
+const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props;
+---
+
+<html lang="pt-BR">
+    <head>
+        <BaseHead title={title} description={description} />
+        <style>
+            /* Seus estilos originais permanecem aqui */
+            main {
+                width: calc(100% - 2em);
+                max-width: 100%;
+                margin: 0;
+            }
+            .hero-image {
+                width: 100%;
+            }
+            .hero-image img {
+                display: block;
+                margin: 0 auto;
+                border-radius: 12px;
+                box-shadow: var(--box-shadow);
+            }
+            .prose {
+                width: 720px;
+                max-width: calc(100% - 2em);
+                margin: auto;
+                padding: 1em;
+                color: rgb(var(--gray-dark));
+            }
+            .title {
+                margin-bottom: 1em;
+                padding: 1em 0;
+                text-align: center;
+                line-height: 1;
+            }
+            .title h1 {
+                margin: 0 0 0.5em 0;
+            }
+            .date {
+                margin-bottom: 0.5em;
+                color: rgb(var(--gray));
+            }
+            .last-updated-on {
+                font-style: italic;
+            }
+            /* Pequeno estilo para o autor em cinza */
+            .author-name {
+                color: rgb(var(--gray));
+                font-size: 0.9em;
+                margin-bottom: 0.5em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <Header />
+        <main>
+            <article>
+                <div class="hero-image">
+                    {heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+                </div>
+                <div class="prose">
+                    <div class="title">
+                        <div class="date">
+                            <FormattedDate date={pubDate} />
+                            {
+                                updatedDate && (
+                                    <div class="last-updated-on">
+                                        Last updated on <FormattedDate date={updatedDate} />
+                                    </div>
+                                )
+                            }
+                        </div>
+                        {/* Exibição discreta do autor */}
+                        {author && <div class="author-name">Por {author}</div>}
+                        <h1>{title}</h1>
+                        <hr />
+                    </div>
+                    <slot />
+                </div>
+            </article>
+        </main>
+        <Footer />
+    </body>
+</html>
