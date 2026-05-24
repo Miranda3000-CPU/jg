@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">DD Diario Dela - Privacidade Primeiro</title>
+  <desc id="desc">Banner ilustrativo sobre rastreio menstrual com privacidade local, sem nuvem e sem servidor.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff1f3" />
+      <stop offset="100%" stop-color="#eef2ff" />
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#334155" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="150" cy="90" r="130" fill="#fde2e8" opacity="0.8" />
+  <circle cx="1080" cy="540" r="180" fill="#dbeafe" opacity="0.7" />
+  <circle cx="1040" cy="110" r="75" fill="#fee2e2" opacity="0.7" />
+
+  <g filter="url(#softShadow)">
+    <rect x="90" y="80" width="1020" height="470" rx="28" fill="url(#card)" />
+  </g>
+
+  <g transform="translate(150 170)">
+    <path d="M0 0h260a20 20 0 0 1 20 20v255a20 20 0 0 1-20 20H0a20 20 0 0 1-20-20V20A20 20 0 0 1 0 0z" fill="#fff" stroke="#e2e8f0" stroke-width="4" />
+    <rect x="20" y="22" width="220" height="32" rx="10" fill="#f1f5f9" />
+    <rect x="20" y="72" width="220" height="24" rx="8" fill="#fee2e2" />
+    <rect x="20" y="110" width="100" height="100" rx="14" fill="#ffe4e6" />
+    <rect x="140" y="110" width="100" height="100" rx="14" fill="#dbeafe" />
+    <rect x="20" y="228" width="220" height="24" rx="8" fill="#f1f5f9" />
+    <rect x="20" y="264" width="160" height="16" rx="8" fill="#e2e8f0" />
+  </g>
+
+  <g transform="translate(470 170)">
+    <path d="M170 20c-40 0-80 14-110 36v92c0 94 55 168 110 192 55-24 110-98 110-192V56c-30-22-70-36-110-36z" fill="url(#shield)" />
+    <path d="M170 72c-26 0-48 21-48 47v10h-14c-7 0-12 5-12 12v66c0 7 5 12 12 12h124c7 0 12-5 12-12v-66c0-7-5-12-12-12h-14v-10c0-26-22-47-48-47zm0 24c13 0 24 10 24 23v10h-48v-10c0-13 11-23 24-23z" fill="#ffffff" opacity="0.96" />
+    <circle cx="170" cy="170" r="14" fill="#e11d48" />
+    <rect x="163" y="182" width="14" height="18" rx="5" fill="#e11d48" />
+  </g>
+
+  <g transform="translate(700 185)">
+    <text x="0" y="0" fill="#0f172a" font-family="Atkinson, Arial, sans-serif" font-size="60" font-weight="700">DD Diario Dela</text>
+    <text x="0" y="58" fill="#475569" font-family="Atkinson, Arial, sans-serif" font-size="30" font-weight="500">Rastreio menstrual com privacidade primeiro</text>
+    <text x="0" y="120" fill="#334155" font-family="Atkinson, Arial, sans-serif" font-size="29">Sem servidor</text>
+    <text x="0" y="160" fill="#334155" font-family="Atkinson, Arial, sans-serif" font-size="29">Sem nuvem</text>
+    <text x="0" y="200" fill="#334155" font-family="Atkinson, Arial, sans-serif" font-size="29">Dados no seu dispositivo</text>
+    <rect x="0" y="232" width="370" height="58" rx="16" fill="#0f172a" />
+    <text x="24" y="270" fill="#ffffff" font-family="Atkinson, Arial, sans-serif" font-size="26" font-weight="700">Privacidade nao e opcional</text>
+  </g>
+</svg>

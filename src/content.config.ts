@@ -12,7 +12,7 @@ const blog = defineCollection({
 			// Transform string to Date object
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
-			heroImage: image().optional(),
+			heroImage: z.union([z.string().startsWith('/'), image()]).optional(),
 			author: z.enum(['Jeiel Miranda', "Giovanna Miranda"]).default("Jeiel Miranda")
 		}),
 });

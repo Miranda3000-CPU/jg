@@ -8,3 +8,5 @@ author: 'Jeiel Miranda'
 
 Usando modelo pré-criado pelo framework Astro...
 Por enquanto, ainda não há nada aqui. Apenas desejo boas vindas.
+
+#Astro #BlogPessoal #DesenvolvimentoWeb #FrontEnd #OpenSource #Programacao #Tecnologia #Ciberseguranca

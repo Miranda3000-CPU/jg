@@ -29,6 +29,9 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
             .hero-image img {
                 display: block;
                 margin: 0 auto;
+                width: min(100%, 768px);
+                aspect-ratio: 16 / 9;
+                object-fit: cover;
                 border-radius: 12px;
                 box-shadow: var(--box-shadow);
             }
@@ -70,7 +73,7 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
         <main>
             <article>
                 <div class="hero-image">
-                    {heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+                    {heroImage && (typeof heroImage === 'string' ? <img src={heroImage} alt="" loading="lazy" /> : <Image width={768} height={432} src={heroImage} alt="" />)}
                 </div>
                 <div class="prose">
                     <div class="title">
