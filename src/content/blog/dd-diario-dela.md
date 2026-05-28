@@ -2,7 +2,7 @@
 title: 'DD Diário Dela: privacidade real no rastreio menstrual'
 description: 'Um app simples de acompanhar ciclo menstrual com privacidade total: tudo salvo no próprio celular, sem nuvem.'
 pubDate: '2026-05-24'
-heroImage: '/images/dd-diario-dela.svg'
+heroImage: '/images/dd-diario-dela.png'
 author: 'Jeiel Miranda'
 ---
 

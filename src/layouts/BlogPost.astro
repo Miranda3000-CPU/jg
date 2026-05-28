@@ -89,12 +89,140 @@ const image = heroImage || undefined;
 				background: rgba(var(--gray-light), 0.3);
 				border-color: rgb(var(--gray));
 			}
-			.share-button.share-done {
+					.share-button.share-done {
 				background: rgb(var(--accent));
 				color: white;
 				border-color: rgb(var(--accent));
 			}
+			.pwa-banner {
+				display: none;
+				align-items: center;
+				gap: 0.75em;
+				padding: 0.75em 1em;
+				margin: 1.5em auto;
+				max-width: 720px;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				background: rgba(var(--gray-light), 0.15);
+				font-size: 0.875em;
+				color: rgb(var(--gray-dark));
+			}
+			.pwa-banner.show {
+				display: flex;
+			}
+			.pwa-banner button {
+				margin-left: auto;
+				padding: 0.4em 1em;
+				border: none;
+				border-radius: 999px;
+				background: rgb(var(--accent));
+				color: white;
+				font-size: 0.875em;
+				font-family: inherit;
+				cursor: pointer;
+				white-space: nowrap;
+			}
+			.pwa-banner button:hover {
+				opacity: 0.9;
+			}
+			.pix-card {
+				display: flex;
+				align-items: center;
+				gap: 0.75em;
+				padding: 0.75em 1em;
+				margin: 1.5em auto;
+				max-width: 720px;
+				border: 1px solid #d4d4d8;
+				border-radius: 12px;
+				background: linear-gradient(135deg, #f0fdf4 0%, #fefce8 100%);
+				font-size: 0.875em;
+				color: #166534;
+			}
+			.pix-card svg {
+				flex-shrink: 0;
+			}
+			.pix-card .pix-label {
+				font-weight: 600;
+				font-size: 0.8em;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: #15803d;
+			}
+			.pix-card .pix-key {
+				font-family: monospace;
+				word-break: break-all;
+				color: #166534;
+			}
+			.pix-card a {
+				margin-left: auto;
+				padding: 0.4em 1em;
+				border-radius: 999px;
+				background: #16a34a;
+				color: white;
+				text-decoration: none;
+				font-size: 0.875em;
+				font-family: inherit;
+				white-space: nowrap;
+				flex-shrink: 0;
+			}
+			.pix-card a:hover {
+				background: #15803d;
+			}
 		</style>
+        <Analytics />
+    </head>
+
+    <body>
+        <Header />
+        <main>
+            <article>
+                <div class="hero-image">
+                    {heroImage && (typeof heroImage === 'string' ? <img src={heroImage} alt="" loading="lazy" /> : <Image width={768} height={432} src={heroImage} alt="" />)}
+                </div>
+                <div class="prose">
+                    <div class="title">
+                        <div class="date">
+                            <FormattedDate date={pubDate} />
+                            {
+                                updatedDate && (
+                                    <div class="last-updated-on">
+                                        Last updated on <FormattedDate date={updatedDate} />
+                                    </div>
+                                )
+                            }
+                        </div>
+                        {author && <div class="author-name">Por {author}</div>}
+                        <h1>{title}</h1>
+                        <hr />
+                    </div>
+                    <slot />
+
+					<div class="share-wrapper">
+						<button id="shareBtn" class="share-button" aria-label="Compartilhar link">
+							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+							<span id="shareLabel">Compartilhar</span>
+						</button>
+					</div>
+
+					<div id="pwaBanner" class="pwa-banner">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+						<span>Instale este blog como aplicativo e acesse mais rápido.</span>
+						<button id="installBtn">Instalar</button>
+					</div>
+
+					<div class="pix-card">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+						<div>
+							<div class="pix-label">PIX</div>
+							<div class="pix-key">jeielmiranda@duck.com</div>
+						</div>
+						<a href="/pix/">Doar</a>
+					</div>
+				</div>
+			</article>
+        </main>
+        <Footer />
+
 		<script>
 			document.getElementById('shareBtn')?.addEventListener('click', async () => {
 				const btn = document.getElementById('shareBtn');
@@ -118,44 +246,20 @@ const image = heroImage || undefined;
 					}
 				}
 			});
-		</script>
-        <Analytics />
-    </head>
 
-    <body>
-        <Header />
-        <main>
-            <article>
-                <div class="hero-image">
-                    {heroImage && (typeof heroImage === 'string' ? <img src={heroImage} alt="" loading="lazy" /> : <Image width={768} height={432} src={heroImage} alt="" />)}
-                </div>
-                <div class="prose">
-                    <div class="title">
-                        <div class="date">
-                            <FormattedDate date={pubDate} />
-                            {
-                                updatedDate && (
-                                    <div class="last-updated-on">
-                                        Last updated on <FormattedDate date={updatedDate} />
-                                    </div>
-                                )
-                            }
-                        </div>
-                        {/* Exibição discreta do autor */}
-                        {author && <div class="author-name">Por {author}</div>}
-                        <h1>{title}</h1>
-                        <hr />
-                    </div>
-                    <slot />
-				</div>
-					<div class="share-wrapper">
-						<button id="shareBtn" class="share-button" aria-label="Compartilhar link">
-							<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-							<span id="shareLabel">Compartilhar</span>
-						</button>
-					</div>
-					</article>
-        </main>
-        <Footer />
+			let deferredPrompt = null;
+			window.addEventListener('beforeinstallprompt', (e) => {
+				e.preventDefault();
+				deferredPrompt = e;
+				document.getElementById('pwaBanner')?.classList.add('show');
+			});
+			document.getElementById('installBtn')?.addEventListener('click', async () => {
+				if (!deferredPrompt) return;
+				deferredPrompt.prompt();
+				const result = await deferredPrompt.userChoice;
+				deferredPrompt = null;
+				document.getElementById('pwaBanner')?.classList.remove('show');
+			});
+		</script>
     </body>
 </html>

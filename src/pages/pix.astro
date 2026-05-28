@@ -1,0 +1,124 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <BaseHead title={`PIX | ${SITE_TITLE}`} description="Apoie o trabalho de Jeiel Miranda com uma doação via PIX." />
+    <style>
+        main {
+            width: 720px;
+            max-width: calc(100% - 2em);
+            margin: auto;
+            padding: 3em 1em;
+        }
+        .pix-hero {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        .pix-hero h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+        .pix-hero p {
+            color: rgb(var(--gray-dark));
+            font-size: 1.1em;
+        }
+        .pix-card-detail {
+            max-width: 480px;
+            margin: 2em auto;
+            padding: 2em;
+            border: 1px solid #d4d4d8;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #fefce8 100%);
+            text-align: center;
+        }
+        .pix-card-detail svg {
+            margin-bottom: 1em;
+        }
+        .pix-card-detail .label {
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #15803d;
+            margin-bottom: 0.5em;
+        }
+        .pix-card-detail .key {
+            font-family: monospace;
+            font-size: 1.1em;
+            word-break: break-all;
+            color: #166534;
+            background: rgba(22, 163, 74, 0.08);
+            padding: 0.75em 1em;
+            border-radius: 8px;
+            border: 1px solid rgba(22, 163, 74, 0.2);
+        }
+        .pix-card-detail .note {
+            margin-top: 1.5em;
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+        .faq {
+            margin-top: 3em;
+        }
+        .faq h2 {
+            font-size: 1.3em;
+            margin-bottom: 1em;
+        }
+        .faq-item {
+            margin-bottom: 1.5em;
+        }
+        .faq-item h3 {
+            font-size: 1em;
+            margin-bottom: 0.3em;
+            color: rgb(var(--black));
+        }
+        .faq-item p {
+            font-size: 0.95em;
+            color: rgb(var(--gray-dark));
+            margin: 0;
+        }
+        @media (max-width: 720px) {
+            main { padding: 2em 1em; }
+        }
+    </style>
+</head>
+<body>
+    <Header />
+    <main>
+        <div class="pix-hero">
+            <h1>Contribua com o trabalho</h1>
+            <p>Se você gosta do conteúdo e quer apoiar, qualquer contribuição é bem-vinda.</p>
+        </div>
+
+        <div class="pix-card-detail">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            <div class="label">Chave PIX</div>
+            <div class="key">jeielmiranda@duck.com</div>
+            <div class="note">Você pode copiar a chave e fazer a transferência pelo seu banco.</div>
+        </div>
+
+        <div class="faq">
+            <h2>Perguntas frequentes</h2>
+            <div class="faq-item">
+                <h3>Como faço para doar?</h3>
+                <p>Copie a chave PIX acima, abra o aplicativo do seu banco, escolha a opção PIX e cole a chave. O valor é totalmente livre.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Para onde vai o dinheiro?</h3>
+                <p>As contribuições ajudam a manter este blog, os projetos open source e os estudos na área de segurança digital.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Posso doar de qualquer banco?</h3>
+                <p>Sim, o PIX funciona entre qualquer instituição financeira no Brasil.</p>
+            </div>
+        </div>
+    </main>
+    <Footer />
+</body>
+</html>
