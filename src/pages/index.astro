@@ -4,68 +4,56 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const homeCards = [
+const projects = [
 	{
-		title: 'DD Diario Dela',
-		description:
-			'Rastreio menstrual com privacidade primeiro: dados locais no dispositivo, sem nuvem e sem servidor.',
+		title: 'DD Diário Dela',
+		description: 'Rastreio menstrual com privacidade primeiro: dados locais no dispositivo, sem nuvem e sem servidor.',
 		href: 'https://ddela.vercel.app/',
 		icon: 'heart-pulse',
-		tone: 'rose',
-		badge: 'Privacidade',
-	},
-	{
-		title: 'Segurança Digital',
-		description:
-			'Formado pela UNAMA e pós-graduado na área de Segurança Cibernética. Contém outras formações em TIC.',
-		href: '/about/',
-		icon: 'shield',
-		tone: 'emerald',
-		badge: 'Formação',
-	},
-	{
-		title: 'DCiber',
-		description:
-			'A DCiber foi criada por um grupo de especialistas em segurança cibernética. Convido você a fazer parte também.',
-		href: 'https://dciber.org/quem-somos/',
-		icon: 'brick-wall-shield',
-		tone: 'cyan',
-		badge: 'Comunidade',
-	},
-	{
-		title: 'GitHub',
-		description:
-			'Ferramentas, scripts e projetos open source. A conta Jeiel0rbit foi descontinuada, mas permanece preservada pela política do GitHub.',
-		href: 'https://github.com/Miranda3000-CPU',
-		icon: 'github',
-		tone: 'slate',
-		badge: 'Open Source',
-	},
-	{
-		title: 'Whatsapp',
-		description: 'Fale comigo diretamente. Respondo assim que estiver disponível.',
-		href: 'https://wa.me/5591988544585?text=Vim%20pelo%20site!',
-		icon: 'message-circle-heart',
-		tone: 'green',
-		badge: 'Contato',
+		tags: ['Astro', 'Privacidade', 'Local Storage']
 	},
 	{
 		title: 'Provérbios do Dia',
 		description: 'O livro de Provérbios contém 31 capítulos. Aprofunde na leitura, 1 dia por vez.',
 		href: 'https://miranda3000-cpu.github.io/Proverb-Day/',
 		icon: 'book-open-text',
-		tone: 'blue',
-		badge: 'Devocional',
+		tags: ['Devocional', 'Web']
+	}
+];
+
+const experience = [
+	{
+		title: 'Segurança Digital & Formação',
+		description: 'Formado pela UNAMA e pós-graduado na área de Segurança Cibernética.',
+		href: '/about/',
+		icon: 'shield',
 	},
 	{
 		title: 'CBMPA',
-		description:
-			'Trabalhando na infraestrutura de segurança do Corpo de Bombeiros Militar do Pará (CBMPA).',
+		description: 'Trabalhando na infraestrutura de segurança do Corpo de Bombeiros Militar do Pará.',
 		href: 'https://bombeiros.pa.gov.br',
 		icon: 'siren',
-		tone: 'pink',
-		badge: 'Serviço',
 	},
+	{
+		title: 'Comunidade DCiber',
+		description: 'Criada por especialistas em segurança cibernética para promover conhecimento.',
+		href: 'https://dciber.org/quem-somos/',
+		icon: 'shield-check',
+	}
+];
+
+const socials = [
+	{
+		title: 'GitHub',
+		href: 'https://github.com/Miranda3000-CPU',
+		icon: 'github',
+		isGithub: true,
+	},
+	{
+		title: 'WhatsApp',
+		href: 'https://wa.me/5591988544585?text=Vim%20pelo%20site!',
+		icon: 'message-circle-heart',
+	}
 ];
 ---
 
@@ -73,19 +61,15 @@ const homeCards = [
 <html lang="pt-BR">
 <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-
     <script is:inline src="https://cdn.tailwindcss.com"></script>
     <script is:inline src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style is:global>
-        /* Estilos globais e animações de entrada */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #fafafa;
             -webkit-font-smoothing: antialiased;
         }
-        
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -96,10 +80,8 @@ const homeCards = [
         }
         .animate-fade-in-down { animation: fadeInDown 0.8s ease-out; }
         .animate-fade-in-up { animation: fadeInUp 0.8s ease-out 0.2s backwards; }
-        
         ::selection { background-color: #10b981; color: white; }
-
-        /* Estilização do conteúdo injetado via RSS */
+        
         #rss-content p { margin-bottom: 0.5rem; font-size: 0.875rem; color: #94a3b8; line-height: 1.5; }
         #rss-content a { display: none; }
     </style>
@@ -110,140 +92,97 @@ const homeCards = [
 
     <div class="flex flex-col items-center py-12 px-4 sm:px-6 w-full flex-grow">
         
-        <header class="flex flex-col items-center text-center mb-10 max-w-lg mx-auto w-full animate-fade-in-down">
-            <!-- Avatar / Terminal Icon -->
-            <div class="relative mb-6 group cursor-pointer transition-transform hover:scale-105 duration-300">
+        <!-- Hero Section -->
+        <header class="flex flex-col md:flex-row items-center gap-8 mb-16 max-w-4xl w-full animate-fade-in-down">
+            <div class="relative group cursor-pointer transition-transform hover:scale-105 duration-300 flex-shrink-0">
                 <div class="absolute inset-0 bg-emerald-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10 bg-slate-900 flex items-center justify-center">
+                <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10 bg-slate-900 flex items-center justify-center">
                     <img src="/profile.jpeg" alt="Jeiel Miranda" class="w-full h-full object-cover" />
                 </div>
-                <div class="absolute bottom-1 right-1 z-20 bg-white p-1.5 rounded-full shadow-md border border-slate-100">
-                    <div class="bg-emerald-500 w-3 h-3 rounded-full animate-pulse" title="Online & Seguro"></div>
+                <div class="absolute bottom-2 right-2 z-20 bg-white p-1.5 rounded-full shadow-md border border-slate-100">
+                    <div class="bg-emerald-500 w-4 h-4 rounded-full animate-pulse" title="Online & Seguro"></div>
                 </div>
             </div>
 
-            <h1 class="text-3xl font-bold tracking-tight text-slate-900 mb-2">Jeiel Miranda</h1>
-            
-            <p class="text-slate-600 text-base max-w-sm leading-relaxed">
-                Especialista em Cibersegurança.<br>
-                <span class="text-emerald-600 font-medium">Protegendo dados, garantindo o futuro.</span>
-            </p>
-
-            <!-- Botão de Copiar Email -->
-            <button id="copyBtn" class="mt-5 flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-500 hover:border-emerald-400 hover:text-emerald-600 transition-all active:scale-95 shadow-sm group">
-                <i data-lucide="copy" class="w-3 h-3 group-hover:hidden"></i>
-                <i data-lucide="check" class="w-3 h-3 hidden text-emerald-600" id="checkIcon"></i>
-                <span id="emailText">jeielmiranda@duck.com</span>
-            </button>
+            <div class="text-center md:text-left flex-1">
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-3">Jeiel Miranda</h1>
+                <p class="text-slate-600 text-lg max-w-xl leading-relaxed mb-6 mx-auto md:mx-0">
+                    Especialista em Cibersegurança & Desenvolvedor.<br>
+                    <span class="text-emerald-600 font-medium">Protegendo dados, garantindo o futuro.</span>
+                </p>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                    <button id="copyBtn" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-full text-sm font-medium hover:bg-emerald-700 transition-all active:scale-95 shadow-sm group">
+                        <i data-lucide="mail" id="mailIcon" class="w-4 h-4 group-hover:hidden"></i>
+                        <i data-lucide="check" class="w-4 h-4 hidden text-white" id="checkIcon"></i>
+                        <span id="emailText">jeielmiranda@duck.com</span>
+                    </button>
+                    {socials.map(social => (
+                        <a href={social.href} target="_blank" rel="noopener noreferrer" class="p-2.5 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 transition-all shadow-sm">
+                            {social.isGithub ? (
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="text-black" aria-label="GitHub logo">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.74-1.33-1.74-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.22 1.84 1.22 1.08 1.84 2.82 1.31 3.5 1 .11-.78.42-1.31.77-1.62-2.67-.3-5.47-1.33-5.47-5.94 0-1.31.47-2.39 1.23-3.23-.12-.3-.53-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.87.12 3.17.76.84 1.22 1.92 1.22 3.23 0 4.62-2.8 5.63-5.48 5.93.43.37.82 1.1.82 2.23 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0Z" />
+                                </svg>
+                            ) : (
+                                <i data-lucide={social.icon} class="w-4 h-4"></i>
+                            )}
+                            <span class="sr-only">{social.title}</span>
+                        </a>
+                    ))}
+                </div>
+            </div>
         </header>
 
-        <!-- Grid de Links e Projetos -->
-        <main class="w-full max-w-2xl animate-fade-in-up mb-12">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {
-                    homeCards.map((card) => {
-                        const borderClass =
-                            card.tone === 'rose'
-                                ? 'border-rose-200 ring-1 ring-rose-50'
-                                : card.tone === 'emerald'
-                                ? 'border-emerald-200 ring-1 ring-emerald-50'
-                                : card.tone === 'cyan'
-                                ? 'border-cyan-200 ring-1 ring-cyan-50'
-                                : card.tone === 'green'
-                                ? 'border-green-200 ring-1 ring-green-50'
-                                : card.tone === 'blue'
-                                ? 'border-blue-200 ring-1 ring-blue-50'
-                                : card.tone === 'pink'
-                                ? 'border-pink-200 ring-1 ring-pink-50'
-                                : 'border-slate-100 hover:border-slate-300';
-                        const iconClass =
-                            card.tone === 'rose'
-                                ? 'group-hover:bg-rose-50 text-rose-600'
-                                : card.tone === 'emerald'
-                                ? 'group-hover:bg-emerald-50 text-emerald-600'
-                                : card.tone === 'cyan'
-                                ? 'group-hover:bg-cyan-50 text-cyan-600'
-                                : card.tone === 'green'
-                                ? 'group-hover:bg-green-50 text-green-600'
-                                : card.tone === 'red'
-                                ? 'group-hover:bg-red-50 text-red-600'
-                                : card.tone === 'blue'
-                                ? 'group-hover:bg-blue-50 text-blue-600'
-                                : card.tone === 'pink'
-                                ? 'group-hover:bg-pink-50 text-pink-600'
-                                : 'group-hover:bg-slate-100 text-slate-700';
-                        const isGithub = card.title === 'GitHub';
-                        const titleHoverClass =
-                            card.tone === 'rose'
-                                ? 'group-hover:text-rose-700'
-                                : card.tone === 'emerald'
-                                ? 'group-hover:text-emerald-700'
-                                : card.tone === 'cyan'
-                                ? 'group-hover:text-cyan-700'
-                                : card.tone === 'green'
-                                ? 'group-hover:text-green-700'
-                                : card.tone === 'blue'
-                                ? 'group-hover:text-blue-700'
-                                : card.tone === 'pink'
-                                ? 'group-hover:text-pink-700'
-                                : 'group-hover:text-slate-900';
-                        const badgeClasses =
-                            card.tone === 'rose'
-                                ? 'bg-rose-100 text-rose-700'
-                                : card.tone === 'emerald'
-                                ? 'bg-emerald-100 text-emerald-700'
-                                : card.tone === 'cyan'
-                                ? 'bg-cyan-100 text-cyan-700'
-                                : card.tone === 'green'
-                                ? 'bg-green-100 text-green-700'
-                                : card.tone === 'blue'
-                                ? 'bg-blue-100 text-blue-700'
-                                : card.tone === 'pink'
-                                ? 'bg-pink-100 text-pink-700'
-                                : 'bg-slate-100 text-slate-700';
+        <main class="w-full max-w-4xl animate-fade-in-up flex flex-col gap-12 mb-12">
+            
+            <!-- Projetos Section -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <i data-lucide="folder-git-2" class="text-emerald-500"></i> Projetos em Destaque
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {projects.map(project => (
+                        <a href={project.href} target="_blank" rel="noopener noreferrer" class="group flex flex-col p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-300">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="p-3 bg-slate-50 text-slate-700 rounded-xl group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                                    <i data-lucide={project.icon} class="w-6 h-6"></i>
+                                </div>
+                                <i data-lucide="external-link" class="w-5 h-5 text-slate-300 group-hover:text-emerald-500 transition-colors"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">{project.title}</h3>
+                            <p class="text-slate-600 mb-4 flex-grow text-sm leading-relaxed">{project.description}</p>
+                            <div class="flex flex-wrap gap-2 mt-auto">
+                                {project.tags.map(tag => (
+                                    <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">{tag}</span>
+                                ))}
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </section>
 
-                        return (
-                            <a href={card.href} class={`group relative flex flex-col justify-between p-5 bg-white rounded-xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${borderClass}`}>
-                                <div class="flex items-start justify-between mb-3">
-                                    <div class={`p-2 bg-slate-50 rounded-lg transition-colors ${iconClass}`}>
-                                        {
-                                            isGithub ? (
-                                                <svg
-                                                    viewBox="0 0 24 24"
-                                                    width="20"
-                                                    height="20"
-                                                    fill="currentColor"
-                                                    class="text-black"
-                                                    aria-label="GitHub logo"
-                                                    role="img"
-                                                >
-                                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.74-1.33-1.74-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.22 1.84 1.22 1.08 1.84 2.82 1.31 3.5 1 .11-.78.42-1.31.77-1.62-2.67-.3-5.47-1.33-5.47-5.94 0-1.31.47-2.39 1.23-3.23-.12-.3-.53-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.87.12 3.17.76.84 1.22 1.92 1.22 3.23 0 4.62-2.8 5.63-5.48 5.93.43.37.82 1.1.82 2.23 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0Z" />
-                                                </svg>
-                                            ) : (
-                                                <i data-lucide={card.icon}></i>
-                                            )
-                                        }
-                                    </div>
-                                    {card.badge && (
-                                        <span class={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full ${badgeClasses}`}>{card.badge}</span>
-                                    )}
+            <!-- Experiência & Formação -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <i data-lucide="briefcase" class="text-emerald-500"></i> Experiência & Formação
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {experience.map(item => (
+                        <a href={item.href} class="group p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="p-2 bg-slate-50 text-slate-600 rounded-lg group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                                    <i data-lucide={item.icon} class="w-5 h-5"></i>
                                 </div>
-                                <div>
-                                    <h3 class={`font-bold text-lg text-slate-900 mb-1 transition-colors ${titleHoverClass}`}>{card.title}</h3>
-                                    <p class="text-sm text-slate-500 leading-snug">{card.description}</p>
-                                </div>
-                                <div class="absolute top-5 right-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                    <i data-lucide="chevron-right" class="text-slate-300 w-4 h-4"></i>
-                                </div>
-                            </a>
-                        );
-                    })
-                }
-            </div>
+                                <h3 class="font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors leading-tight">{item.title}</h3>
+                            </div>
+                            <p class="text-sm text-slate-500">{item.description}</p>
+                        </a>
+                    ))}
+                </div>
+            </section>
 
             <!-- Seção de Feed RSS (Dica do Dia) -->
-            <div id="rss-container" class="mt-4 hidden">
-                <a id="rss-link" href="#" target="_blank" class="block p-6 bg-slate-900 rounded-xl shadow-lg text-white relative overflow-hidden group transition-transform hover:-translate-y-1">
+            <section id="rss-container" class="hidden">
+                <a id="rss-link" href="#" target="_blank" class="block p-6 bg-slate-900 rounded-2xl shadow-lg text-white relative overflow-hidden group transition-transform hover:-translate-y-1">
                     <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
                     <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div class="w-full">
@@ -252,23 +191,22 @@ const homeCards = [
                                 <span class="text-emerald-400 font-bold text-xs tracking-wider uppercase">Dica do Dia • CERT.br</span>
                             </div>
                             <h3 id="rss-title" class="text-xl font-bold mb-2">Carregando dica...</h3>
-                            <div id="rss-content" class="text-slate-400 text-sm"></div>
+                            <div id="rss-content" class="text-slate-400 text-sm max-w-2xl"></div>
                         </div>
-                        <div class="mt-2 sm:mt-0 px-4 py-2 bg-white text-slate-900 text-sm font-bold rounded-lg group-hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                        <div class="mt-2 sm:mt-0 px-5 py-2.5 bg-white text-slate-900 text-sm font-bold rounded-xl group-hover:bg-emerald-50 transition-colors whitespace-nowrap">
                             Ler detalhado
                         </div>
                     </div>
                 </a>
-            </div>
+            </section>
+
         </main>
     </div>
     <Footer />
 
     <script is:inline>
-        // Inicializa ícones Lucide
         if (typeof lucide !== 'undefined') lucide.createIcons();
 
-        // Script Copy Email
         const copyBtn = document.getElementById('copyBtn');
         if (copyBtn) {
             copyBtn.addEventListener('click', function() {
@@ -283,24 +221,21 @@ const homeCards = [
                 try {
                     document.execCommand('copy');
                     emailText.innerText = "Copiado!";
-                    emailText.classList.add("text-emerald-600");
-                    copyBtn.classList.add("border-emerald-400", "bg-emerald-50");
                     checkIcon.classList.remove("hidden");
-                    // Feedback visual temporário
                     checkIcon.style.display = "inline-block";
+                    const mailIcon = document.getElementById('mailIcon');
+                    if (mailIcon) mailIcon.style.display = 'none';
                     setTimeout(() => {
                         emailText.innerText = email;
-                        emailText.classList.remove("text-emerald-600");
-                        copyBtn.classList.remove("border-emerald-400", "bg-emerald-50");
                         checkIcon.classList.add("hidden");
                         checkIcon.style.display = "none";
+                        if (mailIcon) mailIcon.style.display = 'inline-block';
                     }, 2000);
                 } catch (err) { console.error('Falha ao copiar', err); }
                 document.body.removeChild(textArea);
             });
         }
 
-        // Script para buscar e exibir a última dica do CERT.br via RSS
         async function loadRSS() {
             const RSS_URL = "https://cartilha.cert.br/rss/cartilha-rss.xml";
             const PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;

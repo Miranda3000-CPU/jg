@@ -1,0 +1,313 @@
+---
+// SpeedTest modal component - Cloudflare Speed Test integration
+---
+
+<!-- Botão Speed Test -->
+<button
+  id="speedtest-btn"
+  class="flex items-center gap-2 px-4 py-2.5 bg-[#f6821f] hover:bg-[#e5750e] text-white rounded-full text-sm font-semibold transition-all active:scale-95 shadow-md hover:shadow-lg group"
+>
+  <!-- Cloudflare Logo -->
+  <svg viewBox="0 0 120 40" width="18" height="18" fill="currentColor" aria-label="Cloudflare" role="img">
+    <path d="M80.1 22.2c-.4-1.1-1.2-1.8-2.2-2l-37.7-.5c-.2 0-.3-.1-.3-.2 0-.1 0-.2.1-.3.2-.3.5-.5.9-.5l38-1.1c1.8-.1 3.6-1.5 4.2-3.3l1-3.2c.1-.2.1-.3 0-.5-1.7-7.3-8.1-12.6-15.6-12.6-7.1 0-13 5-15.3 11.7-.4-3-1.7-5.7-3.6-7.9-3-3.4-7.2-5.4-11.9-5.4-9.2 0-16.8 7.4-17 16.6 0 .3 0 .5.2.8 1.5 6.6 7.3 11.6 14.3 11.6h55.5c.3 0 .5-.2.6-.5.5-1.7.8-3.4.9-5.1-.1-.1-.2-.3-.4-.3z"/>
+    <path d="M93.4 11.6c-1.2 0-2.3.3-3.3.7-.7-4.7-4.8-8.3-9.7-8.3-1.2 0-2.4.2-3.5.6C78 1.5 75.8 0 73.3 0c-3.7 0-6.9 2.1-8.5 5.2-.8-.4-1.6-.5-2.5-.5-2.8 0-5.2 1.8-6 4.4-.6-.3-1.2-.4-1.9-.4-2.8 0-5.1 2.2-5.2 5-2.1.4-3.8 2-4.3 4.2-.3-1.5-1.6-2.7-3.2-2.7-1.8 0-3.3 1.4-3.5 3.2-.3-.1-.6-.1-.9-.1-2.3 0-4.2 1.8-4.4 4.1-.1.5-.1 1-.1 1.5.4 0 .8.1 1.2.1 1 0 2 .3 2.9.8-.2.6-.3 1.3-.3 2 0 3.3 2.6 5.9 5.8 5.9h47.8c3.5 0 6.4-2.8 6.4-6.2 0-3.2-2.4-5.9-5.5-6.2.5-1.4.7-2.9.4-4.5-1.2-5.6-5.9-9.7-11.5-10.3z"/>
+  </svg>
+  <span>Teste de Velocidade</span>
+</button>
+
+<!-- Modal Speed Test -->
+<div
+  id="speedtest-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="speedtest-modal-title"
+>
+  <!-- Overlay -->
+  <div id="speedtest-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+
+  <!-- Modal Content -->
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-fade-in-up">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+      <div class="flex items-center gap-3">
+        <svg viewBox="0 0 120 40" width="24" height="24" fill="#f6821f" aria-label="Cloudflare" role="img">
+          <path d="M80.1 22.2c-.4-1.1-1.2-1.8-2.2-2l-37.7-.5c-.2 0-.3-.1-.3-.2 0-.1 0-.2.1-.3.2-.3.5-.5.9-.5l38-1.1c1.8-.1 3.6-1.5 4.2-3.3l1-3.2c.1-.2.1-.3 0-.5-1.7-7.3-8.1-12.6-15.6-12.6-7.1 0-13 5-15.3 11.7-.4-3-1.7-5.7-3.6-7.9-3-3.4-7.2-5.4-11.9-5.4-9.2 0-16.8 7.4-17 16.6 0 .3 0 .5.2.8 1.5 6.6 7.3 11.6 14.3 11.6h55.5c.3 0 .5-.2.6-.5.5-1.7.8-3.4.9-5.1-.1-.1-.2-.3-.4-.3z"/>
+          <path d="M93.4 11.6c-1.2 0-2.3.3-3.3.7-.7-4.7-4.8-8.3-9.7-8.3-1.2 0-2.4.2-3.5.6C78 1.5 75.8 0 73.3 0c-3.7 0-6.9 2.1-8.5 5.2-.8-.4-1.6-.5-2.5-.5-2.8 0-5.2 1.8-6 4.4-.6-.3-1.2-.4-1.9-.4-2.8 0-5.1 2.2-5.2 5-2.1.4-3.8 2-4.3 4.2-.3-1.5-1.6-2.7-3.2-2.7-1.8 0-3.3 1.4-3.5 3.2-.3-.1-.6-.1-.9-.1-2.3 0-4.2 1.8-4.4 4.1-.1.5-.1 1-.1 1.5.4 0 .8.1 1.2.1 1 0 2 .3 2.9.8-.2.6-.3 1.3-.3 2 0 3.3 2.6 5.9 5.8 5.9h47.8c3.5 0 6.4-2.8 6.4-6.2 0-3.2-2.4-5.9-5.5-6.2.5-1.4.7-2.9.4-4.5-1.2-5.6-5.9-9.7-11.5-10.3z"/>
+        </svg>
+        <h2 id="speedtest-modal-title" class="text-lg font-bold text-slate-900">Speed Test</h2>
+      </div>
+      <button
+        id="speedtest-close"
+        class="p-1.5 rounded-lg hover:bg-slate-100 transition-colors text-slate-400 hover:text-slate-600"
+        aria-label="Fechar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-8">
+      <!-- Status -->
+      <div id="speedtest-status" class="text-center mb-6">
+        <div id="speedtest-idle" class="flex flex-col items-center gap-3">
+          <div class="w-20 h-20 rounded-full bg-[#f6821f]/10 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f6821f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <p class="text-sm text-slate-500">Clique em "Iniciar" para testar sua conexão</p>
+        </div>
+        <div id="speedtest-running" class="hidden flex flex-col items-center gap-3">
+          <div class="w-20 h-20 rounded-full border-4 border-slate-100 border-t-[#f6821f] animate-spin"></div>
+          <p id="speedtest-phase" class="text-sm font-medium text-slate-600">Testando latência...</p>
+        </div>
+        <div id="speedtest-error" class="hidden flex flex-col items-center gap-3">
+          <div class="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>
+            </svg>
+          </div>
+          <p class="text-sm text-red-500">Erro ao realizar o teste</p>
+          <p id="speedtest-error-msg" class="text-xs text-slate-400"></p>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="speedtest-results" class="hidden space-y-4">
+        <!-- Download -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Download</p>
+              <p id="speedtest-download" class="text-2xl font-bold text-slate-900">--</p>
+            </div>
+          </div>
+          <span class="text-xs font-medium text-slate-400">Mbps</span>
+        </div>
+
+        <!-- Upload -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Upload</p>
+              <p id="speedtest-upload" class="text-2xl font-bold text-slate-900">--</p>
+            </div>
+          </div>
+          <span class="text-xs font-medium text-slate-400">Mbps</span>
+        </div>
+
+        <!-- Latency -->
+        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-[#f6821f]/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6821f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Latência</p>
+              <p id="speedtest-latency" class="text-2xl font-bold text-slate-900">--</p>
+            </div>
+          </div>
+          <span class="text-xs font-medium text-slate-400">ms</span>
+        </div>
+
+        <!-- Server -->
+        <div class="text-center pt-2">
+          <p class="text-xs text-slate-400">Servidor: <span id="speedtest-server" class="font-medium text-slate-500">--</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/50">
+      <div class="flex gap-3">
+        <button
+          id="speedtest-start"
+          class="flex-1 py-2.5 bg-[#f6821f] hover:bg-[#e5750e] text-white font-semibold rounded-xl transition-all active:scale-[0.98] shadow-sm"
+        >
+          Iniciar
+        </button>
+        <button
+          id="speedtest-restart"
+          class="hidden flex-1 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl transition-all active:scale-[0.98]"
+        >
+          Reiniciar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  const btn = document.getElementById('speedtest-btn');
+  const modal = document.getElementById('speedtest-modal');
+  const overlay = document.getElementById('speedtest-overlay');
+  const closeBtn = document.getElementById('speedtest-close');
+  const startBtn = document.getElementById('speedtest-start');
+  const restartBtn = document.getElementById('speedtest-restart');
+
+  const idleEl = document.getElementById('speedtest-idle');
+  const runningEl = document.getElementById('speedtest-running');
+  const errorEl = document.getElementById('speedtest-error');
+  const resultsEl = document.getElementById('speedtest-results');
+  const phaseEl = document.getElementById('speedtest-phase');
+  const errorMsgEl = document.getElementById('speedtest-error-msg');
+
+  const downloadEl = document.getElementById('speedtest-download');
+  const uploadEl = document.getElementById('speedtest-upload');
+  const latencyEl = document.getElementById('speedtest-latency');
+  const serverEl = document.getElementById('speedtest-server');
+
+  let speedTestInstance = null;
+
+  function showModal() {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hideModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+    resetUI();
+  }
+
+  function resetUI() {
+    idleEl.classList.remove('hidden');
+    runningEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+    resultsEl.classList.add('hidden');
+    startBtn.classList.remove('hidden');
+    restartBtn.classList.add('hidden');
+    downloadEl.textContent = '--';
+    uploadEl.textContent = '--';
+    latencyEl.textContent = '--';
+    serverEl.textContent = '--';
+    speedTestInstance = null;
+  }
+
+  function showRunning(phase) {
+    idleEl.classList.add('hidden');
+    runningEl.classList.remove('hidden');
+    errorEl.classList.add('hidden');
+    resultsEl.classList.add('hidden');
+    startBtn.classList.add('hidden');
+    restartBtn.classList.add('hidden');
+    phaseEl.textContent = phase;
+  }
+
+  function showError(msg) {
+    idleEl.classList.add('hidden');
+    runningEl.classList.add('hidden');
+    errorEl.classList.remove('hidden');
+    resultsEl.classList.add('hidden');
+    startBtn.classList.add('hidden');
+    restartBtn.classList.remove('hidden');
+    errorMsgEl.textContent = msg || '';
+  }
+
+  function showResults(download, upload, latency) {
+    runningEl.classList.add('hidden');
+    errorEl.classList.add('hidden');
+    resultsEl.classList.remove('hidden');
+    startBtn.classList.add('hidden');
+    restartBtn.classList.remove('hidden');
+    downloadEl.textContent = download;
+    uploadEl.textContent = upload;
+    latencyEl.textContent = latency;
+  }
+
+  function startTest() {
+    if (typeof SpeedTest === 'undefined') {
+      showError('Biblioteca não carregada. Verifique sua conexão.');
+      return;
+    }
+
+    showRunning('Iniciando teste...');
+
+    speedTestInstance = new SpeedTest({
+      autoStart: true,
+      measurements: [
+        { type: 'latency', numPackets: 1 },
+        { type: 'download', bytes: 1e5, count: 1, bypassMinDuration: true },
+        { type: 'latency', numPackets: 20 },
+        { type: 'download', bytes: 1e5, count: 9 },
+        { type: 'download', bytes: 1e6, count: 8 },
+        { type: 'upload', bytes: 1e5, count: 8 },
+        { type: 'upload', bytes: 1e6, count: 6 },
+        { type: 'download', bytes: 1e7, count: 6 },
+        { type: 'upload', bytes: 1e7, count: 4 },
+        { type: 'download', bytes: 25e6, count: 4 },
+        { type: 'upload', bytes: 25e6, count: 4 }
+      ]
+    });
+
+    speedTestInstance.onResultsChange = function(data) {
+      if (data && data.type) {
+        const phaseNames = {
+          latency: 'Testando latência...',
+          download: 'Testando download...',
+          upload: 'Testando upload...'
+        };
+        phaseEl.textContent = phaseNames[data.type] || 'Medindo...';
+      }
+    };
+
+    speedTestInstance.onFinish = function(results) {
+      if (!results) {
+        showError('Não foi possível obter os resultados.');
+        return;
+      }
+
+      const summary = results.getSummary();
+      if (!summary) {
+        showError('Resultados inválidos.');
+        return;
+      }
+
+      const download = summary.downloadBandwidth ? (summary.downloadBandwidth * 8 / 1e6).toFixed(1) : '--';
+      const upload = summary.uploadBandwidth ? (summary.uploadBandwidth * 8 / 1e6).toFixed(1) : '--';
+      const latency = summary.latency ? summary.latency.toFixed(0) : '--';
+      const server = summary.serverLocation || 'Cloudflare Edge';
+
+      serverEl.textContent = server;
+      showResults(download, upload, latency);
+    };
+
+    speedTestInstance.onError = function(error) {
+      showError(error || 'Erro desconhecido durante o teste.');
+    };
+  }
+
+  btn.addEventListener('click', showModal);
+  closeBtn.addEventListener('click', hideModal);
+  overlay.addEventListener('click', hideModal);
+  startBtn.addEventListener('click', startTest);
+  restartBtn.addEventListener('click', function() {
+    resetUI();
+    startTest();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      hideModal();
+    }
+  });
+})();
+</script>
