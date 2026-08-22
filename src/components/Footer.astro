@@ -1,9 +1,11 @@
 ---
+import SpeedInsights from '@vercel/speed-insights/astro';
 const today = new Date();
 ---
 
 <footer>
 	&copy; {today.getFullYear()} Todos os direitos reservados.
+	<SpeedInsights />
 </footer>
 <style>
 	footer {
