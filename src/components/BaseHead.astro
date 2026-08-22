@@ -20,15 +20,35 @@ const imageUrl = typeof image === 'string'
 	? new URL(image, Astro.url)
 	: new URL(image.src, Astro.url);
 ---
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  })();
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<<<<<<< HEAD
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" href="/icon-192.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
 <meta name="theme-color" content="#2337ff" />
+=======
+<link rel="icon" type="image/png" href="/images/dtic-round.png" />
+>>>>>>> 14467d3 (update v2)
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"

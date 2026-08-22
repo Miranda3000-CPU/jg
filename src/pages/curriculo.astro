@@ -1,0 +1,154 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const certs = [
+  { year: 2026, title: "Preditivo Azure Machine Learning", desc: "Machine Learning no Azure", link: "Preditivo_Azure_Machine_Learning.pdf" },
+  { year: 2025, title: "Microsoft - IA", desc: "Inteligência Artificial", link: "IA_microsoft.pdf" },
+  { year: 2025, title: "Alura - Inteligência Artificial", desc: "Fundamentos de IA", link: "IA_alura.pdf" },
+  { year: 2025, title: "Redação Oficial", desc: "Comunicação Escrita", link: "redacao_oficial.pdf" },
+  { year: 2025, title: "Sebrae - Empreendedorismo", desc: "Negócios e Gestão", link: "sebrae_empreendedorismo.pdf" },
+  { year: 2024, title: "Alura - Formação Front-end", desc: "Desenvolvimento Web Front-end", link: "front_alura.pdf" },
+  { year: 2024, title: "Alura - Formação Back-end", desc: "Desenvolvimento Web Back-end", link: "alura_back.pdf" },
+  { year: 2024, title: "Segurança Digital (Pós)", desc: "Especialização em Segurança Cibernética", link: "segurança_digital_pós.pdf" },
+  { year: 2024, title: "Hackers do Bem", desc: "Nivelamento em Cibersegurança", link: "hackers_bem_nivelamento.pdf" },
+  { year: 2024, title: "OSINT", desc: "Open Source Intelligence", link: "osint.pdf" },
+  { year: 2024, title: "ChatGPT", desc: "IA Generativa", link: "chatgpt.pdf" },
+  { year: 2024, title: "Declaração Unama", desc: "Formação / Graduação", link: "declaração_unama.pdf" },
+  { year: 2024, title: "Shell Script", desc: "Automação em Linux", link: "shell_script.pdf" },
+  { year: 2024, title: "Python", desc: "Linguagem de Programação", link: "python.pdf" },
+  { year: 2024, title: "Introduction to Blue Team", desc: "Segurança Defensiva", link: "Introduction to Blue Team.png" },
+  { year: 2024, title: "DevOps", desc: "Práticas e Ferramentas (Partes I, II e III)", link: "devops.pdf", extraLinks: [{lbl:"II", url:"devops2.pdf"}, {lbl:"III", url:"devops3.pdf"}] },
+  { year: 2024, title: "Segurança da Informação", desc: "Módulos 1 e 2", link: "segurança_informacao.png", extraLinks: [{lbl:"Parte 2", url:"segurança_informacao2.png"}] },
+  { year: 2023, title: "Proteção e Combate a Incêndio", desc: "Segurança e Prevenção", link: "Proteção e Combate a Incêndio – certificado.pdf" },
+  { year: 2022, title: "CS50 (Harvard)", desc: "Introdução à Ciência da Computação", link: "CS50_cert_havard.pdf" },
+  { year: 2022, title: "HTML 2022", desc: "Estruturação Web", link: "html_2022.pdf" },
+  { year: 2022, title: "TDI", desc: "Tecnologia da Informação", link: "tdi.pdf" },
+  { year: 2022, title: "Fundação Bradesco", desc: "TI, Hardware e Sites", link: "bradesco_ti.pdf", extraLinks: [{lbl:"Hardware", url:"bradesco_hardware.pdf"}, {lbl:"Sites", url:"site_bradesco.pdf"}] },
+  { year: 2022, title: "T&T Informática", desc: "Informática Básica/Avançada", link: "t&t_informatica.pdf" },
+  { year: 2022, title: "Microsoft - Privacidade e Segurança", desc: "Segurança da Informação", link: "Microsoft_privacidade_seguranca.pdf" }
+];
+---
+
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<BaseHead title={`Currículo e Linha do Tempo | ${SITE_TITLE}`} description="Meu currículo e certificações." />
+		<style>
+			main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.timeline-year {
+				font-size: 1.5rem;
+				font-weight: bold;
+				color: var(--accent);
+				margin: 2rem 0 1rem;
+				border-bottom: 2px solid rgba(var(--gray-light), 50%);
+				padding-bottom: 0.5rem;
+			}
+			.certifications {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 2rem;
+				list-style-type: none;
+				padding: 0;
+			}
+			.cert-card {
+				background: #ffffff;
+				border-radius: 1rem;
+				padding: 1.5rem;
+				box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+				border: 1px solid #e5e7eb;
+				transition: all 0.3s ease;
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				position: relative;
+			}
+			.cert-card:hover {
+				border-color: #10b981;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+			}
+			.cert-card h3 {
+				margin: 0;
+				font-size: 1.25rem;
+				color: #0f172a;
+				transition: color 0.3s ease;
+			}
+			.cert-card:hover h3 {
+				color: #047857;
+			}
+			.cert-card p {
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+
+			/* Dark Mode Overrides */
+			:global(.dark) .cert-card {
+				background: #000000;
+				border-color: #262626;
+			}
+			:global(.dark) .cert-card:hover {
+				border-color: #047857;
+			}
+			:global(.dark) .cert-card h3 {
+				color: #f1f5f9;
+			}
+			:global(.dark) .cert-card:hover h3 {
+				color: #34d399;
+			}
+			.cert-card-links {
+				margin-top: auto;
+				display: flex;
+				gap: 0.5rem;
+				flex-wrap: wrap;
+			}
+			.cert-card a {
+				color: var(--accent);
+				text-decoration: none;
+				font-weight: bold;
+			}
+			.cert-card a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Currículo - Certificações</h1>
+			<p>Abaixo está a linha do tempo das minhas certificações e formações profissionais, organizadas cronologicamente.</p>
+			
+			{
+				[...new Set(certs.map(c => c.year))].sort((a,b) => b - a).map(year => (
+					<div>
+						<div class="timeline-year">{year}</div>
+						<ul class="certifications">
+							{certs.filter(c => c.year === year).map(cert => (
+								<li class="cert-card neon-glow">
+									<h3>{cert.title}</h3>
+									<p>{cert.desc}</p>
+									<div class="cert-card-links">
+										<a href={`/drive-download-20260821T235514Z-1-001/${cert.link}`} target="_blank">Ver Doc</a>
+										{cert.extraLinks && cert.extraLinks.map(ext => (
+											<>
+												<span>|</span>
+												<a href={`/drive-download-20260821T235514Z-1-001/${ext.url}`} target="_blank">{ext.lbl}</a>
+											</>
+										))}
+									</div>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</main>
+		<Footer />
+	</body>
+</html>

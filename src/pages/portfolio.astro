@@ -1,0 +1,280 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+
+const projects = [
+  {
+    name: "MeuVerso",
+    description: "Aplicativo Android nativo para escrita, leitura e compartilhamento de poesia.",
+    tech: "Java/Kotlin, XML",
+    url: "https://github.com/Miranda3000-CPU/MeuVerso",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`
+  },
+  {
+    name: "DD-Diário-Dela",
+    description: "Versão Android nativa para acompanhamento do ciclo menstrual.",
+    tech: "Kotlin, Android",
+    url: "https://github.com/Miranda3000-CPU/DD-Di-rio-Dela",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
+  },
+  {
+    name: "ScanTerminal",
+    description: "Utilitário de diagnóstico e exploração de redes usando Nmap.",
+    tech: "Kotlin, Android",
+    url: "https://github.com/Miranda3000-CPU/ScanTerminal",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`
+  },
+  {
+    name: "Meu-Verso (Landing Page)",
+    description: "Página estática de apresentação pública do aplicativo MeuVerso.",
+    tech: "HTML",
+    url: "https://github.com/Miranda3000-CPU/Meu-Verso",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
+  },
+  {
+    name: "Gestão Interna DTIC",
+    description: "Sistema institucional web para gerir pessoal, voluntários e serviços.",
+    tech: "Node.js, Tailwind CSS",
+    url: "https://github.com/Miranda3000-CPU/gestao-interna-dtic",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`
+  },
+  {
+    name: "jg (Site Pessoal)",
+    description: "Meu site de perfil e blog (este mesmo que você está vendo).",
+    tech: "Astro",
+    url: "https://github.com/Miranda3000-CPU/jg",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`
+  },
+  {
+    name: "DD (PWA)",
+    description: "Aplicação web progressiva para registro de ciclo menstrual com privacidade local.",
+    tech: "TypeScript, PWA, IndexedDB",
+    url: "https://github.com/Miranda3000-CPU/DD",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`
+  },
+  {
+    name: "OrgAI-SaaS",
+    description: "Produto SaaS em monorepo focado em organização com IA.",
+    tech: "TypeScript, pnpm",
+    url: "https://github.com/Miranda3000-CPU/OrgAI-SaaS",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>`
+  },
+  {
+    name: "Quiz Jeiel",
+    description: "Quiz bíblico web multiplayer com ranking global em tempo real.",
+    tech: "Next.js, Tailwind, Pusher",
+    url: "https://github.com/Miranda3000-CPU/quiz-jeiel",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`
+  },
+  {
+    name: "OrgAI",
+    description: "Aplicativo desktop para organização automatizada de arquivos com IA local.",
+    tech: "Python, PyQt6",
+    url: "https://github.com/Miranda3000-CPU/OrgAI",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`
+  },
+  {
+    name: "ControleFinança",
+    description: "Aplicação web de finanças pessoais para controle de gastos e lançamentos.",
+    tech: "Next.js, Prisma",
+    url: "https://github.com/Miranda3000-CPU/ControleFinanca",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`
+  },
+  {
+    name: "SISCOR",
+    description: "Sistema corporativo (CBMPA) com backend Node.js, Next.js e Docker.",
+    tech: "Node.js, Next.js",
+    url: "https://github.com/Miranda3000-CPU/SISCOR",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`
+  },
+  {
+    name: "Proverb-Day",
+    description: "Página web para consulta diária devocional do livro de Provérbios.",
+    tech: "HTML",
+    url: "https://github.com/Miranda3000-CPU/Proverb-Day",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`
+  },
+  {
+    name: "NetRoute-Diag-CMD",
+    description: "Ferramenta de diagnóstico de conectividade no Windows usando CMD.",
+    tech: "Batch/CMD",
+    url: "https://github.com/Miranda3000-CPU/NetRoute-Diag-CMD",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>`
+  },
+  {
+    name: "Register (is-a.dev)",
+    description: "Fork para registro de subdomínios .is-a.dev.",
+    tech: "JavaScript, DNS",
+    url: "https://github.com/Miranda3000-CPU/register",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>`
+  },
+  {
+    name: "LinuxToys",
+    description: "Site para divulgação e acesso a ferramentas Linux.",
+    tech: "HTML",
+    url: "https://github.com/Miranda3000-CPU/linuxtoys-site",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 0-2 2c0 1.1.9 2 2 2s2-.9 2-2a2 2 0 0 0-2-2z"></path><path d="M14 6a6 6 0 0 1 6 6v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a6 6 0 0 1 6-6"></path><path d="M8 14h8"></path></svg>`
+  },
+  {
+    name: "n8n-cbmpa",
+    description: "Base de automação associada ao CBMPA com n8n.",
+    tech: "Node.js, n8n",
+    url: "https://github.com/Miranda3000-CPU/n8n-cbmpa",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`
+  },
+  {
+    name: "CBMPA GRUB",
+    description: "Tema personalizado para carregador de inicialização GRUB.",
+    tech: "Bash, GRUB",
+    url: "https://github.com/Miranda3000-CPU/cbmpa",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
+  },
+  {
+    name: "Concursos API",
+    description: "API em Deno para consultar concursos públicos.",
+    tech: "TypeScript, Deno",
+    url: "https://github.com/Miranda3000-CPU/concursos-api-deno",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`
+  },
+  {
+    name: "Jeiel0rbit (Conta Legada)",
+    description: "Conta desvinculada com 147 projetos arquivados, incluindo o destaque LoFi_Square (+20 estrelas ⭐).",
+    tech: "Múltiplas",
+    url: "https://github.com/Jeiel0rbit",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`
+  }
+];
+---
+
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<BaseHead title={`Portfólio | ${SITE_TITLE}`} description="Meu portfólio de projetos e repositórios." />
+		<style>
+			main {
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3em 1em;
+			}
+			.portfolio-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 2rem;
+				list-style-type: none;
+				padding: 0;
+			}
+			.project-card {
+				background: #ffffff;
+				border-radius: 1rem;
+				padding: 1.5rem;
+				box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+				border: 1px solid #e5e7eb;
+				transition: all 0.3s ease;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				position: relative;
+			}
+			.project-card:hover {
+				border-color: #10b981;
+				box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+			}
+			.project-header {
+				display: flex;
+				align-items: flex-start;
+				gap: 1rem;
+			}
+			.project-icon {
+				background: #f8fafc;
+				padding: 0.75rem;
+				border-radius: 0.75rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #334155;
+				transition: all 0.3s ease;
+			}
+			.project-card:hover .project-icon {
+				background: #ecfdf5;
+				color: #059669;
+			}
+			.project-card h3 {
+				margin: 0;
+				font-size: 1.25rem;
+				color: #0f172a;
+				transition: color 0.3s ease;
+			}
+			.project-card:hover h3 {
+				color: #047857;
+			}
+			.project-card p {
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+
+			/* Dark Mode Overrides */
+			:global(.dark) .project-card {
+				background: #000000;
+				border-color: #262626;
+			}
+			:global(.dark) .project-card:hover {
+				border-color: #047857;
+			}
+			:global(.dark) .project-card h3 {
+				color: #f1f5f9;
+			}
+			:global(.dark) .project-card:hover h3 {
+				color: #34d399;
+			}
+			:global(.dark) .project-icon {
+				background: #171717;
+				color: #cbd5e1;
+			}
+			:global(.dark) .project-card:hover .project-icon {
+				background: rgba(6, 78, 59, 0.3);
+				color: #34d399;
+			}
+
+			.project-tech {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				font-weight: bold;
+			}
+			.project-card a {
+				margin-top: auto;
+				display: inline-block;
+				color: var(--accent);
+				text-decoration: none;
+				font-weight: bold;
+			}
+			.project-card a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Portfólio de Projetos</h1>
+			<p>Aqui estão listados meus principais repositórios e projetos (autorais, forks e sistemas institucionais).</p>
+			
+			<ul class="portfolio-grid">
+				{projects.map((project) => (
+					<li class="project-card neon-glow">
+						<div class="project-header">
+							<div class="project-icon" set:html={project.icon} />
+							<h3>{project.name}</h3>
+						</div>
+						<p>{project.description}</p>
+						<span class="project-tech">{project.tech}</span>
+						<a href={project.url} target="_blank">Acessar Projeto</a>
+					</li>
+				))}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

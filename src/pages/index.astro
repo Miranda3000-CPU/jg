@@ -62,13 +62,18 @@ const socials = [
 <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
     <script is:inline src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style is:global>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fafafa;
             -webkit-font-smoothing: antialiased;
+            background-color: transparent;
         }
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-10px); }
@@ -86,7 +91,7 @@ const socials = [
         #rss-content a { display: none; }
     </style>
 </head>
-<body class="text-slate-900 min-h-screen flex flex-col">
+<body class="text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
 
     <Header />
 
@@ -96,7 +101,7 @@ const socials = [
         <header class="flex flex-col md:flex-row items-center gap-8 mb-16 max-w-4xl w-full animate-fade-in-down">
             <div class="relative group cursor-pointer transition-transform hover:scale-105 duration-300 flex-shrink-0">
                 <div class="absolute inset-0 bg-emerald-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10 bg-slate-900 flex items-center justify-center">
+                <div class="neon-glow w-40 h-40 rounded-full overflow-hidden border-4 border-white dark:border-neutral-800 shadow-lg relative z-10 bg-slate-900 flex items-center justify-center">
                     <img src="/profile.jpeg" alt="Jeiel Miranda" class="w-full h-full object-cover" />
                 </div>
                 <div class="absolute bottom-2 right-2 z-20 bg-white p-1.5 rounded-full shadow-md border border-slate-100">
@@ -105,10 +110,10 @@ const socials = [
             </div>
 
             <div class="text-center md:text-left flex-1">
-                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-3">Jeiel Miranda</h1>
-                <p class="text-slate-600 text-lg max-w-xl leading-relaxed mb-6 mx-auto md:mx-0">
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Jeiel Miranda</h1>
+                <p class="text-slate-600 dark:text-slate-300 text-lg max-w-xl leading-relaxed mb-6 mx-auto md:mx-0">
                     Especialista em Cibersegurança & Desenvolvedor.<br>
-                    <span class="text-emerald-600 font-medium">Protegendo dados, garantindo o futuro.</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-medium">Protegendo dados, garantindo o futuro.</span>
                 </p>
                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
                     <button id="copyBtn" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-full text-sm font-medium hover:bg-emerald-700 transition-all active:scale-95 shadow-sm group">
@@ -136,23 +141,23 @@ const socials = [
             
             <!-- Projetos Section -->
             <section>
-                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
                     <i data-lucide="folder-git-2" class="text-emerald-500"></i> Projetos em Destaque
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {projects.map(project => (
-                        <a href={project.href} target="_blank" rel="noopener noreferrer" class="group flex flex-col p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-200 transition-all duration-300">
+                        <a href={project.href} target="_blank" rel="noopener noreferrer" class="neon-glow group flex flex-col p-6 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-300">
                             <div class="flex items-start justify-between mb-4">
-                                <div class="p-3 bg-slate-50 text-slate-700 rounded-xl group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                                <div class="p-3 bg-slate-50 dark:bg-neutral-900 text-slate-700 dark:text-slate-300 rounded-xl group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/30 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                                     <i data-lucide={project.icon} class="w-6 h-6"></i>
                                 </div>
-                                <i data-lucide="external-link" class="w-5 h-5 text-slate-300 group-hover:text-emerald-500 transition-colors"></i>
+                                <i data-lucide="external-link" class="w-5 h-5 text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">{project.title}</h3>
-                            <p class="text-slate-600 mb-4 flex-grow text-sm leading-relaxed">{project.description}</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">{project.title}</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-4 flex-grow text-sm leading-relaxed">{project.description}</p>
                             <div class="flex flex-wrap gap-2 mt-auto">
                                 {project.tags.map(tag => (
-                                    <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">{tag}</span>
+                                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-neutral-900 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">{tag}</span>
                                 ))}
                             </div>
                         </a>
@@ -162,19 +167,19 @@ const socials = [
 
             <!-- Experiência & Formação -->
             <section>
-                <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
                     <i data-lucide="briefcase" class="text-emerald-500"></i> Experiência & Formação
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {experience.map(item => (
-                        <a href={item.href} class="group p-5 bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                        <a href={item.href} class="group p-5 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                             <div class="flex items-center gap-3 mb-3">
-                                <div class="p-2 bg-slate-50 text-slate-600 rounded-lg group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                                <div class="p-2 bg-slate-50 dark:bg-neutral-900 text-slate-600 dark:text-slate-300 rounded-lg group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/30 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                                     <i data-lucide={item.icon} class="w-5 h-5"></i>
                                 </div>
-                                <h3 class="font-semibold text-slate-900 group-hover:text-emerald-700 transition-colors leading-tight">{item.title}</h3>
+                                <h3 class="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-tight">{item.title}</h3>
                             </div>
-                            <p class="text-sm text-slate-500">{item.description}</p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400">{item.description}</p>
                         </a>
                     ))}
                 </div>
@@ -182,7 +187,7 @@ const socials = [
 
             <!-- Seção de Feed RSS (Dica do Dia) -->
             <section id="rss-container" class="hidden">
-                <a id="rss-link" href="#" target="_blank" class="block p-6 bg-slate-900 rounded-2xl shadow-lg text-white relative overflow-hidden group transition-transform hover:-translate-y-1">
+                <a id="rss-link" href="#" target="_blank" class="block p-6 bg-slate-900 dark:bg-neutral-900 rounded-2xl shadow-lg text-white relative overflow-hidden group transition-transform hover:-translate-y-1 border border-transparent dark:border-slate-700">
                     <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
                     <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div class="w-full">
@@ -193,7 +198,7 @@ const socials = [
                             <h3 id="rss-title" class="text-xl font-bold mb-2">Carregando dica...</h3>
                             <div id="rss-content" class="text-slate-400 text-sm max-w-2xl"></div>
                         </div>
-                        <div class="mt-2 sm:mt-0 px-5 py-2.5 bg-white text-slate-900 text-sm font-bold rounded-xl group-hover:bg-emerald-50 transition-colors whitespace-nowrap">
+                        <div class="mt-2 sm:mt-0 px-5 py-2.5 bg-white text-slate-900 dark:bg-black dark:text-white dark:border dark:border-neutral-800 text-sm font-bold rounded-xl group-hover:bg-emerald-50 group-hover:text-emerald-700 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-400 dark:group-hover:border-emerald-700 transition-all whitespace-nowrap">
                             Ler detalhado
                         </div>
                     </div>
