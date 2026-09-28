@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Ilustracao de tunel VPN com escudo e chave</title>
+  <desc id="desc">Arte vetorial sem texto com janela de aplicativo, escudo, chave e tunel de rede em tons de azul escuro.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220" />
+      <stop offset="55%" stop-color="#132244" />
+      <stop offset="100%" stop-color="#1b2f5c" />
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#2337ff" />
+    </linearGradient>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#020617" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="150" cy="80" r="190" fill="#1d3a6d" opacity="0.55" />
+  <circle cx="1080" cy="150" r="110" fill="#233b78" opacity="0.6" />
+  <circle cx="980" cy="560" r="150" fill="#152c58" opacity="0.7" />
+
+  <!-- Malha de fundo -->
+  <g stroke="#3b82f6" stroke-width="2" opacity="0.18" fill="none">
+    <path d="M0 200h1200M0 430h1200M300 0v630M900 0v630" />
+  </g>
+
+  <!-- Tunel deRede -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M330 380C470 200 730 200 870 380" stroke="#38bdf8" stroke-width="6" opacity="0.35" stroke-dasharray="16 22" />
+    <path d="M330 380C470 250 730 250 870 380" stroke="#60a5fa" stroke-width="4" opacity="0.5" stroke-dasharray="12 20" />
+    <circle cx="600" cy="267" r="9" fill="#7dd3fc" stroke="none" opacity="0.9" />
+  </g>
+
+  <!-- Janela do aplicativo -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="120" width="480" height="400" rx="26" fill="url(#card)" />
+  </g>
+  <g>
+    <path d="M70 146a26 26 0 0 1 26-26h428a26 26 0 0 1 26 26v54H70z" fill="#0f172a" />
+    <circle cx="104" cy="160" r="8" fill="#ef4444" />
+    <circle cx="128" cy="160" r="8" fill="#f59e0b" />
+    <circle cx="152" cy="160" r="8" fill="#22c55e" />
+    <path d="M196 152l16 6v12a16 16 0 0 1-16 16 16 16 0 0 1-16-16v-12z" fill="#60a5fa" />
+  </g>
+
+  <!-- Campos de configuracao -->
+  <g>
+    <rect x="102" y="232" width="130" height="14" rx="7" fill="#cbd5e1" />
+    <rect x="102" y="258" width="416" height="46" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" />
+    <rect x="118" y="275" width="150" height="12" rx="6" fill="#94a3b8" />
+    <circle cx="492" cy="281" r="9" fill="#22c55e" opacity="0.85" />
+
+    <rect x="102" y="326" width="416" height="46" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" />
+    <rect x="118" y="343" width="230" height="12" rx="6" fill="#94a3b8" />
+    <rect x="470" y="339" width="24" height="14" rx="7" fill="#0f172a" />
+    <circle cx="486" cy="346" r="6" fill="#ffffff" />
+  </g>
+
+  <!-- Botao conectar -->
+  <g filter="url(#shadow)">
+    <rect x="102" y="396" width="416" height="62" rx="31" fill="url(#cta)" />
+  </g>
+  <g fill="#ffffff" opacity="0.95">
+    <path d="M182 412l24 15-24 15z" />
+    <rect x="222" y="421" width="120" height="12" rx="6" />
+  </g>
+
+  <!-- Linha de status -->
+  <rect x="102" y="478" width="416" height="12" rx="6" fill="#e2e8f0" />
+  <rect x="102" y="478" width="250" height="12" rx="6" fill="#16a34a" opacity="0.7" />
+
+  <!-- Escudo com cadeado -->
+  <g transform="translate(830 150)">
+    <g filter="url(#shadow)">
+      <path d="M130 0c44 26 84 34 118 34 0 116-52 208-118 264C64 242 12 150 12 34 46 34 86 26 130 0z" fill="url(#shield)" />
+    </g>
+    <path d="M130 96a42 42 0 0 0-42 42v20h-16a12 12 0 0 0-12 12v74a12 12 0 0 0 12 12h116a12 12 0 0 0 12-12v-74a12 12 0 0 0-12-12h-16v-20a42 42 0 0 0-42-42zm0 22a20 20 0 0 1 20 20v20h-40v-20a20 20 0 0 1 20-20zm0 74a16 16 0 0 1 9 29v17a9 9 0 0 1-18 0v-17a16 16 0 0 1 9-29z" fill="#ffffff" />
+  </g>
+
+  <!-- Chave -->
+  <g transform="translate(700 470) rotate(-18)">
+    <circle cx="34" cy="34" r="34" fill="none" stroke="#fbbf24" stroke-width="14" />
+    <rect x="60" y="27" width="150" height="14" rx="7" fill="#fbbf24" />
+    <rect x="164" y="27" width="14" height="34" rx="6" fill="#fbbf24" />
+    <rect x="196" y="27" width="14" height="26" rx="6" fill="#fbbf24" />
+  </g>
+
+  <!-- Nos conectados -->
+  <g fill="#93c5fd" opacity="0.8">
+    <circle cx="330" cy="380" r="11" />
+    <circle cx="870" cy="380" r="11" />
+  </g>
+  <g fill="none" stroke="#93c5fd" stroke-width="4" opacity="0.7">
+    <circle cx="330" cy="380" r="24" />
+    <circle cx="870" cy="380" r="24" />
+  </g>
+</svg>
