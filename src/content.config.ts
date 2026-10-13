@@ -13,7 +13,9 @@ const blog = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.union([z.string().startsWith('/'), image()]).optional(),
-			author: z.enum(['Jeiel Miranda', "Giovanna Miranda"]).default("Jeiel Miranda")
+			author: z
+				.enum(['Jeiel Miranda', 'Giovanna Miranda', 'Jeiel Miranda & Giovanna Miranda'])
+				.default('Jeiel Miranda'),
 		}),
 });
 

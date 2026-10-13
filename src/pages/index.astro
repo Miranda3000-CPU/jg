@@ -18,6 +18,13 @@ const projects = [
 		href: 'https://miranda3000-cpu.github.io/Proverb-Day/',
 		icon: 'book-open-text',
 		tags: ['Devocional', 'Web']
+	},
+	{
+		title: 'Concursos no Brasil',
+		description: 'Concursos públicos abertos por estado e nacional, com consulta rápida de órgãos e vagas.',
+		href: '/concursos',
+		icon: 'landmark',
+		tags: ['Utilidade Pública', 'Dados Abertos']
 	}
 ];
 
@@ -119,7 +126,7 @@ const socials = [
                     <button id="copyBtn" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-full text-sm font-medium hover:bg-emerald-700 transition-all active:scale-95 shadow-sm group">
                         <i data-lucide="mail" id="mailIcon" class="w-4 h-4 group-hover:hidden"></i>
                         <i data-lucide="check" class="w-4 h-4 hidden text-white" id="checkIcon"></i>
-                        <span id="emailText">jeielmiranda@duck.com</span>
+                        <span id="emailText">jeielmirand@bombeiros.pa.gov.br</span>
                     </button>
                     {socials.map(social => (
                         <a href={social.href} target="_blank" rel="noopener noreferrer" class="p-2.5 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 transition-all shadow-sm">
@@ -138,7 +145,44 @@ const socials = [
         </header>
 
         <main class="w-full max-w-4xl animate-fade-in-up flex flex-col gap-12 mb-12">
-            
+
+            <!-- Apresentação -->
+            <section>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6">
+                    Olá! 👋
+                </h2>
+                <div class="p-6 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-sm">
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
+                        Cuido da infraestrutura do <strong class="text-slate-900 dark:text-slate-100">Corpo de Bombeiros Militar do Pará (CBMPA)</strong>, com dedicação e para a glória de Deus. 🙏
+                    </p>
+                    <ul class="space-y-3 mb-5">
+                        <li class="flex items-center gap-3 text-sm">
+                            <span class="flex-shrink-0">🌐</span>
+                            <span class="text-slate-500 dark:text-slate-400">Site:</span>
+                            <a href="https://jeielmiranda.com.br" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">jeielmiranda.com.br</a>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <span class="flex-shrink-0">💻</span>
+                            <span class="text-slate-500 dark:text-slate-400">GitHub:</span>
+                            <a href="https://github.com/Miranda3000-CPU" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">@Miranda3000-CPU</a>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <span class="flex-shrink-0">✉️</span>
+                            <span class="text-slate-500 dark:text-slate-400">Contato:</span>
+                            <a href="mailto:jeielmirand@bombeiros.pa.gov.br" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline break-all">jeielmirand@bombeiros.pa.gov.br</a>
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <span class="flex-shrink-0">🚒</span>
+                            <span class="text-slate-500 dark:text-slate-400">CBMPA:</span>
+                            <a href="https://www.bombeiros.pa.gov.br" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">bombeiros.pa.gov.br</a>
+                        </li>
+                    </ul>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 border-l-2 border-emerald-200 dark:border-emerald-800 pl-3 leading-relaxed">
+                        Minha conta anterior era <a href="https://github.com/Jeiel0rbit" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 hover:underline">@Jeiel0rbit</a>. O e-mail associado a ela foi desvinculado.
+                    </p>
+                </div>
+            </section>
+
             <!-- Projetos Section -->
             <section>
                 <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
@@ -215,7 +259,7 @@ const socials = [
         const copyBtn = document.getElementById('copyBtn');
         if (copyBtn) {
             copyBtn.addEventListener('click', function() {
-                const email = "jeielmiranda@duck.com";
+                const email = "jeielmirand@bombeiros.pa.gov.br";
                 const emailText = document.getElementById('emailText');
                 const checkIcon = document.getElementById('checkIcon');
                 

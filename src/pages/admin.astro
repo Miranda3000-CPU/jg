@@ -1,0 +1,578 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead title={`Painel | ${SITE_TITLE}`} description="Área restrita de publicação." />
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body>
+		<header class="topo">
+			<a class="marca" href="/admin">JG · Painel</a>
+			<nav id="acoes-usuario" hidden>
+				<a href="/" target="_blank" rel="noopener">Ver site</a>
+				<button type="button" id="btn-sair" class="btn-secundario">Sair</button>
+			</nav>
+		</header>
+
+		<main>
+			<section id="tela-login" hidden>
+				<form id="form-login" class="cartao">
+					<h1>Entrar</h1>
+					<p class="ajuda">Área restrita de publicação do blog.</p>
+					<label for="senha">Senha</label>
+					<input type="password" id="senha" autocomplete="current-password" required />
+					<p id="erro-login" class="erro" hidden></p>
+					<button type="submit" class="btn">Entrar</button>
+				</form>
+			</section>
+
+			<section id="tela-dashboard" hidden>
+				<div class="barra">
+					<h1>Posts</h1>
+					<button type="button" id="btn-novo" class="btn">+ Novo post</button>
+				</div>
+				<p id="erro-lista" class="erro" hidden></p>
+				<ul id="lista-posts"></ul>
+				<p id="lista-vazia" class="ajuda" hidden>Nenhum post ainda. Clique em "Novo post" para escrever o primeiro.</p>
+			</section>
+
+			<section id="tela-editor" hidden>
+				<div class="barra">
+					<button type="button" id="btn-voltar" class="btn-secundario">← Voltar</button>
+					<h1 id="editor-titulo">Novo post</h1>
+				</div>
+				<form id="form-post" class="cartao">
+					<label for="f-titulo">Título</label>
+					<input type="text" id="f-titulo" maxlength="200" required />
+
+					<label for="f-slug">Link do post</label>
+					<input type="text" id="f-slug" placeholder="gerado automaticamente do título" required />
+					<p class="ajuda">O endereço será <code id="slug-exemplo">/blog/…/</code></p>
+
+					<label for="f-descricao">Resumo (aparece na lista e no Google)</label>
+					<textarea id="f-descricao" rows="2" maxlength="500" required></textarea>
+
+					<div class="linha">
+						<div>
+							<label for="f-data">Data de publicação</label>
+							<input type="date" id="f-data" required />
+						</div>
+						<div>
+							<label for="f-autor">Autor</label>
+							<select id="f-autor">
+								<option value="Jeiel Miranda">Jeiel Miranda</option>
+								<option value="Giovanna Miranda">Giovanna Miranda</option>
+								<option value="Jeiel Miranda & Giovanna Miranda">Jeiel & Giovanna Miranda</option>
+							</select>
+						</div>
+					</div>
+
+					<label for="f-imagem">Imagem de capa (URL, opcional)</label>
+					<input type="text" id="f-imagem" placeholder="/images/exemplo.svg ou https://…" />
+
+					<div class="barra">
+						<span class="rotulo">Conteúdo (Markdown)</span>
+						<label class="check"><input type="checkbox" id="f-preview" /> Pré-visualizar</label>
+					</div>
+					<textarea id="f-conteudo" rows="16" required></textarea>
+					<div id="preview" class="preview" hidden></div>
+
+					<p id="erro-editor" class="erro" hidden></p>
+					<div class="acoes">
+						<button type="submit" id="btn-publicar" class="btn">Publicar</button>
+						<span id="status-editor" class="status"></span>
+					</div>
+				</form>
+			</section>
+		</main>
+
+		<style>
+			body {
+				background: rgb(var(--black), 0.03);
+			}
+			.topo {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: min(820px, calc(100% - 2rem));
+				margin: 0 auto;
+				padding: 1.25rem 0;
+			}
+			.marca {
+				font-weight: bold;
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			nav {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+			}
+			nav a {
+				color: rgb(var(--gray));
+				font-size: 0.95rem;
+			}
+			main {
+				width: min(820px, calc(100% - 2rem));
+				margin: 0 auto 4rem;
+			}
+			h1 {
+				font-size: 1.4rem;
+				margin: 0.5rem 0 1rem;
+			}
+			.cartao {
+				background: rgb(var(--white, 255 255 255));
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 14px;
+				padding: 1.5rem;
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+			}
+			label,
+			.rotulo {
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+				margin-top: 0.5rem;
+			}
+			input,
+			textarea,
+			select {
+				font: inherit;
+				padding: 0.6rem 0.75rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: rgb(var(--black), 0.03);
+				color: rgb(var(--black));
+				width: 100%;
+			}
+			textarea {
+				resize: vertical;
+				font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+				font-size: 0.9rem;
+				line-height: 1.5;
+			}
+			input:focus,
+			textarea:focus,
+			select:focus {
+				outline: 2px solid var(--accent);
+				outline-offset: 1px;
+				border-color: transparent;
+			}
+			.linha {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1rem;
+			}
+			.barra {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				margin: 1rem 0 0.5rem;
+			}
+			.barra h1 {
+				margin: 0;
+			}
+			.btn,
+			.btn-secundario {
+				font: inherit;
+				border: none;
+				border-radius: 10px;
+				padding: 0.6rem 1.1rem;
+				cursor: pointer;
+				white-space: nowrap;
+			}
+			.btn {
+				background: var(--accent);
+				color: #fff;
+			}
+			.btn:hover {
+				background: var(--accent-dark);
+			}
+			.btn:disabled {
+				opacity: 0.6;
+				cursor: wait;
+			}
+			.btn-secundario {
+				background: transparent;
+				color: rgb(var(--gray));
+				border: 1px solid rgb(var(--gray-light));
+			}
+			.btn-secundario:hover {
+				color: rgb(var(--black));
+			}
+			.ajuda {
+				color: rgb(var(--gray));
+				font-size: 0.85rem;
+				margin: 0.25rem 0;
+			}
+			.erro {
+				color: #c0392b;
+				font-size: 0.9rem;
+				margin: 0.25rem 0;
+			}
+			.status {
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+			}
+			.status a {
+				color: var(--accent);
+			}
+			.check {
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+				margin: 0;
+			}
+			.check input {
+				width: auto;
+			}
+			.preview {
+				border: 1px dashed rgb(var(--gray-light));
+				border-radius: 10px;
+				padding: 1rem;
+				line-height: 1.6;
+			}
+			.preview :global(img) {
+				max-width: 100%;
+				border-radius: 10px;
+			}
+			.acoes {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-top: 0.5rem;
+			}
+			ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 0.75rem;
+			}
+			li {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				padding: 0.9rem 1rem;
+				background: rgb(var(--black), 0.02);
+			}
+			li .info h2 {
+				font-size: 1.05rem;
+				margin: 0 0 0.2rem;
+			}
+			li .meta {
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			@media (max-width: 600px) {
+				.linha {
+					grid-template-columns: 1fr;
+				}
+				.barra {
+					flex-wrap: wrap;
+				}
+			}
+		</style>
+
+		<script>
+			import { marked } from 'marked';
+
+			const $ = <T extends HTMLElement>(id: string): T => {
+				const el = document.getElementById(id);
+				if (!el) throw new Error(`Elemento #${id} não encontrado`);
+				return el as T;
+			};
+
+			const telaLogin = $('tela-login');
+			const telaDashboard = $('tela-dashboard');
+			const telaEditor = $('tela-editor');
+			const acoesUsuario = $<HTMLElement>('acoes-usuario');
+
+			const formLogin = $<HTMLFormElement>('form-login');
+			const erroLogin = $('erro-login');
+			const erroLista = $('erro-lista');
+			const listaPosts = $<HTMLUListElement>('lista-posts');
+			const listaVazia = $('lista-vazia');
+
+			const formPost = $<HTMLFormElement>('form-post');
+			const editorTitulo = $('editor-titulo');
+			const fTitulo = $<HTMLInputElement>('f-titulo');
+			const fSlug = $<HTMLInputElement>('f-slug');
+			const slugExemplo = $('slug-exemplo');
+			const fDescricao = $<HTMLTextAreaElement>('f-descricao');
+			const fData = $<HTMLInputElement>('f-data');
+			const fAutor = $<HTMLSelectElement>('f-autor');
+			const fImagem = $<HTMLInputElement>('f-imagem');
+			const fConteudo = $<HTMLTextAreaElement>('f-conteudo');
+			const fPreview = $<HTMLInputElement>('f-preview');
+			const previewBox = $('preview');
+			const erroEditor = $('erro-editor');
+			const statusEditor = $('status-editor');
+			const btnPublicar = $<HTMLButtonElement>('btn-publicar');
+
+			let isNew = true;
+			let slugTouched = false;
+
+			function show(...els: HTMLElement[]): void {
+				for (const el of [telaLogin, telaDashboard, telaEditor]) el.hidden = true;
+				for (const el of els) el.hidden = false;
+			}
+
+			function slugify(text: string): string {
+				return text
+					.normalize('NFD')
+					.replace(/[\u0300-\u036f]/g, '')
+					.toLowerCase()
+					.replace(/[^a-z0-9]+/g, '-')
+					.replace(/^-+|-+$/g, '')
+					.slice(0, 80);
+			}
+
+			function hojeISO(): string {
+				const d = new Date();
+				const pad = (n: number) => String(n).padStart(2, '0');
+				return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+			}
+
+			function formatarData(iso: string): string {
+				if (!iso) return '—';
+				const [y, m, d] = iso.split('-').map(Number);
+				if (!y || !m || !d) return iso;
+				return new Date(y, m - 1, d).toLocaleDateString('pt-BR');
+			}
+
+			async function api<T>(url: string, init?: RequestInit): Promise<{ ok: true; data: T } | { ok: false; status: number; error: string }> {
+				try {
+					const res = await fetch(url, init);
+					const data = (await res.json().catch(() => ({}))) as T & { error?: string };
+					if (res.ok) return { ok: true, data };
+					return { ok: false, status: res.status, error: data.error ?? `Erro ${res.status}` };
+				} catch {
+					return { ok: false, status: 0, error: 'Falha de conexão. Tente novamente.' };
+				}
+			}
+
+			interface PostLista {
+				slug: string;
+				title: string;
+				pubDate: string;
+				author: string;
+			}
+
+			async function carregarDashboard(): Promise<void> {
+				erroLista.hidden = true;
+				listaPosts.innerHTML = '';
+				listaVazia.hidden = true;
+
+				const result = await api<{ posts: PostLista[] }>('/api/posts');
+				if (!result.ok) {
+					if (result.status === 401) {
+						mostrarLogin();
+						return;
+					}
+					show(telaDashboard);
+					acoesUsuario.hidden = false;
+					erroLista.textContent = result.error;
+					erroLista.hidden = false;
+					return;
+				}
+
+				show(telaDashboard);
+				acoesUsuario.hidden = false;
+				const posts = result.data.posts;
+				if (posts.length === 0) {
+					listaVazia.hidden = false;
+					return;
+				}
+				for (const post of posts) {
+					const li = document.createElement('li');
+					const info = document.createElement('div');
+					info.className = 'info';
+					const h2 = document.createElement('h2');
+					h2.textContent = post.title || post.slug;
+					const meta = document.createElement('p');
+					meta.className = 'meta';
+					meta.textContent = `${formatarData(post.pubDate)} · Por ${post.author}`;
+					info.append(h2, meta);
+					const btn = document.createElement('button');
+					btn.type = 'button';
+					btn.className = 'btn-secundario';
+					btn.textContent = 'Editar';
+					btn.addEventListener('click', () => void abrirEdicao(post.slug));
+					li.append(info, btn);
+					listaPosts.append(li);
+				}
+			}
+
+			function mostrarLogin(): void {
+				show(telaLogin);
+				acoesUsuario.hidden = true;
+				erroLogin.hidden = true;
+				$<HTMLInputElement>('senha').value = '';
+				$<HTMLInputElement>('senha').focus();
+			}
+
+			function abrirNovo(): void {
+				isNew = true;
+				slugTouched = false;
+				editorTitulo.textContent = 'Novo post';
+				fTitulo.value = '';
+				fSlug.value = '';
+				fDescricao.value = '';
+				fData.value = hojeISO();
+				fAutor.value = 'Giovanna Miranda';
+				fImagem.value = '';
+				fConteudo.value = '';
+				slugExemplo.textContent = '/blog/…/';
+				erroEditor.hidden = true;
+				statusEditor.innerHTML = '';
+				btnPublicar.textContent = 'Publicar';
+				show(telaEditor);
+				fTitulo.focus();
+			}
+
+			async function abrirEdicao(slug: string): Promise<void> {
+				erroEditor.hidden = true;
+				statusEditor.textContent = 'Carregando…';
+				const result = await api<{
+					slug: string;
+					title: string;
+					description: string;
+					pubDate: string;
+					author: string;
+					heroImage: string;
+					content: string;
+				}>(`/api/posts/${encodeURIComponent(slug)}`);
+				if (!result.ok) {
+					statusEditor.textContent = '';
+					erroEditor.textContent = result.error;
+					erroEditor.hidden = false;
+					return;
+				}
+				const post = result.data;
+				isNew = false;
+				slugTouched = true;
+				editorTitulo.textContent = 'Editar post';
+				fTitulo.value = post.title;
+				fSlug.value = post.slug;
+				fDescricao.value = post.description;
+				fData.value = post.pubDate;
+				fAutor.value = post.author;
+				fImagem.value = post.heroImage;
+				fConteudo.value = post.content;
+				slugExemplo.textContent = `/blog/${post.slug}/`;
+				statusEditor.textContent = '';
+				btnPublicar.textContent = 'Salvar alterações';
+				previewBox.hidden = !fPreview.checked;
+				if (fPreview.checked) previewBox.innerHTML = marked.parse(fConteudo.value) as string;
+				show(telaEditor);
+			}
+
+			formLogin.addEventListener('submit', async (event) => {
+				event.preventDefault();
+				erroLogin.hidden = true;
+				const senha = $<HTMLInputElement>('senha').value;
+				const result = await api('/api/login', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ password: senha }),
+				});
+				if (!result.ok) {
+					erroLogin.textContent = result.error;
+					erroLogin.hidden = false;
+					return;
+				}
+				await carregarDashboard();
+			});
+
+			$<HTMLButtonElement>('btn-sair').addEventListener('click', async () => {
+				await api('/api/logout', { method: 'POST' });
+				mostrarLogin();
+			});
+
+			$<HTMLButtonElement>('btn-novo').addEventListener('click', abrirNovo);
+			$<HTMLButtonElement>('btn-voltar').addEventListener('click', () => void carregarDashboard());
+
+			fTitulo.addEventListener('input', () => {
+				if (!slugTouched) {
+					fSlug.value = slugify(fTitulo.value);
+					slugExemplo.textContent = `/blog/${fSlug.value || '…'}/`;
+				}
+			});
+			fSlug.addEventListener('input', () => {
+				slugTouched = true;
+				fSlug.value = slugify(fSlug.value);
+				slugExemplo.textContent = `/blog/${fSlug.value || '…'}/`;
+			});
+
+			fPreview.addEventListener('change', () => {
+				if (fPreview.checked) {
+					previewBox.innerHTML = marked.parse(fConteudo.value) as string;
+					previewBox.hidden = false;
+				} else {
+					previewBox.hidden = true;
+				}
+			});
+			fConteudo.addEventListener('input', () => {
+				if (fPreview.checked) previewBox.innerHTML = marked.parse(fConteudo.value) as string;
+			});
+
+			formPost.addEventListener('submit', async (event) => {
+				event.preventDefault();
+				erroEditor.hidden = true;
+				statusEditor.textContent = '';
+
+				const payload = {
+					slug: fSlug.value.trim(),
+					title: fTitulo.value.trim(),
+					description: fDescricao.value.trim(),
+					pubDate: fData.value,
+					author: fAutor.value,
+					heroImage: fImagem.value.trim(),
+					content: fConteudo.value,
+					isNew,
+				};
+
+				btnPublicar.disabled = true;
+				btnPublicar.textContent = isNew ? 'Publicando…' : 'Salvando…';
+				const result = await api<{ url: string }>('/api/publish', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(payload),
+				});
+				btnPublicar.disabled = false;
+
+				if (!result.ok) {
+					btnPublicar.textContent = isNew ? 'Publicar' : 'Salvar alterações';
+					erroEditor.textContent = result.error;
+					erroEditor.hidden = false;
+					return;
+				}
+
+				isNew = false;
+				btnPublicar.textContent = 'Salvar alterações';
+				const link = document.createElement('a');
+				link.href = result.data.url;
+				link.target = '_blank';
+				link.rel = 'noopener';
+				link.textContent = 'Ver post';
+				statusEditor.textContent = 'Publicado! O site se atualiza em ~1 minuto. ';
+				statusEditor.append(link);
+			});
+
+			// Estado inicial
+			void carregarDashboard();
+		</script>
+	</body>
+</html>

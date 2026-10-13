@@ -3,16 +3,20 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 import AstroPWA from '@vite-pwa/astro';
+import { fileURLToPath } from 'node:url';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://jeielmiranda.com.br',
+	adapter: vercel(),
 	integrations: [
 		mdx(), 
 		sitemap(),
 		AstroPWA({
 			registerType: 'autoUpdate',
+			outDir: fileURLToPath(new URL('./dist/client', import.meta.url)),
 			manifest: {
 				name: 'Jeiel Miranda | JG',
 				short_name: 'JG',
@@ -28,6 +32,8 @@ export default defineConfig({
 			},
 			workbox: {
 				globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,woff,woff2,ico}'],
+				globIgnores: ['**/admin/**'],
+				navigateFallbackDenylist: [/^\/admin/],
 			},
 		})
 	],

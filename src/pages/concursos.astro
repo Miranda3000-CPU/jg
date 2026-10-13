@@ -1,0 +1,669 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import { UFS, UF_NAMES } from '../lib/concursos';
+
+const chips = UFS.map((uf) => ({
+	uf,
+	nome: uf === 'nacional' ? 'Nacional' : `${UF_NAMES[uf]} (${uf.toUpperCase()})`,
+}));
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title={`Concursos | ${SITE_TITLE}`}
+			description="Concursos públicos abertos no Brasil, por estado e nacional."
+		/>
+		<style is:global>
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				margin: -1px;
+				padding: 0;
+				overflow: hidden;
+				clip: rect(0 0 0 0);
+				white-space: nowrap;
+				border: 0;
+			}
+			.conc-page main {
+				width: min(960px, calc(100% - 2rem));
+			}
+			.conc-page :focus-visible {
+				outline: 3px solid var(--accent);
+				outline-offset: 2px;
+				border-radius: 6px;
+			}
+			.conc-hero {
+				position: relative;
+				overflow: hidden;
+				border-radius: 20px;
+				padding: 2rem;
+				margin: 1rem 0 1.5rem;
+				border: 1px solid rgb(var(--gray-light));
+				background:
+					radial-gradient(120% 120% at 100% 0%, rgba(35, 55, 255, 0.12) 0%, transparent 55%),
+					rgba(var(--gray-light), 0.14);
+			}
+			:root.dark .conc-hero {
+				background:
+					radial-gradient(120% 120% at 100% 0%, rgba(94, 109, 255, 0.18) 0%, transparent 55%),
+					rgba(var(--gray-light), 0.12);
+			}
+			.conc-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-size: 0.72rem;
+				font-weight: 700;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+				color: var(--accent);
+				background: rgba(35, 55, 255, 0.1);
+				padding: 0.3rem 0.7rem;
+				border-radius: 999px;
+				margin-bottom: 0.75rem;
+			}
+			.conc-hero h1 {
+				font-size: clamp(1.5rem, 4vw, 2rem);
+				line-height: 1.15;
+				margin: 0 0 0.5rem;
+			}
+			.conc-hero p {
+				color: rgb(var(--gray));
+				margin: 0;
+				max-width: 54ch;
+			}
+			.conc-stats {
+				display: grid;
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+				gap: 0.75rem;
+				margin-bottom: 1.5rem;
+			}
+			.conc-stat {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 14px;
+				padding: 0.9rem 1rem;
+				background: rgba(var(--gray-light), 0.1);
+			}
+			.conc-stat b {
+				display: block;
+				font-size: 1.5rem;
+				line-height: 1.1;
+				color: rgb(var(--black));
+			}
+			.conc-stat b.pequeno {
+				font-size: 1rem;
+				padding-top: 0.3rem;
+			}
+			.conc-stat span {
+				display: block;
+				font-size: 0.72rem;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: rgb(var(--gray));
+				margin-top: 0.3rem;
+			}
+			.conc-controles {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-bottom: 0.5rem;
+			}
+			.conc-busca {
+				display: flex;
+				flex: 1 1 260px;
+				align-items: center;
+				gap: 0.6rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				padding: 0.65rem 0.9rem;
+				background: rgba(var(--gray-light), 0.12);
+				transition: border-color 0.15s ease, box-shadow 0.15s ease;
+			}
+			.conc-busca:focus-within {
+				border-color: var(--accent);
+				box-shadow: 0 0 0 3px rgba(35, 55, 255, 0.18);
+			}
+			.conc-busca svg {
+				width: 18px;
+				height: 18px;
+				flex: none;
+				color: rgb(var(--gray));
+			}
+			.conc-busca input {
+				font: inherit;
+				border: none;
+				background: transparent;
+				color: rgb(var(--black));
+				width: 100%;
+				outline: none;
+			}
+			.conc-ordem {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-size: 0.85rem;
+				color: rgb(var(--gray));
+			}
+			.conc-ordem select {
+				font: inherit;
+				font-size: 0.85rem;
+				padding: 0.55rem 0.7rem;
+				border-radius: 10px;
+				border: 1px solid rgb(var(--gray-light));
+				background: rgba(var(--gray-light), 0.12);
+				color: rgb(var(--black));
+				cursor: pointer;
+			}
+			.conc-chips {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4rem;
+				padding: 0.6rem 0;
+				margin-bottom: 1.25rem;
+				position: sticky;
+				top: 0;
+				z-index: 5;
+				background: linear-gradient(var(--bg-color) 75%, transparent);
+			}
+			.conc-chip {
+				font: inherit;
+				font-size: 0.82rem;
+				padding: 0.4rem 0.8rem;
+				border-radius: 999px;
+				border: 1px solid rgb(var(--gray-light));
+				background: rgba(var(--gray-light), 0.15);
+				color: rgb(var(--black));
+				cursor: pointer;
+				transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+			}
+			.conc-chip:hover {
+				border-color: var(--accent);
+				color: var(--accent);
+			}
+			.conc-chip[aria-pressed='true'] {
+				background: var(--accent);
+				border-color: var(--accent);
+				color: #fff;
+				box-shadow: 0 4px 14px rgba(35, 55, 255, 0.35);
+			}
+			.conc-card {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 18px;
+				background-color: var(--bg-color);
+				box-shadow: var(--box-shadow);
+				overflow: hidden;
+			}
+			.conc-topo {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 0.5rem;
+				padding: 1.1rem 1.25rem;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			.conc-topo h2 {
+				margin: 0;
+				font-size: 1.1rem;
+			}
+			.conc-contagem {
+				font-size: 0.78rem;
+				font-weight: 600;
+				color: rgb(var(--gray));
+				background: rgba(var(--gray-light), 0.5);
+				padding: 0.2rem 0.65rem;
+				border-radius: 999px;
+			}
+			.conc-lista {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.conc-item {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) auto auto;
+				align-items: center;
+				gap: 0.75rem;
+				padding: 0.9rem 1.25rem;
+				border-top: 1px solid rgb(var(--gray-light));
+				text-decoration: none;
+				color: inherit;
+				transition: background 0.12s ease;
+			}
+			.conc-lista li:first-child .conc-item {
+				border-top: none;
+			}
+			.conc-item:hover,
+			.conc-item:focus-visible {
+				background: rgba(var(--gray-light), 0.35);
+			}
+			.conc-orgao {
+				display: block;
+				font-weight: 700;
+				color: rgb(var(--black));
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.conc-item:hover .conc-orgao {
+				color: var(--accent);
+			}
+			.conc-titulo {
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				margin-top: 0.15rem;
+				font-size: 0.87rem;
+				line-height: 1.35;
+				color: rgb(var(--gray));
+			}
+			.conc-vaga {
+				display: inline-block;
+				min-width: 46px;
+				text-align: center;
+				font-size: 0.85rem;
+				font-weight: 700;
+				padding: 0.3rem 0.6rem;
+				border-radius: 9px;
+				background: rgba(35, 55, 255, 0.1);
+				color: var(--accent);
+			}
+			.conc-vaga.varias {
+				font-size: 0.78rem;
+				font-weight: 600;
+				background: rgba(var(--gray-light), 0.65);
+				color: rgb(var(--gray));
+			}
+			.conc-seta {
+				display: inline-flex;
+				color: rgb(var(--gray));
+				opacity: 0;
+				transition: opacity 0.15s ease, color 0.15s ease;
+			}
+			.conc-seta svg {
+				width: 16px;
+				height: 16px;
+				display: block;
+			}
+			.conc-item:hover .conc-seta,
+			.conc-item:focus-visible .conc-seta {
+				opacity: 1;
+				color: var(--accent);
+			}
+			.conc-estado {
+				padding: 2.75rem 1.25rem;
+				text-align: center;
+				color: rgb(var(--gray));
+				font-size: 0.95rem;
+			}
+			.conc-estado.erro {
+				color: #c0392b;
+			}
+			.conc-retry {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				margin-top: 0.9rem;
+				font: inherit;
+				font-size: 0.85rem;
+				font-weight: 700;
+				padding: 0.55rem 1.1rem;
+				border-radius: 10px;
+				border: 1.5px solid currentColor;
+				background: transparent;
+				color: inherit;
+				cursor: pointer;
+			}
+			.conc-retry:hover {
+				background: rgba(var(--gray-light), 0.4);
+			}
+			.conc-skel {
+				height: 34px;
+				border-radius: 8px;
+				margin: 0.9rem 1.25rem;
+				background: linear-gradient(
+					90deg,
+					rgba(var(--gray-light), 0.55) 25%,
+					rgba(var(--gray-light), 0.95) 37%,
+					rgba(var(--gray-light), 0.55) 63%
+				);
+				background-size: 400% 100%;
+				animation: conc-shimmer 1.4s ease infinite;
+			}
+			@keyframes conc-shimmer {
+				0% { background-position: 100% 50%; }
+				100% { background-position: 0 50%; }
+			}
+			.conc-rodape {
+				margin: 1.25rem 0 0;
+				font-size: 0.8rem;
+				color: rgb(var(--gray));
+				text-align: center;
+			}
+			.conc-rodape a {
+				color: var(--accent);
+			}
+			@media (max-width: 560px) {
+				.conc-hero {
+					padding: 1.5rem;
+				}
+				.conc-stats {
+					grid-template-columns: 1fr 1fr;
+				}
+				.conc-stats .conc-stat:last-child {
+					grid-column: 1 / -1;
+				}
+				.conc-controles {
+					flex-direction: column;
+				}
+				.conc-item {
+					grid-template-columns: minmax(0, 1fr) auto;
+					gap: 0.5rem 0.75rem;
+					padding: 0.85rem 1rem;
+				}
+				.conc-seta {
+					display: none;
+				}
+				.conc-titulo {
+					-webkit-line-clamp: 3;
+				}
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.conc-chip,
+				.conc-item,
+				.conc-seta {
+					transition: none;
+				}
+				.conc-skel {
+					animation: none;
+				}
+			}
+		</style>
+	</head>
+	<body class="conc-page">
+		<Header />
+		<main>
+			<section class="conc-hero">
+				<span class="conc-badge">Concurso público</span>
+				<h1>Concursos abertos no Brasil</h1>
+				<p>
+					Consulte vagas por estado ou nacionalmente. Os dados são coletados automaticamente e
+					atualizados a cada hora.
+				</p>
+			</section>
+
+			<section class="conc-stats" aria-label="Resumo">
+				<div class="conc-stat">
+					<b id="stat-total">—</b>
+					<span>Concursos</span>
+				</div>
+				<div class="conc-stat">
+					<b id="stat-vagas">—</b>
+					<span>Vagas somadas</span>
+				</div>
+				<div class="conc-stat">
+					<b class="pequeno" id="stat-data">—</b>
+					<span>Atualizado em</span>
+				</div>
+			</section>
+
+			<div class="conc-controles">
+				<label class="conc-busca">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+					<span class="sr-only">Filtrar concursos por órgão</span>
+					<input type="search" id="busca" placeholder="Filtrar por órgão…" autocomplete="off" />
+				</label>
+				<label class="conc-ordem">
+					<span>Ordenar</span>
+					<select id="ordenar">
+						<option value="fonte">Ordem da fonte</option>
+						<option value="vagas">Mais vagas</option>
+						<option value="orgao">Órgão (A–Z)</option>
+					</select>
+				</label>
+			</div>
+
+			<div class="conc-chips" id="chips" role="group" aria-label="Filtrar por estado">
+				{chips.map(({ uf, nome }) => (
+					<button type="button" class="conc-chip" data-uf={uf} aria-pressed="false">
+						{nome}
+					</button>
+				))}
+			</div>
+
+			<section class="conc-card" id="card" aria-live="polite" aria-busy="true">
+				<div class="conc-topo">
+					<h2 id="titulo">Carregando…</h2>
+					<span class="conc-contagem" id="contagem"></span>
+				</div>
+				<ul class="conc-lista" id="lista"></ul>
+				<div class="conc-estado" id="estado" hidden></div>
+			</section>
+
+			<p class="conc-rodape">
+				Dados de
+				<a href="https://concursosnobrasil.com" target="_blank" rel="noopener noreferrer">
+					concursosnobrasil.com
+				</a>
+				· atualizados a cada hora
+			</p>
+		</main>
+		<Footer />
+
+		<script>
+			const chips = Array.from(document.querySelectorAll('.conc-chip')) as HTMLButtonElement[];
+			const card = document.getElementById('card')!;
+			const titulo = document.getElementById('titulo')!;
+			const contagem = document.getElementById('contagem')!;
+			const estado = document.getElementById('estado')!;
+			const lista = document.getElementById('lista')!;
+			const busca = document.getElementById('busca') as HTMLInputElement;
+			const ordenar = document.getElementById('ordenar') as HTMLSelectElement;
+			const statTotal = document.getElementById('stat-total')!;
+			const statVagas = document.getElementById('stat-vagas')!;
+			const statData = document.getElementById('stat-data')!;
+
+			interface Concurso {
+				orgao: string;
+				titulo: string;
+				url: string;
+				vagas: string;
+			}
+			interface Resultado {
+				uf: string;
+				titulo: string;
+				total: number;
+				atualizado: string | null;
+				concursos: Concurso[];
+				error?: string;
+			}
+
+			let carregados: Concurso[] = [];
+			let ufAtual = 'pa';
+
+			const setaSvg =
+				'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+
+			function vagasNum(vagas: string): number {
+				return /^\d/.test(vagas) ? Number(vagas.replace(/\D/g, '')) || 0 : -1;
+			}
+
+			function selecionar(uf: string): void {
+				for (const chip of chips) {
+					chip.setAttribute('aria-pressed', String(chip.dataset.uf === uf));
+				}
+			}
+
+			function quando(iso: string | null): string {
+				if (!iso) return '—';
+				const d = new Date(iso);
+				if (Number.isNaN(d.getTime())) return '—';
+				return d.toLocaleString('pt-BR', {
+					day: '2-digit',
+					month: 'short',
+					hour: '2-digit',
+					minute: '2-digit',
+				});
+			}
+
+			function esqueleto(): void {
+				lista.innerHTML = '';
+				for (let i = 0; i < 6; i++) {
+					const li = document.createElement('li');
+					li.setAttribute('aria-hidden', 'true');
+					li.innerHTML = '<div class="conc-skel" style="width:' + (55 + Math.random() * 40).toFixed(0) + '%"></div>';
+					lista.append(li);
+				}
+			}
+
+			function ordenarLista(l: Concurso[]): Concurso[] {
+				const c = l.slice();
+				const modo = ordenar.value;
+				if (modo === 'vagas') c.sort((a, b) => vagasNum(b.vagas) - vagasNum(a.vagas));
+				else if (modo === 'orgao') c.sort((a, b) => a.orgao.localeCompare(b.orgao, 'pt-BR'));
+				return c;
+			}
+
+			function render(): void {
+				const termo = busca.value.trim().toLowerCase();
+				const filtrados = termo
+					? carregados.filter(
+							(c) => c.orgao.toLowerCase().includes(termo) || c.titulo.toLowerCase().includes(termo),
+						)
+					: carregados;
+
+				lista.innerHTML = '';
+				estado.hidden = true;
+				estado.classList.remove('erro');
+
+				if (filtrados.length === 0) {
+					estado.textContent = termo
+						? 'Nenhum órgão corresponde ao filtro.'
+						: 'Nenhum concurso aberto encontrado no momento.';
+					estado.hidden = false;
+					contagem.textContent = '';
+					return;
+				}
+
+				for (const c of ordenarLista(filtrados)) {
+					const li = document.createElement('li');
+					const a = document.createElement('a');
+					a.className = 'conc-item';
+					a.href = c.url;
+					a.target = '_blank';
+					a.rel = 'noopener noreferrer';
+
+					const texto = document.createElement('span');
+					const org = document.createElement('span');
+					org.className = 'conc-orgao';
+					org.textContent = c.orgao;
+					const tit = document.createElement('span');
+					tit.className = 'conc-titulo';
+					tit.textContent = c.titulo;
+					texto.append(org, tit);
+
+					const badge = document.createElement('span');
+					const num = vagasNum(c.vagas);
+					badge.className = 'conc-vaga' + (num >= 0 ? '' : ' varias');
+					badge.textContent = c.vagas;
+
+					const seta = document.createElement('span');
+					seta.className = 'conc-seta';
+					seta.innerHTML = setaSvg;
+
+					a.append(texto, badge, seta);
+					li.append(a);
+					lista.append(li);
+				}
+
+				contagem.textContent =
+					filtrados.length === carregados.length
+						? `${carregados.length} ${carregados.length === 1 ? 'concurso' : 'concursos'}`
+						: `${filtrados.length} de ${carregados.length}`;
+			}
+
+			function mostrarErro(mensagem: string): void {
+				lista.innerHTML = '';
+				estado.innerHTML = '';
+				const p = document.createElement('p');
+				p.style.margin = '0';
+				p.textContent = mensagem;
+				const botao = document.createElement('button');
+				botao.type = 'button';
+				botao.className = 'conc-retry';
+				botao.textContent = 'Tentar novamente';
+				botao.addEventListener('click', () => void carregar(ufAtual));
+				estado.append(p, botao);
+				estado.classList.add('erro');
+				estado.hidden = false;
+				titulo.textContent = 'Não foi possível carregar';
+				contagem.textContent = '';
+			}
+
+			async function carregar(uf: string): Promise<void> {
+				ufAtual = uf;
+				selecionar(uf);
+				card.setAttribute('aria-busy', 'true');
+				titulo.textContent = 'Carregando…';
+				contagem.textContent = '';
+				busca.value = '';
+				statTotal.textContent = '—';
+				statVagas.textContent = '—';
+				statData.textContent = '—';
+				estado.hidden = true;
+				esqueleto();
+
+				try {
+					const res = await fetch(`/api/concursos/${uf}`);
+					const data = (await res.json()) as Resultado;
+					if (!res.ok) throw new Error(data.error ?? `Erro ${res.status}`);
+
+					carregados = data.concursos;
+					titulo.textContent = data.titulo || 'Concursos';
+					statTotal.textContent = String(data.total);
+
+					let soma = 0;
+					let temVarias = false;
+					for (const c of carregados) {
+						const n = vagasNum(c.vagas);
+						if (n > 0) soma += n;
+						else temVarias = true;
+					}
+					statVagas.textContent =
+						soma > 0 ? `${soma}${temVarias ? '+' : ''}` : temVarias ? 'Várias' : '—';
+					statData.textContent = quando(data.atualizado);
+					render();
+				} catch (err) {
+					mostrarErro(err instanceof Error ? err.message : 'Tente novamente em instantes.');
+				} finally {
+					card.setAttribute('aria-busy', 'false');
+				}
+			}
+
+			for (const chip of chips) {
+				chip.addEventListener('click', () => {
+					carregados = [];
+					const uf = chip.dataset.uf ?? 'pa';
+					void carregar(uf);
+					history.replaceState(null, '', `?uf=${uf}`);
+				});
+			}
+
+			busca.addEventListener('input', render);
+			ordenar.addEventListener('change', render);
+
+			const inicial = new URLSearchParams(location.search).get('uf') ?? 'pa';
+			void carregar(chips.some((c) => c.dataset.uf === inicial) ? inicial : 'pa');
+		</script>
+	</body>
+</html>
