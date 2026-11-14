@@ -44,7 +44,7 @@ const image = heroImage
 				max-width: calc(100% - 2em);
 				margin: auto;
 				padding: 1em;
-				color: rgb(var(--gray-dark));
+				color: var(--color-fg-default);
 			}
 			.title {
 				margin-bottom: 1em;
@@ -57,7 +57,7 @@ const image = heroImage
 			}
 			.date {
 				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				color: var(--color-fg-muted);
 			}
 			.last-updated-on {
 				font-style: italic;
@@ -77,9 +77,9 @@ const image = heroImage
 				align-items: center;
 				gap: 0.5em;
 				padding: 0.6em 1.2em;
-				border: 1px solid rgb(var(--gray-light));
+				border: 1px solid var(--color-border-default);
 				border-radius: 999px;
-				background: rgba(var(--gray-light), 0.12);
+				background: var(--color-canvas-subtle);
 				color: rgb(var(--gray-dark));
 				font-size: 0.875em;
 				font-family: inherit;
@@ -87,13 +87,13 @@ const image = heroImage
 				transition: 0.2s ease;
 			}
 			.share-button:hover {
-				background: rgba(var(--gray-light), 0.3);
-				border-color: rgb(var(--gray));
+				background: var(--color-canvas-inset);
+				border-color: var(--color-fg-muted);
 			}
 			.share-button.share-done {
-				background: rgb(var(--accent));
+				background: var(--color-accent-emphasis);
 				color: white;
-				border-color: rgb(var(--accent));
+				border-color: var(--color-accent-emphasis);
 			}
 			.pwa-top-banner {
 				display: flex;
@@ -104,7 +104,7 @@ const image = heroImage
 				justify-content: center;
 				gap: 0.75em;
 				padding: 0.6em 1em;
-				background: linear-gradient(135deg, #2337ff, #000d8a);
+				background: var(--color-canvas-subtle);
 				color: white;
 				font-size: 0.875em;
 				text-align: center;
@@ -136,7 +136,7 @@ const image = heroImage
 			.pwa-top-banner .close-btn {
 				background: none;
 				border: none;
-				color: rgba(255,255,255,0.7);
+				color: var(--color-fg-muted);
 				cursor: pointer;
 				padding: 0.2em;
 				font-size: 1.2em;
@@ -157,7 +157,7 @@ const image = heroImage
 				border-radius: 12px;
 				background: linear-gradient(135deg, #f0fdf4 0%, #fefce8 100%);
 				font-size: 0.875em;
-				color: #166534;
+				color: var(--color-fg-default);
 			}
 			.pix-card svg {
 				flex-shrink: 0;
@@ -167,7 +167,7 @@ const image = heroImage
 				font-size: 0.8em;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
-				color: #15803d;
+				color: var(--color-success-fg);
 			}
 			.pix-card .pix-key {
 				font-family: monospace;
@@ -178,7 +178,7 @@ const image = heroImage
 				margin-left: auto;
 				padding: 0.4em 1em;
 				border-radius: 999px;
-				background: #16a34a;
+				background: var(--color-success-emphasis);
 				color: white;
 				text-decoration: none;
 				font-size: 0.875em;
@@ -187,7 +187,7 @@ const image = heroImage
 				flex-shrink: 0;
 			}
 			.pix-card a:hover {
-				background: #15803d;
+				background: #116329;
 			}
 		</style>
 		<Analytics />
@@ -232,7 +232,7 @@ const image = heroImage
 					</div>
 
 					<div class="pix-card">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
 						<div>
 							<div class="pix-label">PIX</div>
 							<div class="pix-key">jeielmiranda@duck.com</div>
