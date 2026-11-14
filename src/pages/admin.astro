@@ -666,7 +666,7 @@ import { SITE_TITLE } from '../consts';
 
 			function draftKey(): string { return `jg-cms-draft-${currentUser.username || 'guest'}`; }
 			function salvarRascunho(): void {
-				const draft = { title:fTitulo.value, slug:fSlug.value, description:fDescricao.value, pubDate:fData.value, heroImage:fImagem.value, content:fConteudo.value, savedAt:new Date().toISOString() };
+				const draft = { title:fTitulo.value, slug:fSlug.value, description:fDescricao.value, pubDate:fData.value, heroImage:fImagem.value, content:fConteudo.innerHTML, savedAt:new Date().toISOString() };
 				localStorage.setItem(draftKey(), JSON.stringify(draft));
 				statusEditor.textContent = 'Rascunho salvo neste navegador.';
 			}
@@ -677,7 +677,7 @@ import { SITE_TITLE } from '../consts';
 					const draft = JSON.parse(raw) as {title?:string;slug?:string;description?:string;pubDate?:string;heroImage?:string;content?:string};
 					if (!draft.title && !draft.content) return;
 					if (confirm('Encontramos um rascunho salvo neste navegador. Deseja restaurá-lo?')) {
-						fTitulo.value=draft.title??'';fSlug.value=draft.slug??'';fDescricao.value=draft.description??'';fData.value=draft.pubDate||hojeISO();fImagem.value=draft.heroImage??'';fConteudo.value=draft.content??'';
+						fTitulo.value=draft.title??'';fSlug.value=draft.slug??'';fDescricao.value=draft.description??'';fData.value=draft.pubDate||hojeISO();fImagem.value=draft.heroImage??'';fConteudo.innerHTML=draft.content??'';
 						slugTouched=Boolean(draft.slug);slugExemplo.textContent=`/blog/${fSlug.value||'…'}/`;
 					}
 				} catch { localStorage.removeItem(draftKey()); }
@@ -685,7 +685,7 @@ import { SITE_TITLE } from '../consts';
 			btnSalvarRascunho.addEventListener('click', salvarRascunho);
 			for (const field of [fTitulo,fSlug,fDescricao,fData,fImagem,fConteudo]) field.addEventListener('input', () => {
 				if (telaEditor.hidden) return;
-				try { localStorage.setItem(draftKey(), JSON.stringify({title:fTitulo.value,slug:fSlug.value,description:fDescricao.value,pubDate:fData.value,heroImage:fImagem.value,content:fConteudo.value,savedAt:new Date().toISOString()})); } catch {}
+				try { localStorage.setItem(draftKey(), JSON.stringify({title:fTitulo.value,slug:fSlug.value,description:fDescricao.value,pubDate:fData.value,heroImage:fImagem.value,content:fConteudo.innerHTML,savedAt:new Date().toISOString()})); } catch {}
 			});
 			for (const button of document.querySelectorAll<HTMLButtonElement>('.toolbar button')) {
 				button.addEventListener('click', () => {
