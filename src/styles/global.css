@@ -1,4 +1,4 @@
-/* Tema único escuro: paleta consistente em todas as páginas. */
+/* Tema escuro padrão, com alternância clara persistente. */
 :root {
  color-scheme: dark;
  --accent:#3b82f6; --accent-dark:#93c5fd;
@@ -34,3 +34,22 @@ button,[role=button],.btn,.btn-secundario,.share-button{touch-action:manipulatio
 @media(max-width:720px){body{font-size:16px}main{width:100%;max-width:100%;padding:1em}.prose{width:100%;max-width:100%}.prose p{margin-bottom:1.1em}.prose ul,.prose ol{padding-left:1.35rem}.prose li{margin-block:.35em}button,[role=button]{min-height:44px}}
 @media(max-width:380px){pre{padding:12px;font-size:.85rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+:root[data-theme="light"]{
+ color-scheme:light;
+ --accent:#2563eb;--accent-dark:#1d4ed8;
+ --black:15,23,42;--gray:71,85,105;--gray-light:203,213,225;--gray-dark:30,41,59;
+ --bg-gradient:linear-gradient(135deg,#f8fafc,#eef2ff 55%,#f8fafc);
+ --bg-color:#f8fafc;--header-bg:rgba(248,250,252,.96);
+ --box-shadow:0 2px 8px rgba(15,23,42,.06),0 12px 28px rgba(15,23,42,.08);
+ --site-night:#f8fafc;--site-night-2:#e2e8f0;--site-card:#fff;--site-border:#cbd5e1;
+ --site-text:#0f172a;--site-muted:#475569;--site-blue:#1d4ed8;
+ --site-page:#f1f5f9;--site-page-text:#1e293b;
+}
+:root[data-theme="light"] body{background:var(--bg-gradient);color:rgb(var(--gray-dark))}
+:root[data-theme="light"] code{background:#e2e8f0;color:#1e3a8a}
+:root[data-theme="light"] pre{background:#e2e8f0;color:#0f172a}
+:root[data-theme="light"] pre>code{color:#0f172a}
+:root[data-theme="light"] blockquote{color:#334155}
+:root[data-theme="light"] a{color:#1d4ed8}
+:root[data-theme="light"] a:hover{color:#1e40af}
