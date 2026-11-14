@@ -12,6 +12,6 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
   <body><Header /><main id="main-content"><slot /></main><Footer /></body>
 </html>
 <style>
-:global(body){margin:0!important;background:var(--site-night)!important}
-:global(main#main-content){width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
+:global(body){display:flex;flex-direction:column;min-height:100vh;margin:0!important;background:var(--site-night)!important}
+:global(main#main-content){flex:1 0 auto;width:100%!important;max-width:none!important;margin:0!important;padding:0!important}
 </style>
