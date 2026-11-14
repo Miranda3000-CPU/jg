@@ -2,12 +2,10 @@ import type { APIRoute } from 'astro';
 import { getSessionUser, json, unauthorized } from '../../lib/auth';
 import { CONTENT_DIR, getFile, putFile } from '../../lib/github';
 import {
-	AUTHORS,
 	buildMarkdown,
 	DATE_RE,
 	SLUG_RE,
 	todayISO,
-	type Author,
 } from '../../lib/posts';
 
 export const prerender = false;
@@ -17,7 +15,6 @@ interface PublishBody {
 	title?: unknown;
 	description?: unknown;
 	pubDate?: unknown;
-	author?: unknown;
 	heroImage?: unknown;
 	content?: unknown;
 	isNew?: unknown;
@@ -28,7 +25,8 @@ function asString(value: unknown): string {
 }
 
 export const POST: APIRoute = async (context) => {
-	if (!isAuthenticated(context.cookies)) return unauthorized();
+	const sessionUser = getSessionUser(context.cookies);
+	if (!sessionUser) return unauthorized();
 
 	let body: PublishBody;
 	try {
@@ -41,7 +39,6 @@ export const POST: APIRoute = async (context) => {
 	const title = asString(body.title);
 	const description = asString(body.description);
 	const pubDate = asString(body.pubDate);
-	const author = asString(body.author);
 	const heroImage = asString(body.heroImage);
 	const content = asString(body.content);
 	const isNew = body.isNew === true;
@@ -54,7 +51,6 @@ export const POST: APIRoute = async (context) => {
 		return json({ error: 'Resumo obrigatório (máx. 500 caracteres).' }, 400);
 	}
 	if (!DATE_RE.test(pubDate)) return json({ error: 'Data inválida.' }, 400);
-	if (!(AUTHORS as readonly string[]).includes(author)) return json({ error: 'Autor inválido.' }, 400);
 	if (heroImage && !heroImage.startsWith('/') && !/^https?:\/\//.test(heroImage)) {
 		return json({ error: 'Imagem de capa deve ser uma URL ou caminho iniciado em "/".' }, 400);
 	}
@@ -84,7 +80,7 @@ export const POST: APIRoute = async (context) => {
 			pubDate,
 			updatedDate: updating ? todayISO() : undefined,
 			heroImage: heroImage || undefined,
-			author: author as Author,
+			author: sessionUser.name as import('../../lib/posts').Author,
 			content,
 		});
 
