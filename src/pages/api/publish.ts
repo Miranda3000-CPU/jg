@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { isAuthenticated, json, unauthorized } from '../../lib/auth';
+import { getSessionUser, json, unauthorized } from '../../lib/auth';
 import { CONTENT_DIR, getFile, putFile } from '../../lib/github';
 import {
 	AUTHORS,
@@ -88,7 +88,7 @@ export const POST: APIRoute = async (context) => {
 			content,
 		});
 
-		const message = updating ? `post: atualiza "${title}"` : `post: publica "${title}" (${author})`;
+		const message = updating ? `post: atualiza "${title}"` : `post: publica "${title}" (${sessionUser.name})`;
 		await putFile(finalPath, markdown, message, updating ? existing?.sha : undefined);
 
 		return json({ ok: true, url: `/blog/${slug}/`, updated: updating });
