@@ -1,31 +1,32 @@
 ---
 ---
-<button id="theme-toggle" type="button" aria-label="Alternar tema" aria-pressed="false" title="Alternar tema">
-  <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
-  <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+<button id="theme-toggle" class="Button Button--invisible theme-toggle" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Alternar tema">
+  <svg id="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
+  <svg id="sun-icon" viewBox="0 0 24 24" aria-hidden="true" hidden><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
 </button>
 <style>
-  #theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; color: var(--color-fg-muted); background: var(--color-canvas-default); border: 1px solid var(--color-border-default); border-radius: 6px; cursor: pointer; }
-  #theme-toggle:hover { color: var(--color-fg-default); background: var(--color-canvas-subtle); }
-  #theme-toggle svg[hidden] { display: none; }
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;color:var(--fgColor-default,var(--color-fg-default));background:var(--control-bgColor-rest,var(--color-canvas-subtle));border:1px solid var(--borderColor-default,var(--color-border-default));border-radius:50%}
+  .theme-toggle:hover{background:var(--control-bgColor-hover,var(--color-neutral-muted))}
+  .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .theme-toggle svg[hidden]{display:none}
 </style>
 <script>
-  const root = document.documentElement;
-  const button = document.getElementById('theme-toggle');
-  const updateThemeControl = () => {
-    const dark = root.classList.contains('dark');
-    const moon = document.getElementById('moon-icon');
-    const sun = document.getElementById('sun-icon');
-    if (moon) moon.hidden = dark;
-    if (sun) sun.hidden = !dark;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0d1117' : '#ffffff');
-    button?.setAttribute('aria-pressed', String(dark));
-    button?.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+  const root=document.documentElement;
+  const button=document.getElementById('theme-toggle');
+  const sync=()=>{
+    const dark=root.classList.contains('dark');
+    const moon=document.getElementById('moon-icon');
+    const sun=document.getElementById('sun-icon');
+    if(moon)moon.hidden=dark;
+    if(sun)sun.hidden=!dark;
+    button?.setAttribute('aria-pressed',String(dark));
+    button?.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0d1117':'#ffffff');
   };
-  button?.addEventListener('click', () => {
-    const dark = root.classList.toggle('dark');
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
-    updateThemeControl();
+  button?.addEventListener('click',()=>{
+    const dark=root.classList.toggle('dark');
+    localStorage.setItem('theme',dark?'dark':'light');
+    sync();
   });
-  updateThemeControl();
+  sync();
 </script>
