@@ -1,218 +1,147 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
+/* GitHub Primer-inspired design tokens and global foundations. */
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--bg-gradient: linear-gradient(-45deg, #ffffff, #f5f5f5, #ffffff, #e5e5e5);
-	--bg-color: #ffffff;
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px
-		rgba(var(--gray), 33%);
+  color-scheme: light;
+  --color-canvas-default: #ffffff;
+  --color-canvas-overlay: #ffffff;
+  --color-canvas-inset: #f6f8fa;
+  --color-canvas-subtle: #f6f8fa;
+  --color-border-default: #d1d9e0;
+  --color-border-muted: #d8dee4;
+  --color-fg-default: #1f2328;
+  --color-fg-muted: #59636e;
+  --color-fg-subtle: #6e7781;
+  --color-accent-fg: #0969da;
+  --color-accent-emphasis: #0969da;
+  --color-accent-subtle: #ddf4ff;
+  --color-success-fg: #1a7f37;
+  --color-success-emphasis: #1f883d;
+  --color-danger-fg: #d1242f;
+  --color-neutral-muted: #afb8c133;
+  --color-shadow-small: 0 1px 0 rgba(31,35,40,.04);
+  --color-shadow-medium: 0 3px 6px rgba(31,35,40,.12);
+  --accent: #0969da;
+  --accent-dark: #0550ae;
+  --black: 31, 35, 40;
+  --gray: 89, 99, 110;
+  --gray-light: 209, 217, 224;
+  --gray-dark: 31, 35, 40;
+  --bg-color: var(--color-canvas-default);
+  --header-bg: rgba(255,255,255,.92);
+  --box-shadow: var(--color-shadow-medium);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
 }
-
 :root.dark {
-	--accent: #5e6dff;
-	--accent-dark: #8c96ff;
-	--black: 229, 233, 240;
-	--gray: 115, 126, 143;
-	--gray-light: 34, 41, 57;
-	--gray-dark: 229, 233, 240;
-	--bg-gradient: linear-gradient(-45deg, #000000, #111111, #000000, #222222);
-	--bg-color: #000000;
-	--header-bg: rgba(0, 0, 0, 0.8);
-	--box-shadow:
-		0 2px 6px rgba(0, 0, 0, 50%), 0 8px 24px rgba(0, 0, 0, 66%), 0 16px 32px
-		rgba(0, 0, 0, 66%);
+  color-scheme: dark;
+  --color-canvas-default: #0d1117;
+  --color-canvas-overlay: #161b22;
+  --color-canvas-inset: #010409;
+  --color-canvas-subtle: #161b22;
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-fg-default: #e6edf3;
+  --color-fg-muted: #9198a1;
+  --color-fg-subtle: #6e7681;
+  --color-accent-fg: #4493f8;
+  --color-accent-emphasis: #1f6feb;
+  --color-accent-subtle: #121d2f;
+  --color-success-fg: #3fb950;
+  --color-success-emphasis: #238636;
+  --color-danger-fg: #f85149;
+  --color-neutral-muted: #6e768166;
+  --color-shadow-small: 0 1px 0 rgba(1,4,9,.4);
+  --color-shadow-medium: 0 3px 6px rgba(1,4,9,.4);
+  --accent: #4493f8;
+  --accent-dark: #1f6feb;
+  --black: 230, 237, 243;
+  --gray: 145, 152, 161;
+  --gray-light: 48, 54, 61;
+  --gray-dark: 230, 237, 243;
+  --bg-color: var(--color-canvas-default);
+  --header-bg: rgba(13,17,23,.92);
+  --box-shadow: var(--color-shadow-medium);
 }
-
-@keyframes gradientBG {
-	0% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
-}
-
-@keyframes neonBorders {
-	0%, 100% { box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent-dark); }
-	50% { box-shadow: 0 0 2px var(--accent), 0 0 5px var(--accent), 0 0 8px var(--accent-dark); }
-}
-
-.neon-border {
-	border: 1px solid var(--accent);
-	animation: neonBorders 2s infinite alternate;
-}
-
-@keyframes neonGradient {
-	0% { background-position: 0% 50%; }
-	50% { background-position: 100% 50%; }
-	100% { background-position: 0% 50%; }
-}
-
-.neon-glow {
-	position: relative;
-}
-.neon-glow::before {
-	content: "";
-	position: absolute;
-	inset: -3px;
-	background: linear-gradient(90deg, #10b981, #ffffff, #10b981, #ffffff);
-	background-size: 200% 200%;
-	animation: neonGradient 4s linear infinite;
-	filter: blur(8px);
-	opacity: 0.8;
-	z-index: -1;
-	border-radius: inherit;
-	transition: opacity 0.3s;
-}
-.neon-glow:hover::before {
-	opacity: 1;
-	filter: blur(12px);
-}
-
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-regular.woff") format("woff");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Atkinson";
-	src: url("/fonts/atkinson-bold.woff") format("woff");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
+* { box-sizing: border-box; }
+html { min-width: 320px; scroll-behavior: smooth; background: var(--color-canvas-default); }
 body {
-	font-family: "Atkinson", sans-serif;
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background-color: var(--bg-color);
-	background-image: var(--bg-gradient);
-	background-size: 400% 400%;
-	animation: gradientBG 15s ease infinite;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
-	overflow-x: hidden;
+  margin: 0 !important; padding: 0; overflow-x: hidden;
+  color: var(--color-fg-default) !important;
+  background: var(--color-canvas-default) !important;
+  background-image: none !important; animation: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important; line-height: 1.5 !important;
+  -webkit-font-smoothing: antialiased;
 }
-main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
+main { width: min(1012px, calc(100% - 48px)); max-width: none; margin-inline: auto; padding: 32px 0; }
+h1,h2,h3,h4,h5,h6 { color: var(--color-fg-default) !important; font-weight: 600; line-height: 1.25; letter-spacing: -.02em; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.25rem); }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+p { color: inherit; }
+a { color: var(--color-accent-fg); text-underline-offset: .18em; }
+a:hover { color: var(--color-accent-fg); }
+img { max-width: 100%; height: auto; border-radius: 6px; }
+hr { border: 0; border-top: 1px solid var(--color-border-default); }
+code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace; }
+code { padding: .15em .35em; border-radius: 6px; background: var(--color-canvas-subtle); color: var(--color-fg-default); }
+pre { overflow: auto; padding: 16px; border: 1px solid var(--color-border-default); border-radius: 6px; background: var(--color-canvas-inset); }
+blockquote { margin: 1rem 0; padding: .25rem 1rem; border-left: 3px solid var(--color-border-default); color: var(--color-fg-muted); font-size: 1rem; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--color-accent-fg); outline-offset: 2px; }
+input, select, textarea {
+  max-width: 100%; padding: 5px 12px; color: var(--color-fg-default);
+  background: var(--color-canvas-default); border: 1px solid var(--color-border-default);
+  border-radius: 6px; box-shadow: var(--color-shadow-small);
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent);
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
-	body {
-		font-size: 18px;
-	}
-	main {
-		padding: 1em;
-	}
-}
+input:focus, select:focus, textarea:focus { border-color: var(--color-accent-fg); outline: 2px solid color-mix(in srgb, var(--color-accent-fg) 30%, transparent); outline-offset: 0; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px 12px; border: 1px solid var(--color-border-default); text-align: left; }
+th { background: var(--color-canvas-subtle); font-weight: 600; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.neon-glow::before, .neon-border { display: none !important; }
 
-.sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
-	width: 1px;
-	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
-	white-space: nowrap;
+/* Shared Primer component language for site cards, forms and admin surfaces. */
+.cartao, .cert-card, .conc-stat, .conc-hero, .pix-card-detail, .pix-card, .project-highlight,
+.preview, .admin-card, .card {
+  color: var(--color-fg-default);
+  background: var(--color-canvas-default);
+  border: 1px solid var(--color-border-default);
+  border-radius: 6px;
+  box-shadow: var(--color-shadow-small);
+}
+.cartao { padding: 24px; }
+.btn, .btn-secundario, .share-button, .pix-card a, .project-links a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 32px; padding: 5px 16px; border: 1px solid var(--color-border-default);
+  border-radius: 6px; font-size: 14px; font-weight: 500; text-decoration: none;
+  box-shadow: var(--color-shadow-small); transition: background .15s, border-color .15s;
+}
+.btn, .project-links a { color: #fff !important; background: var(--color-success-emphasis); border-color: rgba(31,35,40,.15); }
+.btn:hover, .project-links a:hover { background: #1a7f37; }
+.btn-secundario, .share-button { color: var(--color-fg-default); background: var(--color-canvas-subtle); }
+.btn-secundario:hover, .share-button:hover { background: var(--color-neutral-muted); }
+label, .rotulo { color: var(--color-fg-muted); font-size: 14px; font-weight: 600; }
+.ajuda, .date, .author-name, .status, .note { color: var(--color-fg-muted) !important; }
+.erro { color: var(--color-danger-fg) !important; }
+footer { color: var(--color-fg-muted) !important; border-top: 1px solid var(--color-border-muted); }
+
+/* Primer-aligned overrides for the utility classes still present on the home page. */
+body .bg-white, body .dark\\:bg-black { background-color: var(--color-canvas-default) !important; }
+body [class*="border-slate-"], body [class*="border-neutral-"] { border-color: var(--color-border-default) !important; }
+body [class*="text-slate-"], body [class*="text-neutral-"] { color: var(--color-fg-muted) !important; }
+body [class*="text-emerald-"] { color: var(--color-accent-fg) !important; }
+body [class*="bg-emerald-"] { background-color: var(--color-success-emphasis) !important; }
+body [class*="rounded-2xl"], body [class*="rounded-xl"] { border-radius: 6px !important; }
+body [class*="shadow-lg"], body [class*="shadow-md"] { box-shadow: var(--color-shadow-medium) !important; }
+body [class*="shadow-sm"] { box-shadow: var(--color-shadow-small) !important; }
+:root.dark body .bg-white { background-color: var(--color-canvas-overlay) !important; }
+:root.dark body [class*="bg-slate-50"] { background-color: var(--color-canvas-subtle) !important; }
+:root.dark body [class*="text-slate-900"], :root.dark body [class*="text-slate-800"] { color: var(--color-fg-default) !important; }
+:root.dark body [class*="text-slate-600"], :root.dark body [class*="text-slate-500"] { color: var(--color-fg-muted) !important; }
+
+@media (max-width: 720px) {
+  main { width: calc(100% - 32px); padding: 24px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
