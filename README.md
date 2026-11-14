@@ -33,4 +33,4 @@ Exemplo de formato para `CMS_USERS_JSON` (substitua os valores de senha por senh
 
 Cada senha deve ter pelo menos 12 caracteres. O autor dos artigos é definido pelo usuário autenticado no servidor, não por um campo editável no formulário. Remova a variável antiga `CMS_PASSWORD` depois de configurar e testar as duas contas. As sessões têm validade de sete dias.
 
-O editor oferece atalhos de formatação, pré-visualização e rascunhos salvos localmente no navegador. Os rascunhos não são enviados ao GitHub até a publicação.
+O editor oferece formatação visual (negrito, itálico, títulos, listas e citações), pré-visualização e rascunhos salvos localmente no navegador. Os rascunhos não são enviados ao GitHub até a publicação.
