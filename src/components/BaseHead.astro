@@ -19,13 +19,12 @@ const imageUrl = typeof image === 'string' ? new URL(image, Astro.url) : new URL
 <script is:inline>
   (() => {
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    const dark = saved ? saved === 'dark' : Boolean(prefersDark);
+    const dark = saved === 'dark';
     document.documentElement.classList.toggle('dark', dark);
     document.documentElement.setAttribute('data-color-mode', dark ? 'dark' : 'light');
     document.documentElement.setAttribute('data-light-theme', 'light');
     document.documentElement.setAttribute('data-dark-theme', 'dark');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0d1117' : '#ffffff');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0d1117' : '#0f172a');
   })();
 </script>
 <meta charset="utf-8" />
