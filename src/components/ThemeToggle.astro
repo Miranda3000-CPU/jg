@@ -25,6 +25,9 @@
   };
   button?.addEventListener('click',()=>{
     const dark=root.classList.toggle('dark');
+    root.setAttribute('data-color-mode',dark?'dark':'light');
+    root.setAttribute('data-light-theme','light');
+    root.setAttribute('data-dark-theme','dark');
     localStorage.setItem('theme',dark?'dark':'light');
     sync();
   });
