@@ -1,0 +1,26 @@
+---
+const projects = [
+ { title:'jeielmiranda.com.br', description:'Meu portfólio e blog', href:'/portfolio/', icon:'globe', tone:'blue' },
+ { title:'Proverb-Day', description:'Aplicativo de versículos', href:'https://miranda3000-cpu.github.io/Proverb-Day/', icon:'code', tone:'purple' },
+ { title:'MeuVerso-PWA', description:'Versículos offline', href:'https://github.com/Miranda3000-CPU/MeuVerso', icon:'check', tone:'green' },
+ { title:'Quiz Jeiel', description:'Quiz bíblico interativo', href:'https://github.com/Miranda3000-CPU/quiz-jeiel', icon:'game', tone:'yellow' },
+];
+---
+<section class="projects" aria-labelledby="projects-title">
+ <div class="heading"><div><span class="rule"></span><h2 id="projects-title">Meus Projetos</h2><p>Soluções que desenvolvo com propósito.</p></div><a class="all" href="/portfolio/">Ver todos os projetos <span aria-hidden="true">→</span></a></div>
+ <div class="grid">{projects.map((p)=><a class="project" href={p.href} target={p.href.startsWith('http')?'_blank':undefined} rel={p.href.startsWith('http')?'noopener noreferrer':undefined}>
+ <span class:list={['project-icon',p.tone]}>
+ {p.icon==='globe'&&<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M5 24h38M24 5c6 6 9 12 9 19s-3 13-9 19c-6-6-9-12-9-19s3-13 9-19zM9 13h30M9 35h30"/></svg>}
+ {p.icon==='code'&&<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m17 13-12 11 12 11m14-22 12 11-12 11M28 8l-8 32"/></svg>}
+ {p.icon==='check'&&<svg viewBox="0 0 48 48" aria-hidden="true"><path d="m8 15 6 6 11-12M8 34l6 6 11-12M30 17h10M30 36h10"/></svg>}
+ {p.icon==='game'&&<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 13h20c6 0 10 5 11 12l2 10c1 6-6 9-10 5l-7-6H18l-7 6c-4 4-11 1-10-5l2-10c1-7 5-12 11-12z"/><path d="M13 21v10m-5-5h10m15-2h.1m7 7h.1"/></svg>}
+ </span><span class="project-copy"><strong>{p.title}</strong><small>{p.description}</small></span></a>)}</div>
+</section>
+<style>
+.projects{padding:32px 2.7vw 60px;background:#fff;color:#111827}.heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px}.rule{display:block;width:58px;height:5px;margin-bottom:15px;border-radius:99px;background:#2f7bff}.heading h2{margin:0 0 2px;color:#111827!important;font-size:clamp(30px,3vw,42px);font-weight:800;letter-spacing:-.04em}.heading p{margin:0;color:#667085;font-size:19px;font-weight:550}.all{display:inline-flex;align-items:center;gap:12px;min-height:54px;padding:0 22px;border:1.5px solid #172033;border-radius:999px;color:#111827;font-size:15px;font-weight:700;text-decoration:none;white-space:nowrap}.all:hover{background:#f1f5f9;text-decoration:none}.all span{font-size:22px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.project{display:flex;align-items:center;gap:16px;min-width:0;min-height:112px;padding:17px 20px;border:1px solid #d8dfeb;border-radius:18px;background:#fff;color:#111827;text-decoration:none;transition:transform .16s,border-color .16s,box-shadow .16s}.project:hover{transform:translateY(-2px);border-color:#8aa9df;box-shadow:0 8px 22px #16284b14;text-decoration:none}.project-icon{display:grid;place-items:center;flex:0 0 58px;width:58px;height:58px;border-radius:16px;color:white}.project-icon svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}.project-icon.blue{background:linear-gradient(135deg,#3b9cff,#2764e8)}.project-icon.purple{background:linear-gradient(135deg,#9381ff,#6b5be7)}.project-icon.green{background:linear-gradient(135deg,#20b981,#07966d)}.project-icon.yellow{background:linear-gradient(135deg,#ffc34c,#f0a51c)}.project-copy{display:grid;gap:5px;min-width:0}.project-copy strong{overflow-wrap:anywhere;color:#101828;font-size:18px;font-weight:750;line-height:1.2}.project-copy small{color:#59677f;font-size:14px;line-height:1.35}
+:global(html.dark) .projects{background:#0d1117;color:#e6edf3}:global(html.dark) .heading h2,:global(html.dark) .project-copy strong{color:#e6edf3!important}:global(html.dark) .heading p,:global(html.dark) .project-copy small{color:#9da7b3}:global(html.dark) .project{background:#161b22;border-color:#30363d;color:#e6edf3}:global(html.dark) .all{color:#e6edf3;border-color:#57606a;background:#161b22}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.projects{padding:28px 16px 42px}.heading{align-items:flex-start;flex-direction:column;gap:16px}.heading h2{font-size:32px}.heading p{font-size:15px}.all{min-height:46px;font-size:13px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.project{min-height:90px;padding:12px;gap:10px;border-radius:14px}.project-icon{flex-basis:42px;width:42px;height:42px;border-radius:12px}.project-icon svg{width:27px;height:27px}.project-copy strong{font-size:14px}.project-copy small{font-size:12px}}
+@media(max-width:390px){.grid{grid-template-columns:1fr}}
+</style>
