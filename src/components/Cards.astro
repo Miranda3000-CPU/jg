@@ -6,14 +6,14 @@
   <a class="interest-card" href="mailto:jeielmirand@bombeiros.pa.gov.br"><span class="icon blue" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="4" y="9" width="40" height="30" rx="4"/><path d="m6 13 18 14 18-14"/></svg></span><span class="copy"><strong>Contato</strong><small>Vamos conversar</small></span><span class="arrow" aria-hidden="true">›</span></a>
 </section>
 <style>
-.interest-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.5vw,22px);padding:24px 2.2vw 36px;background:var(--site-night);border-bottom:1px solid var(--site-border)}
-.interest-card{display:flex;align-items:center;gap:13px;min-width:0;min-height:92px;padding:14px 16px;border:1px solid var(--site-border);border-radius:18px;background:var(--site-card);color:var(--site-text);text-decoration:none;transition:transform .16s,border-color .16s,background .16s}
+.interest-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.5vw,22px);padding:24px 2.2vw 36px;background:var(--site-night);border-bottom:1px solid var(--site-border)}
+.interest-card{display:flex;flex:0 1 calc(20% - 18px);align-items:center;gap:13px;min-width:0;min-height:92px;padding:14px 16px;border:1px solid var(--site-border);border-radius:18px;background:var(--site-card);color:var(--site-text);text-decoration:none;transition:transform .16s,border-color .16s,background .16s}
 .interest-card:hover{transform:translateY(-2px);border-color:#6281b8;background:#1c2d4a;text-decoration:none}
 .icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px}.icon svg{width:38px;height:38px;fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
 .blue{color:#60a5fa}.green{color:#34d399}.amber{color:#fbbf24}.violet{color:#a78bfa}
 .copy{display:grid;gap:4px;min-width:0}.copy strong{font-size:16px;font-weight:750}.copy small{color:var(--site-muted);font-size:12px;line-height:1.35}
 .arrow{margin-left:auto;color:var(--site-muted);font-size:28px;font-weight:300;flex:none}
-@media(max-width:1100px){.interest-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:700px){.interest-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:16px}.interest-card{min-height:82px;padding:10px;gap:8px;border-radius:14px}.icon{flex-basis:34px;width:34px;height:38px}.icon svg{width:32px;height:32px}.copy strong{font-size:14px}.copy small{font-size:11px}.arrow{font-size:23px}}
-@media(max-width:380px){.interest-grid{grid-template-columns:1fr}}
+@media(max-width:1100px){.interest-card{flex-basis:calc(33.333% - 15px)}}
+@media(max-width:700px){.interest-grid{gap:10px;padding:16px}.interest-card{flex-basis:calc(50% - 5px);min-height:82px;padding:10px;gap:8px;border-radius:14px}.icon{flex-basis:34px;width:34px;height:38px}.icon svg{width:32px;height:32px}.copy strong{font-size:14px}.copy small{font-size:11px}.arrow{font-size:23px}}
+@media(max-width:380px){.interest-card{flex-basis:100%}}
 </style>
