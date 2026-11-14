@@ -19,14 +19,15 @@
     const dark=root.classList.contains('dark');
     button?.setAttribute('aria-pressed',String(dark));
     button?.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0d1117':'#f5f7fb');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#080f1e':'#0b1428');
   };
   button?.addEventListener('click',()=>{
     const dark=root.classList.toggle('dark');
-    root.setAttribute('data-color-mode',dark?'dark':'light');
-    root.setAttribute('data-light-theme','light');
-    root.setAttribute('data-dark-theme','dark');
-    localStorage.setItem('theme',dark?'dark':'light');
+    try {
+      localStorage.setItem('theme',dark?'dark':'light');
+    } catch {
+      // A alternância visual funciona mesmo sem persistência local.
+    }
     sync();
   });
   sync();
