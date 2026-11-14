@@ -620,6 +620,7 @@ import { SITE_TITLE } from '../consts';
 				link.target = '_blank';
 				link.rel = 'noopener';
 				link.textContent = 'Ver post';
+				localStorage.removeItem(draftKey());
 				statusEditor.textContent = 'Publicado! O site se atualiza em aproximadamente 1 minuto. ';
 				statusEditor.append(link);
 			});
