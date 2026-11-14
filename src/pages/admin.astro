@@ -12,6 +12,7 @@ import { SITE_TITLE } from '../consts';
 	<body>
 		<header class="topo">
 			<a class="marca" href="/admin">JG · Painel</a>
+			<button type="button" id="btn-tema" class="btn-secundario" aria-label="Alternar tema">☀️ Tema claro</button>
 			<nav id="acoes-usuario" hidden>
 				<a href="/" target="_blank" rel="noopener">Ver site</a>
 				<button type="button" id="btn-sair" class="btn-secundario">Sair</button>
@@ -22,7 +23,9 @@ import { SITE_TITLE } from '../consts';
 			<section id="tela-login" hidden>
 				<form id="form-login" class="cartao">
 					<h1>Entrar</h1>
-					<p class="ajuda">Área restrita de publicação do blog.</p>
+					<p class="ajuda">Entre com sua conta individual para gerenciar as publicações.</p>
+					<label for="usuario">Usuário</label>
+					<input type="text" id="usuario" autocomplete="username" placeholder="Seu usuário" required />
 					<label for="senha">Senha</label>
 					<input type="password" id="senha" autocomplete="current-password" required />
 					<p id="erro-login" class="erro" hidden></p>
@@ -33,7 +36,8 @@ import { SITE_TITLE } from '../consts';
 			<section id="tela-dashboard" hidden>
 				<div class="barra">
 					<h1>Posts</h1>
-					<button type="button" id="btn-novo" class="btn">+ Novo post</button>
+					<span id="usuario-atual" class="ajuda"></span>
+					<button type="button" id="btn-novo" class="btn">+ Nova publicação</button>
 				</div>
 				<p id="erro-lista" class="erro" hidden></p>
 				<ul id="lista-posts"></ul>
@@ -62,12 +66,8 @@ import { SITE_TITLE } from '../consts';
 							<input type="date" id="f-data" required />
 						</div>
 						<div>
-							<label for="f-autor">Autor</label>
-							<select id="f-autor">
-								<option value="Jeiel Miranda">Jeiel Miranda</option>
-								<option value="Giovanna Miranda">Giovanna Miranda</option>
-								<option value="Jeiel Miranda & Giovanna Miranda">Jeiel & Giovanna Miranda</option>
-							</select>
+							<label>Autor da publicação</label>
+							<p id="autor-atual" class="ajuda">Definido pela conta conectada.</p>
 						</div>
 					</div>
 
@@ -75,15 +75,26 @@ import { SITE_TITLE } from '../consts';
 					<input type="text" id="f-imagem" placeholder="/images/exemplo.svg ou https://…" />
 
 					<div class="barra">
-						<span class="rotulo">Conteúdo (Markdown)</span>
+						<span class="rotulo">Conteúdo do artigo</span>
 						<label class="check"><input type="checkbox" id="f-preview" /> Pré-visualizar</label>
 					</div>
-					<textarea id="f-conteudo" rows="16" required></textarea>
+					<div class="toolbar" role="toolbar" aria-label="Formatação do texto">
+						<button type="button" data-wrap="**" aria-label="Negrito"><strong>B</strong></button>
+						<button type="button" data-wrap="*" aria-label="Itálico"><em>I</em></button>
+						<button type="button" data-prefix="## " aria-label="Subtítulo">H2</button>
+						<button type="button" data-prefix="### " aria-label="Título menor">H3</button>
+						<button type="button" data-prefix="- " aria-label="Lista">☷ Lista</button>
+						<button type="button" data-wrap="`" aria-label="Código">Código</button>
+						<button type="button" data-prefix="> " aria-label="Citação">❝ Citação</button>
+					</div>
+					<textarea id="f-conteudo" rows="16" placeholder="Comece a escrever seu artigo aqui..." required></textarea>
+					<p class="ajuda">Use os botões de formatação. O rascunho fica salvo neste navegador automaticamente.</p>
 					<div id="preview" class="preview" hidden></div>
 
 					<p id="erro-editor" class="erro" hidden></p>
 					<div class="acoes">
-						<button type="submit" id="btn-publicar" class="btn">Publicar</button>
+						<button type="button" id="btn-salvar-rascunho" class="btn-secundario">Salvar rascunho</button>
+						<button type="submit" id="btn-publicar" class="btn">Publicar artigo</button>
 						<span id="status-editor" class="status"></span>
 					</div>
 				</form>
@@ -283,6 +294,38 @@ import { SITE_TITLE } from '../consts';
 					flex-wrap: wrap;
 				}
 			}
+
+			:root{color-scheme:dark;--admin-bg:#0b1428;--admin-panel:#14233b;--admin-panel-2:#1b2d49;--admin-text:#f8fafc;--admin-muted:#cbd5e1;--admin-border:#405575;--admin-input:#0d1a2e}
+			body{min-height:100vh;background:var(--admin-bg)!important;color:var(--admin-text)}
+			.topo,main{width:min(920px,calc(100% - 2rem))}
+			.marca{color:var(--admin-text)}
+			.cartao{background:var(--admin-panel);border:1px solid var(--admin-border);box-shadow:0 18px 45px rgba(0,0,0,.24);padding:clamp(1rem,3vw,2rem)}
+			label,.rotulo{color:var(--admin-muted);font-weight:650}
+			.ajuda,.status,.meta{color:#cbd5e1}
+			input,textarea,select{background:var(--admin-input);color:#fff;border:1px solid #526987;min-height:46px}
+			textarea{min-height:240px;line-height:1.7}
+			input::placeholder,textarea::placeholder{color:#9eafc6}
+			input:focus,textarea:focus,select:focus{outline:3px solid #60a5fa;outline-offset:2px;border-color:#93c5fd}
+			.btn{background:#2563eb;color:#fff;font-weight:750;min-height:46px}.btn:hover{background:#1d4ed8}
+			.btn-secundario{background:#263a59;color:#f8fafc;border:1px solid #607897;min-height:44px}.btn-secundario:hover{background:#344d70;color:#fff}
+			li{background:var(--admin-panel);border:1px solid var(--admin-border);color:var(--admin-text)}
+			li .meta{color:#cbd5e1}
+			.erro{color:#fecaca;background:#451a1a;border:1px solid #b91c1c;border-radius:8px;padding:.65rem .8rem}
+			.toolbar{display:flex;flex-wrap:wrap;gap:.4rem;padding:.55rem;background:#0d1a2e;border:1px solid #526987;border-bottom:0;border-radius:10px 10px 0 0}
+			.toolbar button{min-width:42px;min-height:38px;padding:.35rem .65rem;border:1px solid #526987;border-radius:7px;background:#1c2e49;color:#f8fafc;cursor:pointer}
+			.toolbar button:hover{background:#2b4770;border-color:#93c5fd}
+			#f-conteudo{border-radius:0 0 10px 10px}
+			.acoes{flex-wrap:wrap}.acoes .btn{min-width:160px}
+			#btn-tema{margin-left:auto}
+			body[data-theme="light"]{background:#f1f5f9!important;color:#172033}
+			body[data-theme="light"] .cartao,body[data-theme="light"] li{background:#fff;color:#172033;border-color:#cbd5e1}
+			body[data-theme="light"] .marca{color:#172033}
+			body[data-theme="light"] label,body[data-theme="light"] .rotulo,body[data-theme="light"] .ajuda,body[data-theme="light"] .status,body[data-theme="light"] li .meta{color:#334155}
+			body[data-theme="light"] input,body[data-theme="light"] textarea,body[data-theme="light"] select{background:#fff;color:#172033;border-color:#94a3b8}
+			body[data-theme="light"] .toolbar{background:#e2e8f0;border-color:#94a3b8}
+			body[data-theme="light"] .toolbar button{background:#fff;color:#172033;border-color:#94a3b8}
+			@media(max-width:600px){.topo{flex-wrap:wrap}.linha{grid-template-columns:1fr}.acoes{align-items:stretch}.acoes button{width:100%}}
+
 		</style>
 
 		<script>
@@ -312,14 +355,18 @@ import { SITE_TITLE } from '../consts';
 			const slugExemplo = $('slug-exemplo');
 			const fDescricao = $<HTMLTextAreaElement>('f-descricao');
 			const fData = $<HTMLInputElement>('f-data');
-			const fAutor = $<HTMLSelectElement>('f-autor');
-			const fImagem = $<HTMLInputElement>('f-imagem');
+						const fImagem = $<HTMLInputElement>('f-imagem');
+			const usuarioAtual = $('usuario-atual');
+			const autorAtual = $('autor-atual');
+			const usuarioInput = $<HTMLInputElement>('usuario');
+			let currentUser = { username: '', name: '' };
 			const fConteudo = $<HTMLTextAreaElement>('f-conteudo');
 			const fPreview = $<HTMLInputElement>('f-preview');
 			const previewBox = $('preview');
 			const erroEditor = $('erro-editor');
 			const statusEditor = $('status-editor');
 			const btnPublicar = $<HTMLButtonElement>('btn-publicar');
+			const btnSalvarRascunho = $<HTMLButtonElement>('btn-salvar-rascunho');
 
 			let isNew = true;
 			let slugTouched = false;
@@ -375,6 +422,10 @@ import { SITE_TITLE } from '../consts';
 				listaPosts.innerHTML = '';
 				listaVazia.hidden = true;
 
+				const session = await api<{ user: { username: string; name: string } }>('/api/session');
+				if (!session.ok) { mostrarLogin(); return; }
+				currentUser = session.data.user;
+				usuarioAtual.textContent = `Conectado como ${currentUser.name}`;
 				const result = await api<{ posts: PostLista[] }>('/api/posts');
 				if (!result.ok) {
 					if (result.status === 401) {
@@ -431,14 +482,15 @@ import { SITE_TITLE } from '../consts';
 				fSlug.value = '';
 				fDescricao.value = '';
 				fData.value = hojeISO();
-				fAutor.value = 'Giovanna Miranda';
 				fImagem.value = '';
 				fConteudo.value = '';
+				autorAtual.textContent = currentUser.name || 'Conta conectada';
 				slugExemplo.textContent = '/blog/…/';
 				erroEditor.hidden = true;
 				statusEditor.innerHTML = '';
 				btnPublicar.textContent = 'Publicar';
 				show(telaEditor);
+				restaurarRascunho();
 				fTitulo.focus();
 			}
 
@@ -461,6 +513,7 @@ import { SITE_TITLE } from '../consts';
 					return;
 				}
 				const post = result.data;
+				autorAtual.textContent = currentUser.name || post.author;
 				isNew = false;
 				slugTouched = true;
 				editorTitulo.textContent = 'Editar post';
@@ -468,9 +521,9 @@ import { SITE_TITLE } from '../consts';
 				fSlug.value = post.slug;
 				fDescricao.value = post.description;
 				fData.value = post.pubDate;
-				fAutor.value = post.author;
 				fImagem.value = post.heroImage;
 				fConteudo.value = post.content;
+				autorAtual.textContent = currentUser.name || post.author;
 				slugExemplo.textContent = `/blog/${post.slug}/`;
 				statusEditor.textContent = '';
 				btnPublicar.textContent = 'Salvar alterações';
@@ -483,10 +536,11 @@ import { SITE_TITLE } from '../consts';
 				event.preventDefault();
 				erroLogin.hidden = true;
 				const senha = $<HTMLInputElement>('senha').value;
+				const username = usuarioInput.value.trim();
 				const result = await api('/api/login', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ password: senha }),
+					body: JSON.stringify({ username, password: senha }),
 				});
 				if (!result.ok) {
 					erroLogin.textContent = result.error;
@@ -538,7 +592,6 @@ import { SITE_TITLE } from '../consts';
 					title: fTitulo.value.trim(),
 					description: fDescricao.value.trim(),
 					pubDate: fData.value,
-					author: fAutor.value,
 					heroImage: fImagem.value.trim(),
 					content: fConteudo.value,
 					isNew,
@@ -567,10 +620,46 @@ import { SITE_TITLE } from '../consts';
 				link.target = '_blank';
 				link.rel = 'noopener';
 				link.textContent = 'Ver post';
-				statusEditor.textContent = 'Publicado! O site se atualiza em ~1 minuto. ';
+				statusEditor.textContent = 'Publicado! O site se atualiza em aproximadamente 1 minuto. ';
 				statusEditor.append(link);
 			});
 
+			function draftKey(): string { return `jg-cms-draft-${currentUser.username || 'guest'}`; }
+			function salvarRascunho(): void {
+				const draft = { title:fTitulo.value, slug:fSlug.value, description:fDescricao.value, pubDate:fData.value, heroImage:fImagem.value, content:fConteudo.value, savedAt:new Date().toISOString() };
+				localStorage.setItem(draftKey(), JSON.stringify(draft));
+				statusEditor.textContent = 'Rascunho salvo neste navegador.';
+			}
+			function restaurarRascunho(): void {
+				const raw = localStorage.getItem(draftKey());
+				if (!raw || !isNew) return;
+				try {
+					const draft = JSON.parse(raw) as {title?:string;slug?:string;description?:string;pubDate?:string;heroImage?:string;content?:string};
+					if (!draft.title && !draft.content) return;
+					if (confirm('Encontramos um rascunho salvo neste navegador. Deseja restaurá-lo?')) {
+						fTitulo.value=draft.title??'';fSlug.value=draft.slug??'';fDescricao.value=draft.description??'';fData.value=draft.pubDate||hojeISO();fImagem.value=draft.heroImage??'';fConteudo.value=draft.content??'';
+						slugTouched=Boolean(draft.slug);slugExemplo.textContent=`/blog/${fSlug.value||'…'}/`;
+					}
+				} catch { localStorage.removeItem(draftKey()); }
+			}
+			btnSalvarRascunho.addEventListener('click', salvarRascunho);
+			for (const field of [fTitulo,fSlug,fDescricao,fData,fImagem,fConteudo]) field.addEventListener('input', () => {
+				if (telaEditor.hidden) return;
+				try { localStorage.setItem(draftKey(), JSON.stringify({title:fTitulo.value,slug:fSlug.value,description:fDescricao.value,pubDate:fData.value,heroImage:fImagem.value,content:fConteudo.value,savedAt:new Date().toISOString()})); } catch {}
+			});
+			for (const button of document.querySelectorAll<HTMLButtonElement>('.toolbar button')) {
+				button.addEventListener('click', () => {
+					const start=fConteudo.selectionStart,end=fConteudo.selectionEnd,selected=fConteudo.value.slice(start,end);
+					const wrap=button.dataset.wrap,prefix=button.dataset.prefix;
+					if(wrap){const replacement=selected?wrap+selected+wrap:wrap+wrap;fConteudo.setRangeText(replacement,start,end,'select');if(!selected)fConteudo.setSelectionRange(start+wrap.length,start+wrap.length);}
+					else if(prefix){const lineStart=fConteudo.value.lastIndexOf('\\n',Math.max(0,start-1))+1;fConteudo.setRangeText(prefix,lineStart,lineStart,'end');}
+					fConteudo.focus();fConteudo.dispatchEvent(new Event('input',{bubbles:true}));
+				});
+			}
+			const themeButton=$<HTMLButtonElement>('btn-tema');
+			const applyTheme=(theme:string)=>{document.body.dataset.theme=theme;themeButton.textContent=theme==='dark'?'☀️ Tema claro':'🌙 Tema escuro';localStorage.setItem('jg-theme',theme);};
+			applyTheme(localStorage.getItem('jg-theme')||'dark');
+			themeButton.addEventListener('click',()=>applyTheme(document.body.dataset.theme==='dark'?'light':'dark'));
 			// Estado inicial
 			void carregarDashboard();
 		</script>
