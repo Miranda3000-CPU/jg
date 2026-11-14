@@ -7,9 +7,9 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Analytics from '@vercel/analytics/astro'
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { readingMode?: 'formal' | 'editorial' };
 
-const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, author, readingMode = 'editorial' } = Astro.props;
 
 const image = heroImage
 	? typeof heroImage === 'string' && heroImage.endsWith('.svg')
@@ -23,9 +23,7 @@ const image = heroImage
 		<BaseHead {title} {description} {image} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				width:100%;max-width:100%;margin-inline:auto;padding:clamp(1rem,3vw,2.5rem) 1rem;
 			}
 			.hero-image {
 				width: 100%;
@@ -40,24 +38,23 @@ const image = heroImage
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				width:min(100%,70ch);max-width:100%;margin-inline:auto;padding:1.5rem clamp(0rem,2vw,1rem);text-align:left;hyphens:auto;text-wrap:pretty;
+				color: var(--color-fg-default);
+				font-size: 1.0625rem;
+				line-height: 1.75;
 			}
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;
 				text-align: center;
-				line-height: 1;
+				line-height: 1.25;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
 			}
 			.date {
 				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				color: var(--color-fg-muted);
 			}
 			.last-updated-on {
 				font-style: italic;
@@ -77,9 +74,9 @@ const image = heroImage
 				align-items: center;
 				gap: 0.5em;
 				padding: 0.6em 1.2em;
-				border: 1px solid rgb(var(--gray-light));
+				border: 1px solid var(--color-border-default);
 				border-radius: 999px;
-				background: rgba(var(--gray-light), 0.12);
+				background: var(--color-canvas-subtle);
 				color: rgb(var(--gray-dark));
 				font-size: 0.875em;
 				font-family: inherit;
@@ -87,13 +84,13 @@ const image = heroImage
 				transition: 0.2s ease;
 			}
 			.share-button:hover {
-				background: rgba(var(--gray-light), 0.3);
-				border-color: rgb(var(--gray));
+				background: var(--color-canvas-inset);
+				border-color: var(--color-fg-muted);
 			}
 			.share-button.share-done {
-				background: rgb(var(--accent));
+				background: var(--color-accent-emphasis);
 				color: white;
-				border-color: rgb(var(--accent));
+				border-color: var(--color-accent-emphasis);
 			}
 			.pwa-top-banner {
 				display: flex;
@@ -104,7 +101,7 @@ const image = heroImage
 				justify-content: center;
 				gap: 0.75em;
 				padding: 0.6em 1em;
-				background: linear-gradient(135deg, #2337ff, #000d8a);
+				background: var(--color-canvas-subtle);
 				color: white;
 				font-size: 0.875em;
 				text-align: center;
@@ -136,7 +133,7 @@ const image = heroImage
 			.pwa-top-banner .close-btn {
 				background: none;
 				border: none;
-				color: rgba(255,255,255,0.7);
+				color: var(--color-fg-muted);
 				cursor: pointer;
 				padding: 0.2em;
 				font-size: 1.2em;
@@ -153,32 +150,30 @@ const image = heroImage
 				padding: 0.75em 1em;
 				margin: 1.5em auto;
 				max-width: 720px;
-				border: 1px solid #d4d4d8;
+				border:1px solid #315267;
 				border-radius: 12px;
-				background: linear-gradient(135deg, #f0fdf4 0%, #fefce8 100%);
+				background:linear-gradient(135deg,#142b35 0%,#172b3b 100%);
 				font-size: 0.875em;
-				color: #166534;
+				color:#e5edf5;
 			}
-			.pix-card svg {
-				flex-shrink: 0;
-			}
+			.pix-card svg {flex-shrink:0;color:#6ee7b7;}
 			.pix-card .pix-label {
 				font-weight: 600;
 				font-size: 0.8em;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
-				color: #15803d;
+				color:#6ee7b7;
 			}
 			.pix-card .pix-key {
 				font-family: monospace;
 				word-break: break-all;
-				color: #166534;
+				color:#d1fae5;
 			}
 			.pix-card a {
 				margin-left: auto;
 				padding: 0.4em 1em;
 				border-radius: 999px;
-				background: #16a34a;
+				background:#087f5b;
 				color: white;
 				text-decoration: none;
 				font-size: 0.875em;
@@ -187,26 +182,45 @@ const image = heroImage
 				flex-shrink: 0;
 			}
 			.pix-card a:hover {
-				background: #15803d;
+				background:#059669;
 			}
-		</style>
+		
+			@media (max-width: 720px) {
+				main {width:100%;max-width:100%;padding:1rem 1rem 2rem;}
+				.prose {width:min(100%,70ch);max-width:70ch;margin-inline:auto;padding:1rem 0;font-size:1rem;line-height:1.8;text-align:left;}
+				.title {text-align:left;padding:.75rem 0 1rem;}
+				.title h1 { font-size: clamp(1.75rem, 7vw, 2.25rem); line-height: 1.2; }
+				.hero-image { margin-inline: -12px; width: calc(100% + 24px); }
+				.hero-image img { width: 100%; border-radius: 0; }
+				.pix-card {align-items:center;flex-wrap:wrap;padding:1rem;gap:.75rem;}
+				.pix-card a {margin-left:auto;min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:.55rem 1.2rem;}
+				.pix-card > div {min-width:0;flex:1 1 160px;}
+				.pix-card .pix-key {overflow-wrap:anywhere;}
+				.share-button { width: 100%; justify-content: center; min-height: 44px; }
+			}
+			.prose :global(ul), .prose :global(ol) {padding-left:1.5rem;margin:0 0 1.25em;}
+			.prose :global(li) {padding-left:.2rem;margin:.4em 0;}
+			.prose :global(blockquote) {margin:1.5em 0;padding:1rem 1.25rem;border-left:3px solid #3b82f6;background:#14233a;border-radius:0 10px 10px 0;}
+			.prose-formal :global(p) {text-align:justify;text-indent:1.25cm;hyphens:auto;}
+			.prose-formal :global(p:first-of-type) {margin-top:0;}
+			.prose-formal :global(blockquote), .prose-formal :global(li) {text-align:left;}
+			.prose :global(p) { margin: 0 0 1.25em; line-height: inherit; }
+			.prose :global(h2) { margin: 1.8em 0 .65em; }
+			.prose :global(h3) { margin: 1.4em 0 .5em; }
+			.prose :global(li) { margin-block: .35em; }
+			.prose :global(img) { max-width: 100%; height: auto; }
+</style>
 		<Analytics />
 	</head>
 
 	<body>
-		<div id="pwaTopBanner" class="pwa-top-banner">
-			<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
-			<span>Instale este blog como aplicativo para acessar mais rápido.</span>
-			<button id="installTopBtn">Instalar</button>
-			<button class="close-btn" id="closePwaBanner">&times;</button>
-		</div>
 		<Header />
-		<main>
+		<main id="main-content" tabindex="-1">
 			<article>
 				<div class="hero-image">
 					{heroImage && (typeof heroImage === 'string' ? <img src={heroImage} alt="" loading="lazy" /> : <Image width={768} height={432} src={heroImage} alt="" />)}
 				</div>
-				<div class="prose">
+				<div class:list={["prose", { "prose-formal": readingMode === "formal" }]} >
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
@@ -232,7 +246,7 @@ const image = heroImage
 					</div>
 
 					<div class="pix-card">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
 						<div>
 							<div class="pix-label">PIX</div>
 							<div class="pix-key">jeielmiranda@duck.com</div>
@@ -245,39 +259,6 @@ const image = heroImage
 		<Footer />
 
 		<script>
-			let deferredPrompt = null;
-
-			window.addEventListener('beforeinstallprompt', (e) => {
-				e.preventDefault();
-				deferredPrompt = e;
-			});
-
-			window.addEventListener('appinstalled', () => {
-				deferredPrompt = null;
-				document.getElementById('pwaTopBanner')?.classList.add('hidden');
-			});
-
-			if (window.matchMedia('(display-mode: standalone)').matches) {
-				document.getElementById('pwaTopBanner')?.classList.add('hidden');
-			}
-
-			document.getElementById('installTopBtn')?.addEventListener('click', async () => {
-				if (deferredPrompt) {
-					deferredPrompt.prompt();
-					const result = await deferredPrompt.userChoice;
-					deferredPrompt = null;
-					document.getElementById('pwaTopBanner')?.classList.add('hidden');
-				} else {
-					const label = document.getElementById('installTopBtn');
-					label.textContent = 'Abra no Chrome/Edge';
-					setTimeout(() => { label.textContent = 'Instalar'; }, 2000);
-				}
-			});
-
-			document.getElementById('closePwaBanner')?.addEventListener('click', () => {
-				document.getElementById('pwaTopBanner')?.classList.add('hidden');
-			});
-
 			document.getElementById('shareBtn')?.addEventListener('click', async () => {
 				const btn = document.getElementById('shareBtn');
 				const label = document.getElementById('shareLabel');
