@@ -1,35 +1,14 @@
 ---
-// Folha global própria do portfólio, sem dependência de design system externo.
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/welcome.jpeg';
 import { SITE_TITLE } from '../consts';
-
-interface Props {
-  title: string;
-  description: string;
-  image?: ImageMetadata | string;
-}
-
+interface Props { title: string; description: string; image?: ImageMetadata | string; }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = FallbackImage } = Astro.props;
 const imageUrl = typeof image === 'string' ? new URL(image, Astro.url) : new URL(image.src, Astro.url);
 ---
 <meta name="theme-color" content="#0b1428" />
-<script is:inline>
-  (() => {
-    let saved = 'light';
-    try {
-      saved = localStorage.getItem('theme') || 'light';
-    } catch {
-      // O site continua funcional mesmo quando o navegador bloqueia o armazenamento local.
-    }
-    const dark = saved === 'dark';
-    const root = document.documentElement;
-    root.classList.toggle('dark', dark);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#080f1e' : '#0b1428');
-  })();
-</script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href="/images/dtic-round.png" />
