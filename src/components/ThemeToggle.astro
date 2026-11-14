@@ -1,27 +1,23 @@
 ---
 ---
-<button id="theme-toggle" class="Button Button--invisible theme-toggle" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Alternar tema">
-  <svg id="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
-  <svg id="sun-icon" viewBox="0 0 24 24" aria-hidden="true" hidden><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+<button id="theme-toggle" class="theme-switch" type="button" aria-label="Ativar tema escuro" aria-pressed="false" title="Alternar tema">
+  <span class="switch-knob" aria-hidden="true"></span>
 </button>
 <style>
-  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;color:var(--fgColor-default,var(--color-fg-default));background:var(--control-bgColor-rest,var(--color-canvas-subtle));border:1px solid var(--borderColor-default,var(--color-border-default));border-radius:50%}
-  .theme-toggle:hover{background:var(--control-bgColor-hover,var(--color-neutral-muted))}
-  .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-  .theme-toggle svg[hidden]{display:none}
+.theme-switch{position:relative;display:inline-flex;align-items:center;width:54px;height:32px;padding:3px;border:1px solid #59657c;border-radius:999px;background:#18233b;cursor:pointer;transition:background .2s,border-color .2s}
+.switch-knob{display:block;width:24px;height:24px;border-radius:50%;background:#dce6f8;box-shadow:0 1px 4px #0006;transition:transform .2s,background .2s}
+:global(html.dark) .theme-switch{background:#2f81f7;border-color:#6ea8fe}
+:global(html.dark) .switch-knob{transform:translateX(22px);background:#fff}
+.theme-switch:focus-visible{outline:2px solid #58a6ff;outline-offset:3px}
 </style>
 <script>
   const root=document.documentElement;
   const button=document.getElementById('theme-toggle');
   const sync=()=>{
     const dark=root.classList.contains('dark');
-    const moon=document.getElementById('moon-icon');
-    const sun=document.getElementById('sun-icon');
-    if(moon)moon.hidden=dark;
-    if(sun)sun.hidden=!dark;
     button?.setAttribute('aria-pressed',String(dark));
     button?.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0d1117':'#ffffff');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#0d1425');
   };
   button?.addEventListener('click',()=>{
     const dark=root.classList.toggle('dark');
