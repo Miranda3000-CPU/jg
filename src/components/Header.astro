@@ -3,10 +3,15 @@ import HeaderLink from './HeaderLink.astro';
 import ThemeToggle from './ThemeToggle.astro';
 ---
 
+<a class="skip-link" href="#main-content">Pular para o conteúdo</a>
 <header class="site-header">
   <nav class="site-nav" aria-label="Navegação principal">
     <a class="site-brand" href="/" aria-label="JG, página inicial">JG <span>·</span> Miranda</a>
-    <div class="internal-links">
+    <div class="site-actions">
+      <ThemeToggle />
+      <img src="/images/dtic-round.png" alt="" width="32" height="32" />
+    </div>
+    <div class="internal-links" aria-label="Seções do site">
       <HeaderLink href="/">Início</HeaderLink>
       <HeaderLink href="/blog">Blog</HeaderLink>
       <HeaderLink href="/portfolio">Portfólio</HeaderLink>
@@ -14,24 +19,69 @@ import ThemeToggle from './ThemeToggle.astro';
       <HeaderLink href="/curriculo">Currículo</HeaderLink>
       <HeaderLink href="/about">Sobre</HeaderLink>
     </div>
-    <div class="site-actions">
-      <ThemeToggle />
-      <img src="/images/dtic-round.png" alt="" width="32" height="32" />
-    </div>
   </nav>
 </header>
 
 <style>
-  .site-header { position: sticky; top: 0; z-index: 50; padding: 0 24px; background: var(--header-bg); border-bottom: 1px solid var(--color-border-default); backdrop-filter: blur(12px); }
-  .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(1200px, 100%); min-height: 64px; margin: 0 auto; }
-  .site-brand { color: var(--color-fg-default); font-size: 16px; font-weight: 650; letter-spacing: -.02em; text-decoration: none; white-space: nowrap; }
+  .skip-link {
+    position: fixed; top: 8px; left: 8px; z-index: 1000;
+    transform: translateY(-160%); padding: 8px 12px;
+    color: #fff; background: #0969da; border-radius: 6px;
+  }
+  .skip-link:focus { transform: translateY(0); }
+  .site-header {
+    position: sticky; top: 0; z-index: 50; padding: 0 24px;
+    background: var(--header-bg); border-bottom: 1px solid var(--color-border-default);
+    backdrop-filter: blur(12px);
+  }
+  .site-nav {
+    display: grid; grid-template-columns: 1fr auto; align-items: center;
+    gap: 8px 16px; width: min(1200px, 100%); min-height: 64px; margin: 0 auto;
+  }
+  .site-brand {
+    color: var(--color-fg-default); font-size: 16px; font-weight: 650;
+    letter-spacing: -.02em; text-decoration: none; white-space: nowrap;
+  }
   .site-brand span { color: var(--color-fg-muted); }
-  .internal-links { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; }
-  .internal-links :global(a) { display: inline-flex; align-items: center; min-height: 32px; padding: 5px 10px; color: var(--color-fg-muted); border: 1px solid transparent; border-radius: 6px; font-size: 14px; text-decoration: none; white-space: nowrap; }
-  .internal-links :global(a:hover) { color: var(--color-fg-default); background: var(--color-canvas-subtle); }
-  .internal-links :global(a.active) { color: var(--color-fg-default); background: var(--color-canvas-subtle); border-color: var(--color-border-default); font-weight: 600; text-decoration: none; }
-  .site-actions { display: flex; align-items: center; gap: 10px; }
-  .site-actions img { width: 32px; height: 32px; object-fit: cover; border: 1px solid var(--color-border-default); border-radius: 50%; }
-  @media (max-width: 820px) { .site-nav { flex-wrap: wrap; padding: 12px 0; } .internal-links { order: 3; width: 100%; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; } }
-  @media (max-width: 480px) { .site-header { padding: 0 16px; } .internal-links :global(a) { padding-inline: 8px; } }
+  .internal-links {
+    grid-column: 1 / -1; display: flex; align-items: center; gap: 4px;
+    min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain;
+    scrollbar-width: thin; scrollbar-color: var(--color-border-default) transparent;
+    padding: 0 0 8px;
+  }
+  .internal-links :global(a) {
+    display: inline-flex; flex: 0 0 auto; align-items: center;
+    min-height: 40px; padding: 8px 12px; color: var(--color-fg-muted);
+    border: 1px solid transparent; border-radius: 6px; font-size: 14px;
+    text-decoration: none; white-space: nowrap;
+  }
+  .internal-links :global(a:hover) {
+    color: var(--color-fg-default); background: var(--color-canvas-subtle);
+  }
+  .internal-links :global(a.active) {
+    color: var(--color-fg-default); background: var(--color-canvas-subtle);
+    border-color: var(--color-border-default); font-weight: 600; text-decoration: none;
+  }
+  .site-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+  .site-actions img {
+    width: 32px; height: 32px; object-fit: cover;
+    border: 1px solid var(--color-border-default); border-radius: 50%;
+  }
+  @media (min-width: 1000px) {
+    .site-nav { grid-template-columns: auto 1fr auto; min-height: 64px; }
+    .internal-links {
+      grid-column: auto; justify-content: center; overflow: visible;
+      padding: 0; scrollbar-width: none;
+    }
+    .internal-links::-webkit-scrollbar { display: none; }
+  }
+  @media (max-width: 480px) {
+    .site-header { padding-inline: 14px; }
+    .site-nav { min-height: 56px; gap: 6px 10px; }
+    .internal-links { margin-inline: -2px; }
+    .internal-links :global(a) { min-height: 44px; padding-inline: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skip-link { transition: none; }
+  }
 </style>
