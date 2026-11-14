@@ -244,8 +244,18 @@ svg.lucide, svg[data-lucide], button svg, a svg, .icon {
 button svg, a svg { stroke: currentColor; }
 button:disabled, [aria-disabled="true"] { opacity: .72; }
 :root.dark button:disabled, :root.dark [aria-disabled="true"] { opacity: .78; }
-body [class*="text-slate-"], body [class*="text-neutral-"] {
+body [class*="text-slate-900"], body [class*="text-slate-800"],
+body [class*="text-neutral-900"], body [class*="text-neutral-800"] {
+  color: var(--color-fg-default) !important;
+}
+body [class*="text-slate-600"], body [class*="text-slate-500"],
+body [class*="text-slate-400"], body [class*="text-neutral-600"],
+body [class*="text-neutral-500"] {
   color: var(--color-fg-muted) !important;
+}
+:root.dark body [class*="text-slate-100"], :root.dark body [class*="text-slate-200"],
+:root.dark body [class*="text-neutral-100"], :root.dark body [class*="text-neutral-200"] {
+  color: var(--color-fg-default) !important;
 }
 body [class*="text-emerald-"] { color: var(--color-success-fg) !important; }
 :root.dark body [class*="text-emerald-"] { color: var(--color-success-fg) !important; }
