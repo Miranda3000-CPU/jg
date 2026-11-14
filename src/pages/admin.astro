@@ -611,7 +611,7 @@ import { SITE_TITLE } from '../consts';
 
 			fPreview.addEventListener('change', () => {
 				if (fPreview.checked) {
-					previewBox.innerHTML = marked.parse(fConteudo.innerHTML) as string;
+					previewBox.innerHTML = marked.parse(htmlToMarkdown(fConteudo.innerHTML)) as string;
 					previewBox.hidden = false;
 				} else {
 					previewBox.hidden = true;
@@ -691,13 +691,14 @@ import { SITE_TITLE } from '../consts';
 			});
 			for (const button of document.querySelectorAll<HTMLButtonElement>('.toolbar button')) {
 				button.addEventListener('click', () => {
-					const start=fConteudo.selectionStart,end=fConteudo.selectionEnd,selected=fConteudo.value.slice(start,end);
-					const wrap=button.dataset.wrap,prefix=button.dataset.prefix;
-					if(wrap){const replacement=selected?wrap+selected+wrap:wrap+wrap;fConteudo.setRangeText(replacement,start,end,'select');if(!selected)fConteudo.setSelectionRange(start+wrap.length,start+wrap.length);}
-					else if(prefix){const lineStart=fConteudo.value.lastIndexOf('\\n',Math.max(0,start-1))+1;fConteudo.setRangeText(prefix,lineStart,lineStart,'end');}
-					fConteudo.focus();fConteudo.dispatchEvent(new Event('input',{bubbles:true}));
+					const command = button.dataset.command;
+					fConteudo.focus();
+					if (command === 'formatBlock') document.execCommand(command, false, button.dataset.value || 'P');
+					else if (command) document.execCommand(command, false);
+					fConteudo.dispatchEvent(new Event('input', { bubbles: true }));
 				});
 			}
+
 			const themeButton=$<HTMLButtonElement>('btn-tema');
 			const applyTheme=(theme:string)=>{document.body.dataset.theme=theme;themeButton.textContent=theme==='dark'?'☀️ Tema claro':'🌙 Tema escuro';localStorage.setItem('jg-theme',theme);};
 			applyTheme(localStorage.getItem('jg-theme')||'dark');
