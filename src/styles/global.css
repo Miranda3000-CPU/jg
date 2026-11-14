@@ -247,27 +247,28 @@ pre, iframe, video { max-width: 100%; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
-/* Paleta de tema do portfólio: sem dependência de design system externo. */
+/* Tema visual do portfólio: cabeçalho, hero e áreas de interesse em azul-marinho.
+   A área de projetos permanece clara no tema padrão, como na referência. */
 :root {
   color-scheme: light;
-  --site-night: #f5f7fb;
-  --site-night-2: #e9eef7;
-  --site-card: #ffffff;
-  --site-border: #d8dfeb;
-  --site-text: #172033;
-  --site-muted: #59677f;
+  --site-night: #0b1428;
+  --site-night-2: #172642;
+  --site-card: #17233b;
+  --site-border: #293957;
+  --site-text: #f7f9ff;
+  --site-muted: #c2cde0;
   --site-blue: #2f7bff;
-  --site-page: #ffffff;
+  --site-page: #f5f7fb;
   --site-page-text: #111827;
 }
 :root.dark {
   color-scheme: dark;
-  --site-night: #0f172a;
-  --site-night-2: #1b2438;
-  --site-card: #1b2438;
-  --site-border: #303d55;
+  --site-night: #080f1e;
+  --site-night-2: #111d33;
+  --site-card: #141f35;
+  --site-border: #27344c;
   --site-text: #f8fafc;
-  --site-muted: #c1ccdf;
+  --site-muted: #b9c5d8;
   --site-blue: #2f7bff;
   --site-page: #0d1117;
   --site-page-text: #e6edf3;
