@@ -15,20 +15,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = FallbackImage } = Astro.props;
 const imageUrl = typeof image === 'string' ? new URL(image, Astro.url) : new URL(image.src, Astro.url);
 ---
+<meta name="theme-color" content="#ffffff" />
 <script is:inline>
   (() => {
     const saved = localStorage.getItem('theme');
     const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-    document.documentElement.classList.toggle('dark', saved ? saved === 'dark' : Boolean(prefersDark));
+    const dark = saved ? saved === 'dark' : Boolean(prefersDark);
+    document.documentElement.classList.toggle('dark', dark);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0d1117' : '#ffffff');
   })();
 </script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@primer/css@21.0.9/dist/primer.css" />
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href="/images/dtic-round.png" />
 <link rel="apple-touch-icon" href="/icon-192.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
-<meta name="theme-color" content="#0d1117" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
 <meta name="generator" content={Astro.generator} />
