@@ -7,7 +7,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Analytics from '@vercel/analytics/astro'
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { readingMode?: 'formal' | 'editorial' };
 
 const { title, description, pubDate, updatedDate, heroImage, author, readingMode = 'editorial' } = Astro.props;
 
