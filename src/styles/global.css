@@ -1,65 +1,38 @@
 @import "@primer/css/dist/primer.css";
-/* GitHub Primer-inspired design tokens and global foundations. */
+@import "@primer/primitives/dist/css/primitives.css";
+@import "@primer/primitives/dist/css/functional/themes/light.css";
+@import "@primer/primitives/dist/css/functional/themes/dark.css";
+
+/* Legacy site styles resolve through Primer's official functional tokens. */
 :root {
-  color-scheme: light;
-  --color-canvas-default: #ffffff;
-  --color-canvas-overlay: #ffffff;
-  --color-canvas-inset: #f6f8fa;
-  --color-canvas-subtle: #f6f8fa;
-  --color-border-default: #d1d9e0;
-  --color-border-muted: #d8dee4;
-  --color-fg-default: #1f2328;
-  --color-fg-muted: #59636e;
-  --color-fg-subtle: #6e7781;
-  --color-accent-fg: #0969da;
-  --color-accent-emphasis: #0969da;
-  --color-accent-subtle: #ddf4ff;
-  --color-success-fg: #1a7f37;
-  --color-success-emphasis: #1f883d;
-  --color-danger-fg: #d1242f;
-  --color-neutral-muted: #afb8c133;
-  --color-shadow-small: 0 1px 0 rgba(31,35,40,.04);
-  --color-shadow-medium: 0 3px 6px rgba(31,35,40,.12);
-  --accent: #0969da;
-  --accent-dark: #0550ae;
+  --color-canvas-default: var(--bgColor-default, #ffffff);
+  --color-canvas-overlay: var(--overlay-bgColor, #ffffff);
+  --color-canvas-inset: var(--bgColor-inset, #f6f8fa);
+  --color-canvas-subtle: var(--bgColor-muted, #f6f8fa);
+  --color-border-default: var(--borderColor-default, #d1d9e0);
+  --color-border-muted: var(--borderColor-muted, #d8dee4);
+  --color-fg-default: var(--fgColor-default, #1f2328);
+  --color-fg-muted: var(--fgColor-muted, #656d76);
+  --color-fg-subtle: var(--fgColor-muted, #6e7781);
+  --color-accent-fg: var(--fgColor-accent, #0969da);
+  --color-accent-emphasis: var(--bgColor-accent-emphasis, #0969da);
+  --color-accent-subtle: var(--bgColor-accent-muted, #ddf4ff);
+  --color-success-fg: var(--fgColor-success, #1a7f37);
+  --color-success-emphasis: var(--bgColor-success-emphasis, #1f883d);
+  --color-danger-fg: var(--fgColor-danger, #d1242f);
+  --color-neutral-muted: var(--bgColor-muted, #afb8c133);
+  --color-shadow-small: var(--shadow-resting-small, 0 1px 0 rgba(31,35,40,.04));
+  --color-shadow-medium: var(--shadow-resting-medium, 0 3px 6px rgba(31,35,40,.12));
+  --accent: var(--fgColor-accent, #0969da);
+  --accent-dark: var(--bgColor-accent-emphasis, #0550ae);
   --black: 31, 35, 40;
   --gray: 89, 99, 110;
   --gray-light: 209, 217, 224;
   --gray-dark: 31, 35, 40;
-  --bg-color: var(--color-canvas-default);
-  --header-bg: rgba(255,255,255,.92);
-  --box-shadow: var(--color-shadow-medium);
+  --bg-color: var(--bgColor-default, #ffffff);
+  --header-bg: var(--bgColor-default, #ffffff);
+  --box-shadow: var(--shadow-resting-medium, 0 3px 6px rgba(31,35,40,.12));
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
-}
-:root.dark {
-  color-scheme: dark;
-  --color-canvas-default: #0d1117;
-  --color-canvas-overlay: #161b22;
-  --color-canvas-inset: #010409;
-  --color-canvas-subtle: #161b22;
-  --color-border-default: #30363d;
-  --color-border-muted: #21262d;
-  --color-fg-default: #e6edf3;
-  --color-fg-muted: #9198a1;
-  --color-fg-subtle: #6e7681;
-  --color-accent-fg: #4493f8;
-  --color-accent-emphasis: #1f6feb;
-  --color-accent-subtle: #121d2f;
-  --color-success-fg: #3fb950;
-  --color-success-emphasis: #238636;
-  --color-danger-fg: #f85149;
-  --color-neutral-muted: #6e768166;
-  --color-shadow-small: 0 1px 0 rgba(1,4,9,.4);
-  --color-shadow-medium: 0 3px 6px rgba(1,4,9,.4);
-  --accent: #4493f8;
-  --accent-dark: #1f6feb;
-  --black: 230, 237, 243;
-  --gray: 145, 152, 161;
-  --gray-light: 48, 54, 61;
-  --gray-dark: 230, 237, 243;
-  --bg-color: var(--color-canvas-default);
-  --header-bg: rgba(13,17,23,.92);
-  --box-shadow: var(--color-shadow-medium);
 }
 * { box-sizing: border-box; }
 html { min-width: 320px; scroll-behavior: smooth; background: var(--color-canvas-default); }
@@ -218,23 +191,7 @@ iframe, video { max-width: 100%; }
 }
 
 
-/* Accessibility pass: keep text and icon contrast predictable in both themes. */
-:root {
-  --color-fg-muted: #57606a;
-  --color-fg-subtle: #656d76;
-  --color-accent-fg: #0550ae;
-  --color-accent-emphasis: #0969da;
-  --color-success-fg: #116329;
-  --color-danger-fg: #a40e26;
-}
-:root.dark {
-  --color-fg-muted: #b1bac4;
-  --color-fg-subtle: #9da7b3;
-  --color-accent-fg: #71b7ff;
-  --color-accent-emphasis: #388bfd;
-  --color-success-fg: #56d364;
-  --color-danger-fg: #ff7b72;
-}
+/* Functional icons inherit Primer foreground tokens in both themes. */
 /* Never dim functional icons through inherited opacity or low-contrast utility colors. */
 svg.lucide, svg[data-lucide], button svg, a svg, .icon {
   flex-shrink: 0;
