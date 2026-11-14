@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/npm/@primer/css@22.3.2/dist/primer.css");
 /* GitHub Primer-inspired design tokens and global foundations. */
 :root {
   color-scheme: light;
@@ -126,7 +127,7 @@ label, .rotulo { color: var(--color-fg-muted); font-size: 14px; font-weight: 600
 footer { color: var(--color-fg-muted) !important; border-top: 1px solid var(--color-border-muted); }
 
 /* Primer-aligned overrides for the utility classes still present on the home page. */
-body .bg-white, body .dark\\:bg-black { background-color: var(--color-canvas-default) !important; }
+body .bg-white { background-color: var(--color-canvas-default) !important; }
 body [class*="border-slate-"], body [class*="border-neutral-"] { border-color: var(--color-border-default) !important; }
 body [class*="text-slate-"], body [class*="text-neutral-"] { color: var(--color-fg-muted) !important; }
 body [class*="text-emerald-"] { color: var(--color-accent-fg) !important; }
