@@ -4,8 +4,8 @@
   <span class="switch-knob" aria-hidden="true"></span>
 </button>
 <style>
-.theme-switch{position:relative;display:inline-flex;align-items:center;width:54px;height:32px;padding:3px;border:1px solid #64748b;border-radius:999px;background:#26334a;cursor:pointer;transition:background .2s,border-color .2s}
-.switch-knob{display:block;width:24px;height:24px;border-radius:50%;background:#e2e8f0;box-shadow:0 1px 4px #0006;transition:transform .2s,background .2s}
+.theme-switch{position:relative;display:inline-flex;align-items:center;width:58px;min-width:58px;height:34px;flex:0 0 58px;padding:3px;border:1px solid #64748b;border-radius:999px;background:#26334a;cursor:pointer;transition:background .2s,border-color .2s}
+.switch-knob{display:block;width:24px;height:24px;flex:0 0 24px;border-radius:50%;background:#e2e8f0;box-shadow:0 1px 4px #0006;transition:transform .2s,background .2s}
 :global(html.dark) .theme-switch{background:#2f7bff;border-color:#60a5fa}
 :global(html.dark) .switch-knob{transform:translateX(22px);background:#fff}
 .theme-switch:focus-visible{outline:2px solid #58a6ff;outline-offset:3px}
@@ -18,7 +18,7 @@
     const dark=root.classList.contains('dark');
     button?.setAttribute('aria-pressed',String(dark));
     button?.setAttribute('aria-label',dark?'Ativar tema claro':'Ativar tema escuro');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0d1117':'#0f172a');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#0d1117':'#f5f7fb');
   };
   button?.addEventListener('click',()=>{
     const dark=root.classList.toggle('dark');
