@@ -188,7 +188,7 @@ const projects = [
 				bottom: 1.4rem;
 				width: 2px;
 				border-radius: 2px;
-				background: linear-gradient(180deg, #438cff 0%, #31527f 78%, rgba(49,82,127,0) 100%);
+				background: linear-gradient(180deg, #438cff 0%, #438cff 100%);
 			}
 			.project-card {
 				position: relative;
@@ -197,12 +197,12 @@ const projects = [
 				gap: .9rem;
 				min-width: 0;
 				padding: 1.35rem 1.5rem;
-				border: 1px solid #304563;
+				border: 1px solid #3b5274;
 				border-radius: 1.15rem;
-				background: linear-gradient(120deg, #1a2b48 0%, #14233b 68%, #17243b 100%);
+				background: #172943;
 				color: #e6edf7;
-				box-shadow: 0 12px 30px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.035);
-				transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+				box-shadow: 0 10px 26px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.045);
+				transition: transform .18s ease, border-color .18s ease, background .18s ease;
 			}
 			.project-card::before {
 				content: "";
@@ -214,12 +214,12 @@ const projects = [
 				border: 3px solid #0d172b;
 				border-radius: 50%;
 				background: #60a5fa;
-				box-shadow: 0 0 0 2px #3b82f6, 0 0 16px rgba(59,130,246,.32);
+				box-shadow: 0 0 0 2px #3b82f6;
 			}
 			.project-card:hover {
 				transform: translateX(4px);
 				border-color: #6b94d0;
-				box-shadow: 0 16px 36px rgba(0,0,0,.28), 0 0 0 1px rgba(96,165,250,.12);
+				box-shadow: 0 12px 28px rgba(0,0,0,.3);
 			}
 			.project-header {
 				display: flex;
@@ -237,7 +237,7 @@ const projects = [
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background: rgba(59,130,246,.13);
+				background: #203b60;
 				color: #8dbaff;
 			}
 			.project-icon :global(svg) { width: 100%; height: 100%; }
@@ -260,7 +260,7 @@ const projects = [
 				padding: .35rem .7rem;
 				border: 1px solid rgba(105,145,205,.25);
 				border-radius: 999px;
-				background: rgba(8,18,35,.38);
+				background: #102039;
 				color: #9fc2f3;
 				font-size: .8rem;
 				font-weight: 650;
@@ -273,7 +273,7 @@ const projects = [
 				padding: .65rem 1rem;
 				border: 1px solid rgba(91,148,235,.5);
 				border-radius: 999px;
-				background: rgba(47,123,255,.16);
+				background: #203f69;
 				color: #c7ddff;
 				font-weight: 700;
 				text-decoration: none;
@@ -281,7 +281,7 @@ const projects = [
 			}
 			.project-card a:hover {
 				border-color: #6ba5ff;
-				background: rgba(47,123,255,.28);
+				background: #2a5286;
 				text-decoration: none;
 			}
 			.project-card a:focus-visible {
@@ -309,7 +309,7 @@ const projects = [
 			
 			<ul class="portfolio-grid">
 				{projects.map((project) => (
-					<li class="project-card neon-glow">
+					<li class="project-card">
 						<div class="project-header">
 							<div class="project-icon" set:html={project.icon} />
 							<h3>{project.name}</h3>
