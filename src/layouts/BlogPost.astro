@@ -191,7 +191,24 @@ const image = heroImage
 			.pix-card a:hover {
 				background: #116329;
 			}
-		</style>
+		
+			@media (max-width: 720px) {
+				main { width: calc(100% - 24px); }
+				.prose { width: 100%; max-width: 100%; padding: 1rem 0; font-size: 1rem; line-height: 1.75; }
+				.title { text-align: left; padding: .75rem 0 1rem; }
+				.title h1 { font-size: clamp(1.75rem, 7vw, 2.25rem); line-height: 1.2; }
+				.hero-image { margin-inline: -12px; width: calc(100% + 24px); }
+				.hero-image img { width: 100%; border-radius: 0; }
+				.pix-card { align-items: flex-start; flex-wrap: wrap; }
+				.pix-card a { margin-left: 0; }
+				.share-button { width: 100%; justify-content: center; min-height: 44px; }
+			}
+			.prose :global(p) { margin: 0 0 1.25em; line-height: inherit; }
+			.prose :global(h2) { margin: 1.8em 0 .65em; }
+			.prose :global(h3) { margin: 1.4em 0 .5em; }
+			.prose :global(li) { margin-block: .35em; }
+			.prose :global(img) { max-width: 100%; height: auto; }
+</style>
 		<Analytics />
 	</head>
 
