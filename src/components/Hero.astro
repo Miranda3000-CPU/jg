@@ -1,0 +1,18 @@
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <h1 id="hero-title">Olá, eu sou <span>Jeiel Miranda</span></h1>
+    <div class="intro"><p>Desenvolvedor, servidor público e cristão.</p><p>Aqui compartilho meus projetos, aprendizados e reflexões sobre tecnologia e vida.</p></div>
+    <div class="hero-actions"><a class="button primary" href="/portfolio/"><span aria-hidden="true">‹/›</span> Ver Projetos</a><a class="button secondary" href="/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A3.5 3.5 0 0 1 6.5 2H21v18H6.5A3.5 3.5 0 0 0 3 23zM3 5.5v14A3.5 3.5 0 0 1 6.5 16H21"/></svg> Ler o Blog</a></div>
+  </div>
+  <div class="hero-art"><img src="/images/jeiel-casal-pixel.webp" alt="Jeiel e sua companheira em pixel art, sorrindo sob um céu azul noturno com um coração vermelho." fetchpriority="high" width="1536" height="863"/></div>
+</section>
+<style>
+.hero{display:grid;grid-template-columns:minmax(440px,.88fr) minmax(0,1.12fr);align-items:center;min-height:514px;padding:0 3.2vw;overflow:hidden;background:#0f172a;color:#f8fafc}
+.hero-copy{position:relative;z-index:2;max-width:650px;padding:42px 0}.hero h1{margin:0 0 28px;color:#f8fafc!important;font-size:clamp(54px,5.7vw,84px);font-weight:800;line-height:1.04;letter-spacing:-.055em}.hero h1 span{display:block;color:#2f7bff}
+.intro{max-width:620px;margin:0 0 26px;padding:0 0 0 24px;border-left:7px solid #2f7bff;border-radius:5px}.intro p{margin:0;color:#e2e8f0;font-size:clamp(18px,1.65vw,24px);line-height:1.45}.intro p+p{font-weight:550}
+.hero-actions{display:flex;flex-wrap:wrap;gap:20px}.button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:64px;padding:0 28px;border:1px solid #cbd5e1;border-radius:999px;color:#f8fafc;font-size:18px;font-weight:700;text-decoration:none;transition:transform .16s,background .16s}.button:hover{transform:translateY(-2px);text-decoration:none}.button.primary{border-color:#2f7bff;background:#2f7bff}.button.primary:hover{background:#1d65df}.button.secondary{background:transparent}.button.secondary:hover{background:#1e293b}.button span{font-size:25px}.button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hero-art{align-self:stretch;min-width:0;min-height:514px;margin-right:-3.2vw;overflow:hidden}.hero-art img{display:block;width:100%;height:100%;min-height:514px;object-fit:cover;object-position:center center;image-rendering:pixelated;border-radius:0}
+@media(max-width:900px){.hero{grid-template-columns:minmax(340px,.95fr) 1.05fr}.hero h1{font-size:clamp(46px,6vw,64px)}.hero-art,.hero-art img{min-height:460px}}
+@media(max-width:700px){.hero{display:flex;flex-direction:column;align-items:stretch;gap:20px;padding:34px 20px 0}.hero-copy{padding:0}.hero h1{font-size:clamp(43px,10vw,62px);margin-bottom:20px}.intro{padding-left:15px;border-left-width:5px}.intro p{font-size:17px}.hero-actions{gap:10px}.button{flex:1;min-height:54px;padding:0 14px;font-size:15px}.hero-art{width:calc(100% + 40px);min-height:0;height:auto;aspect-ratio:1536/863;margin:0 -20px}.hero-art img{min-height:0;height:100%;object-fit:cover}}
+@media(max-width:390px){.hero-actions{flex-direction:column}.button{width:100%}}
+</style>
