@@ -9,7 +9,7 @@ import Analytics from '@vercel/analytics/astro'
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, author, readingMode = 'editorial' } = Astro.props;
 
 const image = heroImage
 	? typeof heroImage === 'string' && heroImage.endsWith('.svg')
@@ -201,6 +201,9 @@ const image = heroImage
 			.prose :global(ul), .prose :global(ol) {padding-left:1.5rem;margin:0 0 1.25em;}
 			.prose :global(li) {padding-left:.2rem;margin:.4em 0;}
 			.prose :global(blockquote) {margin:1.5em 0;padding:1rem 1.25rem;border-left:3px solid #3b82f6;background:#14233a;border-radius:0 10px 10px 0;}
+			.prose-formal :global(p) {text-align:justify;text-indent:1.25cm;hyphens:auto;}
+			.prose-formal :global(p:first-of-type) {margin-top:0;}
+			.prose-formal :global(blockquote), .prose-formal :global(li) {text-align:left;}
 			.prose :global(p) { margin: 0 0 1.25em; line-height: inherit; }
 			.prose :global(h2) { margin: 1.8em 0 .65em; }
 			.prose :global(h3) { margin: 1.4em 0 .5em; }
@@ -217,7 +220,7 @@ const image = heroImage
 				<div class="hero-image">
 					{heroImage && (typeof heroImage === 'string' ? <img src={heroImage} alt="" loading="lazy" /> : <Image width={768} height={432} src={heroImage} alt="" />)}
 				</div>
-				<div class="prose">
+				<div class:list={["prose", { "prose-formal": readingMode === "formal" }]} >
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
