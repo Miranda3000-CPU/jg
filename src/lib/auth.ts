@@ -24,7 +24,8 @@ function users(): CmsUser[] {
     typeof (item as CmsUser).name === 'string' &&
     typeof (item as CmsUser).password === 'string' &&
     (item as CmsUser).username.length > 0 &&
-    (item as CmsUser).password.length >= 12
+    (item as CmsUser).password.length >= 12 &&
+    ['Jeiel Miranda', 'Giovanna Miranda'].includes((item as CmsUser).name)
   );
 }
 
