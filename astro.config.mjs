@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://jeielmiranda.com.br',
+	prefetch: true,
 	adapter: vercel(),
 	integrations: [
 		mdx(), 
