@@ -145,3 +145,39 @@ body [class*="shadow-sm"] { box-shadow: var(--color-shadow-small) !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Higher-specificity route-level normalization for legacy page styles. */
+body .cartao, body .cert-card, body .conc-stat, body .conc-hero, body .pix-card-detail,
+body .pix-card, body .project-highlight, body .preview, body .conc-busca,
+body .conc-chip, body .certifications > li {
+  background-color: var(--color-canvas-default) !important;
+  color: var(--color-fg-default) !important;
+  border-color: var(--color-border-default) !important;
+  border-radius: 6px !important;
+  box-shadow: var(--color-shadow-small) !important;
+}
+:root.dark body .cartao, :root.dark body .cert-card, :root.dark body .conc-stat,
+:root.dark body .conc-hero, :root.dark body .pix-card-detail, :root.dark body .pix-card,
+:root.dark body .project-highlight, :root.dark body .preview, :root.dark body .conc-busca {
+  background: var(--color-canvas-overlay) !important;
+  color: var(--color-fg-default) !important;
+}
+body .cert-card h3, body .project-highlight h2, body .faq-item h3,
+body .pix-card-detail .key, body .pix-card-detail .label { color: var(--color-fg-default) !important; }
+body .cert-card p, body .faq-item p, body .pix-card-detail .note { color: var(--color-fg-muted) !important; }
+body .pix-card-detail .key { background: var(--color-canvas-subtle) !important; border-color: var(--color-border-default) !important; }
+body .pix-card, body .pix-card-detail { border: 1px solid var(--color-border-default) !important; }
+body .pix-card a { background: var(--color-success-emphasis) !important; color: #fff !important; }
+body .btn, body .btn-secundario, body .share-button, body .project-links a {
+  border-radius: 6px !important; box-shadow: var(--color-shadow-small) !important;
+}
+body .btn { background: var(--color-success-emphasis) !important; border: 1px solid rgba(31,35,40,.15) !important; color: #fff !important; }
+body .btn-secundario { background: var(--color-canvas-subtle) !important; color: var(--color-fg-default) !important; border: 1px solid var(--color-border-default) !important; }
+body .pwa-top-banner { background: var(--color-canvas-subtle) !important; color: var(--color-fg-default) !important; border-bottom: 1px solid var(--color-border-default); }
+body .pwa-top-banner button { color: var(--color-fg-default) !important; border: 1px solid var(--color-border-default) !important; border-radius: 6px !important; }
+body .conc-chips { background: var(--color-canvas-default) !important; }
+body .conc-chip[aria-pressed="true"], body .conc-chip.active { background: var(--color-accent-subtle) !important; border-color: var(--color-accent-fg) !important; color: var(--color-accent-fg) !important; }
+body .timeline-year { color: var(--color-accent-fg) !important; border-color: var(--color-border-default) !important; }
+body .prose { color: var(--color-fg-default) !important; }
+body .prose p { color: var(--color-fg-default); }
+body .profile-photo img { border-color: var(--color-border-default) !important; }
