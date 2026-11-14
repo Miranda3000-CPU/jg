@@ -188,7 +188,8 @@ body .profile-photo img { border-color: var(--color-border-default) !important; 
 html { scroll-padding-top: 5rem; }
 body { min-width: 320px; }
 main, article, section, .prose { min-width: 0; }
-p, li, a, button, input, textarea { overflow-wrap: anywhere; }
+p, li, td, th { overflow-wrap: anywhere; }
+a { overflow-wrap: anywhere; }
 button, [role="button"], .btn, .btn-secundario, .share-button {
   min-height: 40px;
 }
