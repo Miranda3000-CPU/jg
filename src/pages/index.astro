@@ -5,303 +5,117 @@ import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const projects = [
-	{
-		title: 'DD Diário Dela',
-		description: 'Rastreio menstrual com privacidade primeiro: dados locais no dispositivo, sem nuvem e sem servidor.',
-		href: 'https://ddela.vercel.app/',
-		icon: 'heart-pulse',
-		tags: ['Astro', 'Privacidade', 'Local Storage']
-	},
-	{
-		title: 'Provérbios do Dia',
-		description: 'O livro de Provérbios contém 31 capítulos. Aprofunde na leitura, 1 dia por vez.',
-		href: 'https://miranda3000-cpu.github.io/Proverb-Day/',
-		icon: 'book-open-text',
-		tags: ['Devocional', 'Web']
-	},
-	{
-		title: 'Concursos no Brasil',
-		description: 'Concursos públicos abertos por estado e nacional, com consulta rápida de órgãos e vagas.',
-		href: '/concursos',
-		icon: 'landmark',
-		tags: ['Utilidade Pública', 'Dados Abertos']
-	}
-];
-
-const experience = [
-	{
-		title: 'Segurança Digital & Formação',
-		description: 'Formado pela UNAMA e pós-graduado na área de Segurança Cibernética.',
-		href: '/about/',
-		icon: 'shield',
-	},
-	{
-		title: 'CBMPA',
-		description: 'Trabalhando na infraestrutura de segurança do Corpo de Bombeiros Militar do Pará.',
-		href: 'https://bombeiros.pa.gov.br',
-		icon: 'siren',
-	},
-	{
-		title: 'Comunidade DCiber',
-		description: 'Criada por especialistas em segurança cibernética para promover conhecimento.',
-		href: 'https://dciber.org/quem-somos/',
-		icon: 'shield-check',
-	}
-];
-
-const socials = [
-	{
-		title: 'GitHub',
-		href: 'https://github.com/Miranda3000-CPU',
-		icon: 'github',
-		isGithub: true,
-	},
-	{
-		title: 'WhatsApp',
-		href: 'https://wa.me/5591988544585?text=Vim%20pelo%20site!',
-		icon: 'message-circle-heart',
-	}
+  { title: 'Provérbios do Dia', description: 'Uma experiência devocional para ler e refletir sobre um capítulo de Provérbios por dia.', href: 'https://miranda3000-cpu.github.io/Proverb-Day/', category: 'Fé · Web' },
+  { title: 'Concursos no Brasil', description: 'Consulta de concursos públicos por estado, órgão e oportunidades disponíveis.', href: '/concursos/', category: 'Utilidade pública' },
+  { title: 'MeuVerso', description: 'Projeto pessoal voltado à leitura, escrita e compartilhamento de poesia.', href: 'https://github.com/Miranda3000-CPU/MeuVerso', category: 'Aplicativo' },
+  { title: 'Quiz Jeiel', description: 'Quiz bíblico para aprender, testar conhecimentos e compartilhar com outras pessoas.', href: 'https://github.com/Miranda3000-CPU/quiz-jeiel', category: 'Estudo · Web' },
 ];
 ---
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <script is:inline src="https://cdn.tailwindcss.com"></script>
-    <script is:inline>
-      tailwind.config = {
-        darkMode: 'class',
-      }
-    </script>
-    <script is:inline src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style is:global>
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            background-color: transparent;
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in-down { animation: fadeInDown 0.8s ease-out; }
-        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out 0.2s backwards; }
-        ::selection { background-color: #10b981; color: white; }
-        
-        #rss-content p { margin-bottom: 0.5rem; font-size: 0.875rem; color: #94a3b8; line-height: 1.5; }
-        #rss-content a { display: none; }
-    </style>
-</head>
-<body class="text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} /></head>
+<body>
+  <Header />
+  <main id="main-content" tabindex="-1" class="home-main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">TECNOLOGIA · FÉ · PROPÓSITO</p>
+        <h1 id="hero-title">Olá, eu sou <span>Jeiel Miranda</span></h1>
+        <p class="hero-lead">Desenvolvedor, profissional de tecnologia e servidor público.</p>
+        <p class="hero-description">Aqui compartilho projetos, aprendizados e reflexões sobre tecnologia, segurança digital e vida.</p>
+        <div class="hero-actions">
+          <a class="Button Button--primary Button--large" href="/portfolio/">Ver projetos <span aria-hidden="true">↗</span></a>
+          <a class="Button Button--large" href="/blog/">Ler o blog <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-meta">
+          <a href="https://github.com/Miranda3000-CPU" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <span aria-hidden="true">·</span>
+          <a href="mailto:jeielmirand@bombeiros.pa.gov.br">Entrar em contato</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="pixel-frame">
+          <img src="/profile.jpeg" alt="Retrato de Jeiel Miranda" width="480" height="560" fetchpriority="high" />
+        </div>
+        <span class="pixel-heart" aria-hidden="true">♥</span>
+        <span class="pixel-caption">Construindo com propósito</span>
+      </div>
+    </section>
 
-    <Header />
+    <section class="interest-grid" aria-label="Temas do site">
+      <a class="interest-card" href="/portfolio/"><span class="interest-icon blue">⌘</span><span><strong>Tecnologia</strong><small>Desenvolvimento e TI</small></span><span class="arrow">→</span></a>
+      <a class="interest-card" href="/about/"><span class="interest-icon green">✓</span><span><strong>Segurança digital</strong><small>Privacidade e cibersegurança</small></span><span class="arrow">→</span></a>
+      <a class="interest-card" href="/concursos/"><span class="interest-icon amber">★</span><span><strong>Concursos</strong><small>Estudos e oportunidades</small></span><span class="arrow">→</span></a>
+      <a class="interest-card" href="/about/"><span class="interest-icon violet">✝</span><span><strong>Fé</strong><small>Deus em primeiro lugar</small></span><span class="arrow">→</span></a>
+    </section>
 
-    <div class="flex flex-col items-center py-12 px-4 sm:px-6 w-full flex-grow">
-        
-        <!-- Hero Section -->
-        <header class="flex flex-col md:flex-row items-center gap-8 mb-16 max-w-4xl w-full animate-fade-in-down">
-            <div class="relative group cursor-pointer transition-transform hover:scale-105 duration-300 flex-shrink-0">
-                <div class="absolute inset-0 bg-emerald-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-                <div class="neon-glow w-40 h-40 rounded-full overflow-hidden border-4 border-white dark:border-neutral-800 shadow-lg relative z-10 bg-slate-900 flex items-center justify-center">
-                    <img src="/profile.jpeg" alt="Jeiel Miranda" class="w-full h-full object-cover" />
-                </div>
-                <div class="absolute bottom-2 right-2 z-20 bg-white p-1.5 rounded-full shadow-md border border-slate-100">
-                    <div class="bg-emerald-500 w-4 h-4 rounded-full animate-pulse" title="Online & Seguro"></div>
-                </div>
-            </div>
+    <section class="projects-section" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">O QUE ESTOU CONSTRUINDO</p><h2 id="projects-title">Meus projetos</h2><p>Ideias transformadas em soluções e experiências.</p></div>
+        <a class="Button" href="/portfolio/">Ver todos os projetos <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="project-grid">
+        {projects.map((project) => (
+          <a class="project-card" href={project.href} target={project.href.startsWith('http') ? '_blank' : undefined} rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+            <span class="project-mark" aria-hidden="true">✳</span>
+            <span class="project-category">{project.category}</span>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            <span class="project-link">Conhecer projeto <span aria-hidden="true">↗</span></span>
+          </a>
+        ))}
+      </div>
+    </section>
 
-            <div class="text-center md:text-left flex-1">
-                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Jeiel Miranda</h1>
-                <p class="text-slate-600 dark:text-slate-300 text-lg max-w-xl leading-relaxed mb-6 mx-auto md:mx-0">
-                    Especialista em Cibersegurança & Desenvolvedor.<br>
-                    <span class="text-emerald-600 dark:text-emerald-400 font-medium">Protegendo dados, garantindo o futuro.</span>
-                </p>
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                    <button id="copyBtn" class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-full text-sm font-medium hover:bg-emerald-700 transition-all active:scale-95 shadow-sm group">
-                        <i data-lucide="mail" id="mailIcon" class="w-4 h-4 group-hover:hidden"></i>
-                        <i data-lucide="check" class="w-4 h-4 hidden text-white" id="checkIcon"></i>
-                        <span id="emailText">jeielmirand@bombeiros.pa.gov.br</span>
-                    </button>
-                    {socials.map(social => (
-                        <a href={social.href} target="_blank" rel="noopener noreferrer" class="p-2.5 bg-white border border-slate-200 rounded-full text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 transition-all shadow-sm">
-                            {social.isGithub ? (
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="text-black" aria-label="GitHub logo">
-                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.38.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.74-1.33-1.74-1.09-.75.08-.74.08-.74 1.2.08 1.84 1.22 1.84 1.22 1.08 1.84 2.82 1.31 3.5 1 .11-.78.42-1.31.77-1.62-2.67-.3-5.47-1.33-5.47-5.94 0-1.31.47-2.39 1.23-3.23-.12-.3-.53-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.65 1.65.24 2.87.12 3.17.76.84 1.22 1.92 1.22 3.23 0 4.62-2.8 5.63-5.48 5.93.43.37.82 1.1.82 2.23 0 1.61-.01 2.9-.01 3.29 0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0Z" />
-                                </svg>
-                            ) : (
-                                <i data-lucide={social.icon} class="w-4 h-4"></i>
-                            )}
-                            <span class="sr-only">{social.title}</span>
-                        </a>
-                    ))}
-                </div>
-            </div>
-        </header>
-
-        <main id="main-content" tabindex="-1" class="w-full max-w-4xl animate-fade-in-up flex flex-col gap-12 mb-12">
-
-            <!-- Apresentação -->
-            <section>
-                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6">
-                    Olá! 👋
-                </h2>
-                <div class="p-6 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-sm">
-                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-                        Cuido da infraestrutura do <strong class="text-slate-900 dark:text-slate-100">Corpo de Bombeiros Militar do Pará (CBMPA)</strong>, com dedicação e para a glória de Deus. 🙏
-                    </p>
-                    <ul class="space-y-3 mb-5">
-                        <li class="flex items-center gap-3 text-sm">
-                            <span class="flex-shrink-0">🌐</span>
-                            <span class="text-slate-500 dark:text-slate-400">Site:</span>
-                            <a href="https://jeielmiranda.com.br" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">jeielmiranda.com.br</a>
-                        </li>
-                        <li class="flex items-center gap-3 text-sm">
-                            <span class="flex-shrink-0">💻</span>
-                            <span class="text-slate-500 dark:text-slate-400">GitHub:</span>
-                            <a href="https://github.com/Miranda3000-CPU" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">@Miranda3000-CPU</a>
-                        </li>
-                        <li class="flex items-center gap-3 text-sm">
-                            <span class="flex-shrink-0">✉️</span>
-                            <span class="text-slate-500 dark:text-slate-400">Contato:</span>
-                            <a href="mailto:jeielmirand@bombeiros.pa.gov.br" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline break-all">jeielmirand@bombeiros.pa.gov.br</a>
-                        </li>
-                        <li class="flex items-center gap-3 text-sm">
-                            <span class="flex-shrink-0">🚒</span>
-                            <span class="text-slate-500 dark:text-slate-400">CBMPA:</span>
-                            <a href="https://www.bombeiros.pa.gov.br" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">bombeiros.pa.gov.br</a>
-                        </li>
-                    </ul>
-                    <p class="text-xs text-slate-400 dark:text-slate-500 border-l-2 border-emerald-200 dark:border-emerald-800 pl-3 leading-relaxed">
-                        Minha conta anterior era <a href="https://github.com/Jeiel0rbit" target="_blank" rel="noopener noreferrer" class="text-emerald-600 dark:text-emerald-400 hover:underline">@Jeiel0rbit</a>. O e-mail associado a ela foi desvinculado.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Projetos Section -->
-            <section>
-                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
-                    <i data-lucide="folder-git-2" class="text-emerald-500"></i> Projetos em Destaque
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {projects.map(project => (
-                        <a href={project.href} target="_blank" rel="noopener noreferrer" class="neon-glow group flex flex-col p-6 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-700 transition-all duration-300">
-                            <div class="flex items-start justify-between mb-4">
-                                <div class="p-3 bg-slate-50 dark:bg-neutral-900 text-slate-700 dark:text-slate-300 rounded-xl group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/30 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                                    <i data-lucide={project.icon} class="w-6 h-6"></i>
-                                </div>
-                                <i data-lucide="external-link" class="w-5 h-5 text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors"></i>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">{project.title}</h3>
-                            <p class="text-slate-600 dark:text-slate-400 mb-4 flex-grow text-sm leading-relaxed">{project.description}</p>
-                            <div class="flex flex-wrap gap-2 mt-auto">
-                                {project.tags.map(tag => (
-                                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-neutral-900 text-slate-600 dark:text-slate-400 text-xs font-medium rounded-full">{tag}</span>
-                                ))}
-                            </div>
-                        </a>
-                    ))}
-                </div>
-            </section>
-
-            <!-- Experiência & Formação -->
-            <section>
-                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
-                    <i data-lucide="briefcase" class="text-emerald-500"></i> Experiência & Formação
-                </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {experience.map(item => (
-                        <a href={item.href} class="group p-5 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="p-2 bg-slate-50 dark:bg-neutral-900 text-slate-600 dark:text-slate-300 rounded-lg group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/30 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                                    <i data-lucide={item.icon} class="w-5 h-5"></i>
-                                </div>
-                                <h3 class="font-semibold text-slate-900 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-tight">{item.title}</h3>
-                            </div>
-                            <p class="text-sm text-slate-500 dark:text-slate-400">{item.description}</p>
-                        </a>
-                    ))}
-                </div>
-            </section>
-
-            <!-- Seção de Feed RSS (Dica do Dia) -->
-            <section id="rss-container" class="hidden">
-                <a id="rss-link" href="#" target="_blank" class="block p-6 bg-slate-900 dark:bg-neutral-900 rounded-2xl shadow-lg text-white relative overflow-hidden group transition-transform hover:-translate-y-1 border border-transparent dark:border-slate-700">
-                    <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-emerald-500 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                    <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <div class="w-full">
-                            <div class="flex items-center gap-2 mb-2">
-                                <i data-lucide="rss" class="text-emerald-400 w-4 h-4"></i>
-                                <span class="text-emerald-400 font-bold text-xs tracking-wider uppercase">Dica do Dia • CERT.br</span>
-                            </div>
-                            <h3 id="rss-title" class="text-xl font-bold mb-2">Carregando dica...</h3>
-                            <div id="rss-content" class="text-slate-400 text-sm max-w-2xl"></div>
-                        </div>
-                        <div class="mt-2 sm:mt-0 px-5 py-2.5 bg-white text-slate-900 dark:bg-black dark:text-white dark:border dark:border-neutral-800 text-sm font-bold rounded-xl group-hover:bg-emerald-50 group-hover:text-emerald-700 dark:group-hover:bg-emerald-900/30 dark:group-hover:text-emerald-400 dark:group-hover:border-emerald-700 transition-all whitespace-nowrap">
-                            Ler detalhado
-                        </div>
-                    </div>
-                </a>
-            </section>
-
-        </main>
-    </div>
-    <Footer />
-
-    <script is:inline>
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-
-        const copyBtn = document.getElementById('copyBtn');
-        if (copyBtn) {
-            copyBtn.addEventListener('click', function() {
-                const email = "jeielmirand@bombeiros.pa.gov.br";
-                const emailText = document.getElementById('emailText');
-                const checkIcon = document.getElementById('checkIcon');
-                
-                const textArea = document.createElement("textarea");
-                textArea.value = email;
-                document.body.appendChild(textArea);
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    emailText.innerText = "Copiado!";
-                    checkIcon.classList.remove("hidden");
-                    checkIcon.style.display = "inline-block";
-                    const mailIcon = document.getElementById('mailIcon');
-                    if (mailIcon) mailIcon.style.display = 'none';
-                    setTimeout(() => {
-                        emailText.innerText = email;
-                        checkIcon.classList.add("hidden");
-                        checkIcon.style.display = "none";
-                        if (mailIcon) mailIcon.style.display = 'inline-block';
-                    }, 2000);
-                } catch (err) { console.error('Falha ao copiar', err); }
-                document.body.removeChild(textArea);
-            });
-        }
-
-        async function loadRSS() {
-            const RSS_URL = "https://cartilha.cert.br/rss/cartilha-rss.xml";
-            const PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
-            try {
-                const response = await fetch(PROXY_URL);
-                const data = await response.json();
-                if (data.status === 'ok' && data.items.length > 0) {
-                    const item = data.items[0]; 
-                    document.getElementById('rss-title').innerText = item.title;
-                    document.getElementById('rss-link').href = item.link;
-                    document.getElementById('rss-content').innerHTML = item.description;
-                    document.getElementById('rss-container').classList.remove('hidden');
-                    document.getElementById('rss-container').classList.add('animate-fade-in-up');
-                }
-            } catch (error) { console.error("Erro ao carregar RSS:", error); }
-        }
-        loadRSS();
-    </script>
+    <section class="about-strip">
+      <div><p class="eyebrow">UM POUCO SOBRE MIM</p><h2>Tecnologia com responsabilidade e propósito.</h2><p>Atuo com tecnologia da informação e segurança digital. Também valorizo a fé, o aprendizado contínuo e o desenvolvimento de soluções úteis.</p></div>
+      <a class="Button Button--primary" href="/about/">Conheça minha trajetória <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+  <Footer />
 </body>
 </html>
+<style>
+  .home-main{width:min(1440px,100% - 48px);padding:0 0 64px}
+  .hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.9fr);align-items:center;gap:clamp(32px,6vw,90px);min-height:510px;padding:64px clamp(8px,4vw,56px) 56px;overflow:hidden;border-bottom:1px solid var(--borderColor-default,var(--color-border-default))}
+  .hero:before{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 78% 42%,rgba(9,105,218,.16),transparent 48%);content:""}
+  .eyebrow{margin:0 0 14px;color:var(--fgColor-accent,var(--color-accent-fg));font-size:11px;font-weight:700;letter-spacing:.13em}
+  .hero h1{max-width:680px;margin:0 0 22px;font-size:clamp(42px,5.2vw,72px);font-weight:750;line-height:1.03;letter-spacing:-.055em}
+  .hero h1 span{display:block;color:var(--fgColor-accent,var(--color-accent-fg))}
+  .hero-lead{max-width:590px;margin:0 0 8px;font-size:clamp(18px,2vw,23px);font-weight:600;line-height:1.4}
+  .hero-description{max-width:560px;margin:0;color:var(--fgColor-muted,var(--color-fg-muted));font-size:17px;line-height:1.7}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .hero-actions .Button{display:inline-flex;align-items:center;gap:12px;min-height:48px;padding-inline:22px;border-radius:6px;font-size:15px}
+  .hero-meta{display:flex;gap:12px;margin-top:24px;color:var(--fgColor-muted,var(--color-fg-muted));font-size:13px}
+  .hero-meta a{color:inherit;text-decoration:none}.hero-meta a:hover{color:var(--fgColor-accent,var(--color-accent-fg));text-decoration:underline}
+  .hero-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:380px}
+  .pixel-frame{position:relative;width:min(100%,440px);height:390px;overflow:hidden;border:1px solid var(--borderColor-default,var(--color-border-default));border-radius:8px;background:#0d1117;box-shadow:0 18px 50px rgba(1,4,9,.2)}
+  .pixel-frame:after{position:absolute;inset:0;border:8px solid rgba(255,255,255,.04);pointer-events:none;content:""}
+  .pixel-frame img{width:100%;height:100%;object-fit:cover;object-position:center 30%;image-rendering:auto}
+  .pixel-heart{position:absolute;top:10px;right:12%;color:#f85149;font-size:42px;text-shadow:3px 3px 0 #7d1b27}
+  .pixel-caption{position:absolute;right:20px;bottom:18px;padding:8px 12px;color:#fff;background:rgba(13,17,23,.82);border:1px solid rgba(255,255,255,.18);border-radius:4px;font-size:12px}
+  .interest-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:24px 0 58px}
+  .interest-card{display:flex;align-items:center;gap:12px;min-width:0;padding:16px;border:1px solid var(--borderColor-default,var(--color-border-default));border-radius:8px;color:var(--fgColor-default,var(--color-fg-default));background:var(--bgColor-muted,var(--color-canvas-subtle));text-decoration:none;transition:border-color .15s,transform .15s}
+  .interest-card:hover{border-color:var(--borderColor-accent-emphasis,var(--color-accent-fg));transform:translateY(-2px);text-decoration:none}
+  .interest-card>span:nth-child(2){display:grid;gap:3px;min-width:0}.interest-card strong{font-size:14px}.interest-card small{color:var(--fgColor-muted,var(--color-fg-muted));font-size:12px}
+  .interest-icon{display:grid;flex:0 0 42px;place-items:center;width:42px;height:42px;border-radius:7px;font-size:23px;font-weight:700}
+  .blue{color:#0969da;background:#ddf4ff}.green{color:#1a7f37;background:#dafbe1}.amber{color:#9a6700;background:#fff8c5}.violet{color:#8250df;background:#fbefff}
+  .arrow{margin-left:auto;color:var(--fgColor-muted,var(--color-fg-muted));font-size:20px}
+  .projects-section{padding:8px 0 58px}
+  .section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:24px}
+  .section-heading .eyebrow{margin-bottom:8px}.section-heading h2,.about-strip h2{margin:0 0 7px;font-size:clamp(28px,3vw,38px);letter-spacing:-.04em}
+  .section-heading p:not(.eyebrow){margin:0;color:var(--fgColor-muted,var(--color-fg-muted))}
+  .project-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .project-card{display:flex;flex-direction:column;min-height:230px;padding:20px;border:1px solid var(--borderColor-default,var(--color-border-default));border-radius:8px;color:var(--fgColor-default,var(--color-fg-default));background:var(--bgColor-default,var(--color-canvas-default));text-decoration:none;transition:border-color .15s,box-shadow .15s,transform .15s}
+  .project-card:hover{border-color:var(--borderColor-accent-emphasis,var(--color-accent-fg));box-shadow:0 8px 24px rgba(31,35,40,.08);transform:translateY(-2px);text-decoration:none}
+  .project-mark{display:grid;place-items:center;width:42px;height:42px;margin-bottom:16px;color:#fff;background:#0969da;border-radius:8px;font-size:23px}
+  .project-category{color:var(--fgColor-muted,var(--color-fg-muted));font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .project-card h3{margin:5px 0 8px;font-size:18px}.project-card p{margin:0 0 18px;color:var(--fgColor-muted,var(--color-fg-muted));font-size:13px;line-height:1.6}
+  .project-link{display:flex;justify-content:space-between;gap:8px;margin-top:auto;color:var(--fgColor-accent,var(--color-accent-fg));font-size:13px;font-weight:600}
+  .about-strip{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:30px;border:1px solid var(--borderColor-default,var(--color-border-default));border-radius:8px;background:var(--bgColor-muted,var(--color-canvas-subtle))}
+  .about-strip>div{max-width:760px}.about-strip .eyebrow{margin-bottom:8px}.about-strip p:last-child{margin:0;color:var(--fgColor-muted,var(--color-fg-muted));line-height:1.7}
+  .about-strip .Button{flex:0 0 auto}
+  @media(max-width:1000px){.hero{grid-template-columns:1fr  .8fr;gap:24px;padding-inline:12px}.interest-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:700px){.home-main{width:calc(100% - 28px)}.hero{grid-template-columns:1fr;gap:22px;padding:44px 0 32px}.hero-copy{text-align:left}.hero h1{font-size:clamp(40px,11vw,58px)}.hero-description{font-size:15px}.hero-art{min-height:0}.pixel-frame{height:340px;max-width:420px}.interest-grid{gap:9px;padding:18px 0 42px}.interest-card{padding:12px;gap:9px}.interest-icon{flex-basis:36px;width:36px;height:36px}.interest-card strong{font-size:13px}.interest-card small{font-size:11px}.section-heading{align-items:start;flex-direction:column}.project-grid{grid-template-columns:1fr}.project-card{min-height:190px}.about-strip{align-items:start;flex-direction:column;padding:22px}}
+  @media(max-width:390px){.interest-grid{grid-template-columns:1fr}.pixel-frame{height:300px}}
+</style>
