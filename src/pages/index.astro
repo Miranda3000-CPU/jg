@@ -105,6 +105,16 @@ const projects = [
 .project-icon{display:grid;place-items:center;flex:0 0 58px;width:58px;height:58px;border-radius:16px;color:white;font-size:28px;font-weight:800}
 .project-icon.blue{background:linear-gradient(135deg,#3b9cff,#2764e8)}.project-icon.purple{background:linear-gradient(135deg,#9381ff,#6b5be7)}.project-icon.green{background:linear-gradient(135deg,#20b981,#07966d)}.project-icon.yellow{background:linear-gradient(135deg,#ffc34c,#f0a51c)}
 .project-copy{display:grid;gap:5px;min-width:0}.project-copy strong{overflow-wrap:anywhere;color:#101828;font-size:19px;font-weight:750;line-height:1.2}.project-copy small{color:#59677f;font-size:15px;line-height:1.35}
+:global(html.dark) .home-page{background:#0d1117}
+:global(html.dark) .projects-section{background:#0d1117;color:#e6edf3}
+:global(html.dark) .section-heading h2{color:#e6edf3!important}
+:global(html.dark) .section-heading p{color:#9da7b3}
+:global(html.dark) .all-projects{color:#e6edf3;border-color:#57606a;background:#161b22}
+:global(html.dark) .all-projects:hover{background:#21262d}
+:global(html.dark) .project-card{background:#161b22;border-color:#30363d;color:#e6edf3}
+:global(html.dark) .project-card:hover{border-color:#2f81f7;box-shadow:0 8px 22px #0005}
+:global(html.dark) .project-copy strong{color:#e6edf3}
+:global(html.dark) .project-copy small{color:#9da7b3}
 @media(min-width:1500px){.hero{min-height:590px}.interest-card{min-height:108px}.project-card{min-height:120px}}
 @media(max-width:1100px){.site-nav{gap:12px}.site-links :global(a){padding-inline:9px;font-size:14px}.hero{grid-template-columns:minmax(360px,.9fr) 1.1fr}.hero-art{left:38%}.interest-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.hero{display:flex;flex-direction:column;align-items:stretch;gap:22px;min-height:0;padding:42px 22px 0}.hero-copy{padding:0}.hero h1{font-size:clamp(42px,11vw,62px);margin-bottom:20px}.hero-intro{padding-left:16px;border-left-width:5px}.hero-intro p{font-size:17px}.hero-actions{gap:10px}.hero-button{flex:1;min-height:54px;padding-inline:14px;font-size:15px}.hero-button span{font-size:20px}.hero-art{position:relative;inset:auto;height:300px;margin:0 -22px}.hero-art:after{background:linear-gradient(180deg,#0c1426 0%,transparent 28%)}.pixel-heart{top:10%;left:55%;font-size:36px}.interest-grid{grid-template-columns:1fr 1fr;gap:10px;padding:14px}.interest-card{min-height:82px;padding:12px;gap:10px;border-radius:16px}.interest-icon{flex-basis:34px;width:34px;height:38px;font-size:27px}.interest-copy strong{font-size:14px;white-space:normal}.interest-copy small{font-size:11px;white-space:normal}.interest-arrow{font-size:24px}.projects-section{padding:28px 16px 42px}.section-heading{align-items:flex-start;flex-direction:column;gap:16px}.section-heading h2{font-size:32px}.section-heading p{font-size:15px}.all-projects{min-height:46px;font-size:13px}.project-grid{grid-template-columns:1fr;gap:10px}.project-card{min-height:88px;padding:13px 15px;border-radius:14px}.project-icon{flex-basis:48px;width:48px;height:48px;font-size:23px}.project-copy strong{font-size:16px}.project-copy small{font-size:13px}}
