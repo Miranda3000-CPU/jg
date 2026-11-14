@@ -40,17 +40,19 @@ const image = heroImage
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
+				width: min(100%, 68ch);
+				max-width: 100%;
+				margin: 0 auto;
+				padding: 1.5rem 1rem;
 				color: var(--color-fg-default);
+				font-size: 1.0625rem;
+				line-height: 1.75;
 			}
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;
 				text-align: center;
-				line-height: 1;
+				line-height: 1.25;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
