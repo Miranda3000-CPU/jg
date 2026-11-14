@@ -216,3 +216,63 @@ iframe, video { max-width: 100%; }
   h2 { font-size: 1.3rem; }
   pre { padding: 12px; font-size: .85rem; }
 }
+
+
+/* Accessibility pass: keep text and icon contrast predictable in both themes. */
+:root {
+  --color-fg-muted: #57606a;
+  --color-fg-subtle: #656d76;
+  --color-accent-fg: #0550ae;
+  --color-accent-emphasis: #0969da;
+  --color-success-fg: #116329;
+  --color-danger-fg: #a40e26;
+}
+:root.dark {
+  --color-fg-muted: #b1bac4;
+  --color-fg-subtle: #9da7b3;
+  --color-accent-fg: #71b7ff;
+  --color-accent-emphasis: #388bfd;
+  --color-success-fg: #56d364;
+  --color-danger-fg: #ff7b72;
+}
+/* Never dim functional icons through inherited opacity or low-contrast utility colors. */
+svg.lucide, svg[data-lucide], button svg, a svg, .icon {
+  flex-shrink: 0;
+  color: currentColor;
+  opacity: 1;
+}
+button svg, a svg { stroke: currentColor; }
+button:disabled, [aria-disabled="true"] { opacity: .72; }
+:root.dark button:disabled, :root.dark [aria-disabled="true"] { opacity: .78; }
+body [class*="text-slate-"], body [class*="text-neutral-"] {
+  color: var(--color-fg-muted) !important;
+}
+body [class*="text-emerald-"] { color: var(--color-success-fg) !important; }
+:root.dark body [class*="text-emerald-"] { color: var(--color-success-fg) !important; }
+a { text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+::selection { color: #ffffff; background: #0550ae; }
+:root.dark ::selection { color: #0d1117; background: #a5d6ff; }
+
+@media (max-width: 720px) {
+  body { font-size: 16px !important; line-height: 1.65 !important; }
+  main { width: calc(100% - 32px); }
+  article { width: 100%; min-width: 0; }
+  .prose { max-width: 100%; padding: 12px 0; }
+  .prose p { margin-block: 0 1.15em; }
+  .prose h2 { margin-block: 1.8em .65em; }
+  .prose h3 { margin-block: 1.45em .5em; }
+  .prose ul, .prose ol { padding-left: 1.35rem; }
+  .prose li { margin-block: .35em; }
+  .prose img, article img { height: auto; }
+  .hero-image { margin-inline: -16px; width: calc(100% + 32px); }
+  .hero-image img { width: 100%; border-radius: 0; }
+  .title { text-align: left; }
+  .title h1 { line-height: 1.2; }
+  .share-wrapper { justify-content: stretch; }
+  .share-button { width: 100%; }
+}
+@media (max-width: 380px) {
+  body { font-size: 15.5px !important; }
+  main { width: calc(100% - 24px); }
+}
