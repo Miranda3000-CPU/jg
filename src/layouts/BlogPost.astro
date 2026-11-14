@@ -201,7 +201,7 @@ const image = heroImage
 			<button class="close-btn" id="closePwaBanner">&times;</button>
 		</div>
 		<Header />
-		<main>
+		<main id="main-content" tabindex="-1">
 			<article>
 				<div class="hero-image">
 					{heroImage && (typeof heroImage === 'string' ? <img src={heroImage} alt="" loading="lazy" /> : <Image width={768} height={432} src={heroImage} alt="" />)}
