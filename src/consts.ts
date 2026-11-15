@@ -1,5 +1,3 @@
-// Place any global data in this file.
-// You can import this data from anywhere in your site by using the `import` keyword.
-
-export const SITE_TITLE = 'JG <3';
-export const SITE_DESCRIPTION = 'Blog pessoal de Jeiel Miranda, onde compartilho minhas experiências, pensamentos e projetos relacionados a tecnologia, programação e desenvolvimento web. Bem-vindo ao meu espaço digital!';
+// Informações centrais utilizadas nos metadados e títulos do site.
+export const SITE_TITLE = 'Jeiel Miranda | Tecnologia, Desenvolvimento e Segurança Digital';
+export const SITE_DESCRIPTION = 'Portfólio e blog pessoal de Jeiel Miranda. Conheça projetos, artigos e conteúdos sobre tecnologia, programação, desenvolvimento web e segurança digital.';

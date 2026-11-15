@@ -7,7 +7,7 @@
 </section>
 <style>
 .interest-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.5vw,22px);padding:24px 2.2vw 36px;background:var(--site-night);border-bottom:1px solid var(--site-border)}
-.interest-card{display:flex;flex:0 1 calc(20% - 18px);align-items:center;gap:13px;min-width:0;min-height:92px;padding:14px 16px;border:1px solid var(--site-border);border-radius:18px;background:var(--site-card);color:var(--site-text);text-decoration:none;transition:transform .16s,border-color .16s,background .16s}
+.interest-card{box-sizing:border-box;display:flex;flex:0 1 calc(20% - 18px);align-items:center;gap:13px;min-width:0;min-height:92px;padding:14px 16px;border:1px solid var(--site-border);border-radius:18px;background:var(--site-card);color:var(--site-text);text-decoration:none;transition:transform .16s,border-color .16s,background .16s}
 .interest-card:hover{transform:translateY(-2px);border-color:#6281b8;background:#1c2d4a;text-decoration:none}
 .icon{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px}.icon svg{width:38px;height:38px;fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
 .blue{color:#60a5fa}.green{color:#34d399}.amber{color:#fbbf24}.violet{color:#a78bfa}

@@ -1,16 +1,46 @@
 ---
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
-import FallbackImage from '../assets/welcome.jpeg';
 import { SITE_TITLE } from '../consts';
-interface Props { title: string; description: string; image?: ImageMetadata | string; }
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata | string;
+}
+
+const { title, description, image = '/images/jeiel-casal-pixel.webp' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = FallbackImage } = Astro.props;
-const imageUrl = typeof image === 'string' ? new URL(image, Astro.url) : new URL(image.src, Astro.url);
+const imagePath = typeof image === 'string' ? image : image.src;
+const imageUrl = new URL(imagePath, Astro.site);
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://jeielmiranda.com.br/#website',
+      url: 'https://jeielmiranda.com.br/',
+      name: SITE_TITLE,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': 'https://jeielmiranda.com.br/#person' }
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://jeielmiranda.com.br/#person',
+      name: 'Jeiel Miranda',
+      url: 'https://jeielmiranda.com.br/',
+      image: imageUrl.href,
+      description: 'Desenvolvedor e profissional de Tecnologia da Informação, com atuação em tecnologia, programação e segurança digital.'
+    }
+  ]
+};
 ---
-<meta name="theme-color" content="#0b1428" />
 <meta charset="utf-8" />
+<script is:inline>try{document.documentElement.dataset.theme=localStorage.getItem("jg-theme")||"dark"}catch{document.documentElement.dataset.theme="dark"}</script>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0b1428" />
+<meta name="author" content="Jeiel Miranda" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="icon" type="image/png" href="/images/dtic-round.png" />
 <link rel="apple-touch-icon" href="/icon-192.png" />
 <link rel="manifest" href="/manifest.webmanifest" />
@@ -22,12 +52,21 @@ const imageUrl = typeof image === 'string' ? new URL(image, Astro.url) : new URL
 <meta name="title" content={title} />
 <meta name="description" content={description} />
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={imageUrl} />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={imageUrl} />
+<meta property="og:image" content={imageUrl.href} />
+<meta property="og:image:secure_url" content={imageUrl.href} />
+<meta property="og:image:type" content={imagePath.endsWith('.webp') ? 'image/webp' : undefined} />
+<meta property="og:image:width" content="1536" />
+<meta property="og:image:height" content="863" />
+<meta property="og:image:alt" content="Jeiel Miranda e sua companheira em uma ilustração pixel art sob um céu azul noturno." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl.href} />
+<meta name="twitter:image:alt" content="Jeiel Miranda e sua companheira em uma ilustração pixel art sob um céu azul noturno." />
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
