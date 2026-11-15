@@ -209,6 +209,12 @@ const image = heroImage
 			.prose :global(h3) { margin: 1.4em 0 .5em; }
 			.prose :global(li) { margin-block: .35em; }
 			.prose :global(img) { max-width: 100%; height: auto; }
+:global(html[data-theme="light"]) .prose{color:var(--site-text)}
+:global(html[data-theme="light"]) .prose :global(blockquote){background:#eff6ff;color:#334155;border-left-color:#2563eb}
+:global(html[data-theme="light"]) .pix-card{background:linear-gradient(135deg,#ecfdf5 0%,#f0fdf4 100%);border-color:#a7f3d0;color:#14532d}
+:global(html[data-theme="light"]) .pix-card .pix-label,:global(html[data-theme="light"]) .pix-card .pix-key{color:#166534}
+:global(html[data-theme="light"]) .pix-card a{background:#15803d;color:#fff}
+:global(html[data-theme="light"]) .share-button{background:#fff;color:#1e293b;border-color:#cbd5e1}
 </style>
 		<Analytics />
 	</head>

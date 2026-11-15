@@ -2,7 +2,8 @@
 const links = [
   { href: '/', label: 'Início', icon: 'home' },
   { href: '/about/', label: 'Sobre', icon: 'user' },
-  { href: '/portfolio/', label: 'Projetos', icon: 'briefcase' },
+  { href: '/projetos/', label: 'Projetos', icon: 'briefcase' },
+  { href: '/portfolio/', label: 'Formação', icon: 'graduation' },
   { href: '/blog/', label: 'Blog', icon: 'book' },
   { href: '/concursos/', label: 'Concursos', icon: 'trophy' },
   { href: 'mailto:jeielmirand@bombeiros.pa.gov.br', label: 'Contato', icon: 'mail' },
@@ -23,11 +24,12 @@ const current = Astro.url.pathname;
         {link.icon === 'briefcase' && <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 12h18M10 12v2h4v-2"/></svg>}
         {link.icon === 'book' && <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22zM4 4.5v15A2.5 2.5 0 0 1 6.5 17H20"/></svg>}
         {link.icon === 'trophy' && <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H3v2a5 5 0 0 0 5 5M17 6h4v2a5 5 0 0 1-5 5"/></svg>}
+        {link.icon === 'graduation' && <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5zM6 11v5c3.5 2.6 8.5 2.6 12 0v-5M22 9v7"/></svg>}
         {link.icon === 'mail' && <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m3 6 9 7 9-7"/></svg>}
         <span>{link.label}</span>
       </a>)}
     </nav>
-    <div class="actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Alternar tema claro e escuro">☀️</button><a class="github" href="https://github.com/Miranda3000-CPU" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.31-3.76-1.31-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.06 1.14a10.6 10.6 0 0 1 5.57 0c2.12-1.44 3.06-1.14 3.06-1.14.61 1.53.23 2.67.11 2.95.72.78 1.15 1.77 1.15 2.99 0 4.29-2.61 5.24-5.1 5.51.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg></a></div>
+    <div class="actions"><button class="theme-toggle" id="theme-toggle" data-theme-toggle type="button" aria-label="Alternar tema claro e escuro">☀️</button><a class="github" href="https://github.com/Miranda3000-CPU" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.31-3.76-1.31-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.7-1.49-2.48-.28-5.09-1.24-5.09-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.06 1.14a10.6 10.6 0 0 1 5.57 0c2.12-1.44 3.06-1.14 3.06-1.14.61 1.53.23 2.67.11 2.95.72.78 1.15 1.77 1.15 2.99 0 4.29-2.61 5.24-5.1 5.51.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg></a></div>
   </div>
 </header>
 <style>
@@ -35,22 +37,9 @@ const current = Astro.url.pathname;
 .site-header{position:sticky;top:0;z-index:50;background:var(--site-night);color:var(--site-text);border-bottom:1px solid var(--site-border)}
 .header-inner{width:min(1500px,100%);min-height:94px;margin:auto;padding:0 32px;display:grid;grid-template-columns:400px minmax(0,1fr) auto;align-items:center;gap:24px}
 .brand{display:flex;align-items:center;gap:14px;min-width:0;color:var(--site-text);text-decoration:none}.brand img{width:68px;height:68px;align-self:center;object-fit:cover;object-position:center 24%;image-rendering:pixelated;border-radius:50%}.brand span{display:grid;gap:3px}.brand strong{font-size:21px;line-height:1.2;font-weight:750;white-space:nowrap}.brand small{font-size:16px;color:var(--site-muted);white-space:nowrap}
-nav{height:94px;display:flex;align-items:center;gap:6px;justify-content:center}nav a{position:relative;display:flex;align-items:center;gap:10px;padding:0 15px;min-height:48px;border:1px solid transparent;border-radius:12px;color:var(--site-text);text-decoration:none;font-size:17px;font-weight:600;white-space:nowrap;transition:background .16s,border-color .16s,color .16s}nav a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}nav a:hover{color:#fff;background:#1a2b48;border-color:#344969}nav a.active{color:#fff;background:rgba(47,123,255,.17);border-color:rgba(80,139,255,.45);box-shadow:inset 0 0 0 1px rgba(47,123,255,.08)}nav a.active:after{content:none}
-.theme-toggle{display:grid;place-items:center;width:42px;height:42px;border:1px solid #526987;border-radius:50%;background:#172642;color:#f8fafc;font-size:19px;cursor:pointer}.theme-toggle:hover{background:#263d60;border-color:#93c5fd}
+nav{height:94px;display:flex;align-items:center;gap:6px;justify-content:center}nav a{position:relative;display:flex;align-items:center;gap:10px;padding:0 15px;min-height:48px;border:1px solid transparent;border-radius:12px;color:var(--site-text);text-decoration:none;font-size:17px;font-weight:600;white-space:nowrap;transition:background .16s,border-color .16s,color .16s}nav a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}nav a:hover{color:var(--site-text);background:var(--site-night-2);border-color:var(--site-border)}nav a.active{color:var(--site-text);background:rgba(47,123,255,.14);border-color:rgba(80,139,255,.45);box-shadow:inset 0 0 0 1px rgba(47,123,255,.08)}nav a.active:after{content:none}
+.theme-toggle{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--site-border);border-radius:50%;background:var(--site-card);color:var(--site-text);font-size:19px;cursor:pointer}.theme-toggle:hover{background:var(--site-night-2);border-color:var(--site-blue)}
 .actions{display:flex;align-items:center;gap:12px;padding-left:18px;border-left:1px solid var(--site-border)}.github{display:grid;place-items:center;width:46px;height:46px;margin-left:8px;border:1px solid #64748b;border-radius:50%;color:var(--site-text)}.github svg{width:26px;height:26px;fill:currentColor}
 @media(max-width:1400px){.header-inner{grid-template-columns:1fr auto;gap:8px;padding-inline:22px}nav{grid-column:1/-1;grid-row:2;height:54px;overflow-x:auto;justify-content:flex-start}nav a{padding-inline:16px}.site-header .header-inner{padding-bottom:0}}
 @media(max-width:650px){.theme-toggle{width:36px;height:36px;font-size:16px}.header-inner{min-height:76px;grid-template-columns:minmax(0,1fr) auto;padding-inline:14px}.brand img{width:52px;height:52px}.brand strong{font-size:15px}.brand small{font-size:11px}.actions{gap:6px;padding-left:8px}.github{width:34px;height:34px;margin-left:2px}.github svg{width:20px;height:20px}nav{margin:8px -6px 10px;height:52px;gap:6px;padding:3px 6px}nav a{min-height:42px;padding-inline:13px;font-size:13px;gap:7px;border-radius:12px}nav a svg{width:18px;height:18px}}
 </style>
-<script>
-  const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');
-  const currentTheme = () => document.documentElement.dataset.theme || 'dark';
-  const setTheme = (theme: string) => {
-    document.documentElement.dataset.theme = theme;
-    if (toggle) { toggle.textContent = theme === 'dark' ? '☀️' : '🌙'; toggle.setAttribute('aria-label', theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'); }
-    localStorage.setItem('jg-theme', theme);
-  };
-  if (toggle) {
-    setTheme(currentTheme());
-    toggle.addEventListener('click', () => setTheme(currentTheme() === 'dark' ? 'light' : 'dark'));
-  }
-</script>
