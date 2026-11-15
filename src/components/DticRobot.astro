@@ -1,109 +1,121 @@
 ---
 ---
-<section class="robot-stage" aria-label="Personagem DTIC animado">
-  <div class="robot-scene">
-    <div class="robot-figure" id="dtic-robot" role="img" aria-label="Robô DTIC em pixel art. Ele acena, respira suavemente e acompanha o ponteiro com os olhos.">
-      <img class="pose is-active" data-pose="wave" src="/images/dtic-robot/frame-wave-initial.webp" alt="" width="560" height="880" fetchpriority="high" decoding="async" />
-      <img class="pose" data-pose="pause" src="/images/dtic-robot/frame-pause.webp" alt="" width="560" height="880" decoding="async" />
-      <img class="pose" data-pose="breath" src="/images/dtic-robot/frame-breath.webp" alt="" width="560" height="880" decoding="async" />
-      <img class="pose" data-pose="wave-again" src="/images/dtic-robot/frame-wave-initial.webp" alt="" width="560" height="880" decoding="async" />
-      <span class="eye-tracker" aria-hidden="true"><i></i><i></i></span>
+<section class="robot-stage" aria-label="Apresentação de imagens do robô DTIC">
+  <div class="robot-slideshow" id="dtic-slideshow" aria-roledescription="apresentação de slides">
+    <div class="slides" aria-live="off">
+      <figure class="slide is-active" data-slide="0" aria-hidden="false">
+        <img src="/images/dtic-robot/frame-wave-initial.webp" alt="Robô DTIC na pose de saudação." width="560" height="880" fetchpriority="high" decoding="async" />
+        <figcaption>Saudação</figcaption>
+      </figure>
+      <figure class="slide" data-slide="1" aria-hidden="true" inert>
+        <img src="/images/dtic-robot/frame-pause.webp" alt="Robô DTIC em posição de espera." width="560" height="880" loading="lazy" decoding="async" />
+        <figcaption>Em espera</figcaption>
+      </figure>
+      <figure class="slide" data-slide="2" aria-hidden="true" inert>
+        <img src="/images/dtic-robot/frame-breath.webp" alt="Robô DTIC em uma pose alternativa." width="560" height="880" loading="lazy" decoding="async" />
+        <figcaption>Pose alternativa</figcaption>
+      </figure>
+      <figure class="slide" data-slide="3" aria-hidden="true" inert>
+        <img src="/images/dtic-robot/frame-wave-again.webp" alt="Robô DTIC em uma segunda pose de saudação." width="560" height="880" loading="lazy" decoding="async" />
+        <figcaption>Nova saudação</figcaption>
+      </figure>
     </div>
-    <span class="robot-glow" aria-hidden="true"></span>
+
+    <div class="slide-controls">
+      <button class="slide-arrow" type="button" data-action="previous" aria-label="Slide anterior">←</button>
+      <div class="slide-pagination" role="group" aria-label="Selecionar slide">
+        <button type="button" data-go="0" aria-label="Mostrar slide 1" aria-current="true"></button>
+        <button type="button" data-go="1" aria-label="Mostrar slide 2" aria-current="false"></button>
+        <button type="button" data-go="2" aria-label="Mostrar slide 3" aria-current="false"></button>
+        <button type="button" data-go="3" aria-label="Mostrar slide 4" aria-current="false"></button>
+      </div>
+      <button class="slide-arrow" type="button" data-action="next" aria-label="Próximo slide">→</button>
+      <button class="slide-play" type="button" data-action="toggle" aria-pressed="false">Pausar apresentação</button>
+    </div>
   </div>
 </section>
 
 <style>
   .robot-stage{display:flex;justify-content:center;padding:14px clamp(14px,3vw,36px) 34px;background:var(--site-page);border-top:1px solid var(--site-border)}
-  .robot-scene{position:relative;isolation:isolate;display:flex;align-items:flex-end;justify-content:center;width:min(100%,1040px);height:460px;overflow:hidden;border:1px solid var(--site-border);border-radius:26px;background:radial-gradient(ellipse at 50% 82%,rgba(37,99,235,.17),transparent 48%),linear-gradient(135deg,var(--site-night) 0%,var(--site-card) 52%,var(--site-night) 100%)}
-  .robot-scene:before{content:"";position:absolute;z-index:-1;inset:auto 16% -48% 16%;height:86%;border-radius:50%;background:radial-gradient(ellipse,rgba(59,130,246,.2),transparent 68%);filter:blur(12px)}
-  .robot-figure{position:relative;z-index:2;width:min(294px,64vw);height:100%;aspect-ratio:560/880;touch-action:pan-y;user-select:none;will-change:transform}
-  .pose{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;image-rendering:pixelated;opacity:0;transform:translate3d(0,7px,0) scale(.985);transform-origin:50% 100%;pointer-events:none;will-change:opacity,transform}
-  .pose.is-active{opacity:1;transform:translate3d(0,0,0) scale(1)}
-  .eye-tracker{position:absolute;inset:0;z-index:4;pointer-events:none;will-change:transform}
-  .eye-tracker i{position:absolute;top:9.3%;width:3%;height:1.1%;border-radius:50%;background:#e9fcff;box-shadow:0 0 5px 2px rgba(28,202,255,.95),0 0 13px 5px rgba(0,145,255,.62)}
-  .eye-tracker i:first-child{left:42.2%}.eye-tracker i:last-child{left:54.8%}
-  .robot-glow{position:absolute;z-index:1;right:0;bottom:0;left:0;height:1px;box-shadow:0 0 70px 28px rgba(37,99,235,.11)}
-  :global(html[data-theme="light"]) .robot-scene{background:radial-gradient(ellipse at 50% 82%,rgba(37,99,235,.10),transparent 48%),linear-gradient(135deg,#f8fafc 0%,#e8eef8 52%,#f8fafc 100%)}
-  @media(max-width:700px){.robot-stage{padding:10px 12px 24px}.robot-scene{height:390px;border-radius:20px}.robot-figure{width:min(250px,72vw)}}
-  @media(prefers-reduced-motion:reduce){.pose{transform:none!important}.robot-figure{transform:none!important}}
+  .robot-slideshow{position:relative;isolation:isolate;width:min(100%,1040px);overflow:hidden;border:1px solid var(--site-border);border-radius:26px;background:radial-gradient(ellipse at 50% 82%,rgba(37,99,235,.17),transparent 48%),linear-gradient(135deg,var(--site-night) 0%,var(--site-card) 52%,var(--site-night) 100%)}
+  .slides{position:relative;display:grid;min-height:480px;place-items:center;padding:22px 24px 12px}
+  .slide{grid-area:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;width:100%;height:100%;margin:0;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease}
+  .slide.is-active{opacity:1;visibility:visible}
+  .slide img{display:block;width:auto;height:auto;max-width:100%;max-height:430px;object-fit:contain;object-position:center;image-rendering:auto}
+  .slide figcaption{color:var(--site-muted);font-size:.86rem;font-weight:650;letter-spacing:.04em}
+  .slide-controls{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;padding:14px 18px 18px;border-top:1px solid var(--site-border)}
+  .slide-arrow,.slide-play,.slide-pagination button{min-height:40px;border:1px solid var(--site-border);background:var(--site-card);color:var(--site-text);cursor:pointer}
+  .slide-arrow{width:42px;border-radius:50%;font-size:1.25rem}
+  .slide-play{padding:0 14px;border-radius:999px;font:inherit;font-size:.82rem;font-weight:650}
+  .slide-arrow:hover,.slide-play:hover{border-color:var(--site-blue);background:var(--site-night-2)}
+  .slide-pagination{display:flex;align-items:center;gap:9px}
+  .slide-pagination button{width:9px;min-height:9px;height:9px;padding:0;border-radius:50%;background:var(--site-muted);opacity:.45}
+  .slide-pagination button[aria-current="true"]{width:24px;border-color:var(--site-blue);border-radius:999px;background:var(--site-blue);opacity:1}
+  .slide-arrow:focus-visible,.slide-play:focus-visible,.slide-pagination button:focus-visible{outline:3px solid var(--site-blue);outline-offset:3px}
+  :global(html[data-theme="light"]) .robot-slideshow{background:radial-gradient(ellipse at 50% 82%,rgba(37,99,235,.10),transparent 48%),linear-gradient(135deg,#f8fafc 0%,#e8eef8 52%,#f8fafc 100%)}
+  @media(max-width:700px){.robot-stage{padding:10px 12px 24px}.robot-slideshow{border-radius:20px}.slides{min-height:390px;padding:16px 12px 10px}.slide img{max-height:340px}.slide-controls{gap:12px;padding:12px}.slide-play{font-size:.78rem}}
+  @media(prefers-reduced-motion:reduce){.slide{transition:none}}
 </style>
 
 <script>
-  import { gsap } from 'gsap';
-
-  const robot = document.querySelector<HTMLElement>('#dtic-robot');
-  if (robot) {
-    const poses = Array.from(robot.querySelectorAll<HTMLImageElement>('[data-pose]'));
-    const poseMap = Object.fromEntries(poses.map((pose) => [pose.dataset.pose, pose])) as Record<string, HTMLImageElement>;
-    const tracker = robot.querySelector<HTMLElement>('.eye-tracker');
+  const slideshow = document.querySelector<HTMLElement>('#dtic-slideshow');
+  if (slideshow) {
+    const slides = Array.from(slideshow.querySelectorAll<HTMLElement>('[data-slide]'));
+    const indicators = Array.from(slideshow.querySelectorAll<HTMLButtonElement>('[data-go]'));
+    const toggle = slideshow.querySelector<HTMLButtonElement>('[data-action="toggle"]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let current = 0;
+    let paused = reducedMotion;
+    let interval: number | undefined;
 
-    // Decode all key poses before the first transition to prevent flashes and layout jumps.
-    Promise.all(poses.map((pose) => pose.decode().catch(() => undefined))).then(() => {
-      if (reducedMotion) return;
-
-      const figureMotion = gsap.to(robot, {
-        y: -5, duration: 2.25, repeat: -1, yoyo: true, ease: 'sine.inOut'
+    const show = (index: number) => {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        const active = i === current;
+        slide.classList.toggle('is-active', active);
+        slide.setAttribute('aria-hidden', String(!active));
+        if (active) slide.removeAttribute('inert');
+        else slide.setAttribute('inert', '');
       });
+      indicators.forEach((button, i) => button.setAttribute('aria-current', String(i === current)));
+    };
 
-      const showPose = (name: string, hold: number, breathing = false) => {
-        const next = poseMap[name];
-        if (!next) return;
-        const previous = poses.find((pose) => pose.classList.contains('is-active'));
-        if (previous && previous !== next) {
-          previous.classList.remove('is-active');
-          gsap.to(previous, { opacity: 0, y: 7, scale: .985, duration: .34, ease: 'power2.inOut', overwrite: true });
-        }
-        next.classList.add('is-active');
-        gsap.fromTo(next, { opacity: 0, y: 7, scale: .985 }, {
-          opacity: 1, y: 0, scale: 1, duration: .34, ease: 'power2.out', overwrite: true
-        });
-        if (breathing) {
-          gsap.to(next, {
-            scaleX: 1.008, scaleY: 1.012, y: -2, duration: 1.05,
-            repeat: 1, yoyo: true, ease: 'sine.inOut', onComplete: () => gsap.set(next, { clearProps: 'transform' })
-          });
-        }
-        return hold;
-      };
-
-      const sequence = [
-        { pose: 'wave', hold: 1250 },
-        { pose: 'pause', hold: 3000 },
-        { pose: 'breath', hold: 1700, breathing: true },
-        { pose: 'pause', hold: 3000 },
-        { pose: 'wave-again', hold: 1250 },
-        { pose: 'pause', hold: 3000 },
-        { pose: 'breath', hold: 1700, breathing: true },
-        { pose: 'pause', hold: 3000 }
-      ];
-      let index = 0;
-      const advance = () => {
-        const step = sequence[index];
-        showPose(step.pose, step.hold, step.breathing);
-        index = (index + 1) % sequence.length;
-        window.setTimeout(advance, step.hold);
-      };
-      // Start from the greeting pose, then let the robot settle into a calm idle.
-      gsap.set(poseMap.wave, { opacity: 1, y: 0, scale: 1 });
-      window.setTimeout(advance, 1250);
-
-      if (tracker) {
-        const moveX = gsap.quickTo(tracker, 'x', { duration: .22, ease: 'power3.out' });
-        const moveY = gsap.quickTo(tracker, 'y', { duration: .22, ease: 'power3.out' });
-        const moveEyes = (event: PointerEvent) => {
-          const bounds = robot.getBoundingClientRect();
-          const x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - .5) * 2));
-          const y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - .5) * 2));
-          moveX(x * 5);
-          moveY(y * 3);
-        };
-        const resetEyes = () => { moveX(0); moveY(0); };
-        robot.addEventListener('pointermove', moveEyes);
-        robot.addEventListener('pointerleave', resetEyes);
-        robot.addEventListener('pointercancel', resetEyes);
+    const stop = () => {
+      if (interval !== undefined) window.clearInterval(interval);
+      interval = undefined;
+    };
+    const start = () => {
+      stop();
+      if (paused || reducedMotion) return;
+      interval = window.setInterval(() => show(current + 1), 5000);
+    };
+    const setPaused = (value: boolean) => {
+      paused = value;
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.textContent = paused ? 'Reproduzir apresentação' : 'Pausar apresentação';
       }
+      start();
+    };
+
+    slideshow.querySelector('[data-action="previous"]')?.addEventListener('click', () => { show(current - 1); start(); });
+    slideshow.querySelector('[data-action="next"]')?.addEventListener('click', () => { show(current + 1); start(); });
+    indicators.forEach((button) => button.addEventListener('click', () => {
+      const target = Number(button.dataset.go);
+      if (Number.isInteger(target)) { show(target); start(); }
+    }));
+    toggle?.addEventListener('click', () => setPaused(!paused));
+
+    // Pause on hover or keyboard focus; resume only if the user did not pause manually.
+    slideshow.addEventListener('mouseenter', stop);
+    slideshow.addEventListener('mouseleave', start);
+    slideshow.addEventListener('focusin', stop);
+    slideshow.addEventListener('focusout', (event) => {
+      if (!slideshow.contains(event.relatedTarget as Node | null)) start();
     });
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+
+    show(0);
+    setPaused(reducedMotion);
   }
 </script>
