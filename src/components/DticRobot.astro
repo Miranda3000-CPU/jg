@@ -1,183 +1,390 @@
 ---
 ---
-<section class="dtic-robot" aria-label="Mascote DTIC">
+<section class="dtic-robot" aria-label="Mascote animado da DTIC">
   <div class="dtic-robot__stage">
-    <canvas class="dtic-robot__canvas" width="560" height="880" role="img" aria-label="Robô DTIC em pixel art: acena, pausa, respira e acena novamente. Os olhos acompanham o ponteiro.">
-      Robô DTIC em armadura vermelha e dourada.
+    <canvas
+      class="dtic-robot__canvas"
+      width="560"
+      height="880"
+      role="img"
+      aria-label="Robô DTIC em armadura vermelha, dourada e visor azul. Acena duas vezes, faz uma pausa e respira suavemente. Os olhos acompanham o ponteiro."
+    >
+      Robô humanoide em armadura vermelha e dourada, com visor azul e identificação DTIC.
     </canvas>
   </div>
 </section>
 
 <style>
-  .dtic-robot{display:grid;place-items:center;width:100%;padding:clamp(1rem,3vw,2rem);overflow:hidden;background:var(--site-page)}
-  .dtic-robot__stage{width:min(100%,25rem);aspect-ratio:560/880;position:relative}
-  .dtic-robot__canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
-  @media(prefers-reduced-motion:reduce){.dtic-robot__canvas{image-rendering:auto}}
+  .dtic-robot {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    padding: clamp(1rem, 3vw, 2rem);
+    overflow: hidden;
+    background: var(--site-page);
+  }
+
+  .dtic-robot__stage {
+    position: relative;
+    width: min(100%, 25rem);
+    aspect-ratio: 560 / 880;
+  }
+
+  .dtic-robot__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
 </style>
 
 <script>
   const canvas = document.querySelector<HTMLCanvasElement>('.dtic-robot__canvas');
-  const ctx = canvas?.getContext('2d');
+  const ctx = canvas?.getContext('2d', { alpha: true });
   if (canvas && ctx) {
-    const W = 560, H = 880;
+    const W = 560;
+    const H = 880;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const pointer = { x: 0, y: 0, active: false };
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const palette = {
+      ink: '#17101b',
+      inkSoft: '#302638',
+      red: '#d9142b',
+      redLight: '#ff4050',
+      redDark: '#870d25',
+      gold: '#f6ad20',
+      goldLight: '#ffe18a',
+      goldDark: '#ad6611',
+      steel: '#394354',
+      steelLight: '#68758a',
+      visor: '#06172d',
+      cyan: '#42eaff',
+      white: '#fff7e7',
+    };
     const start = performance.now();
-    const pixel = (v: number) => Math.round(v / 4) * 4;
+    let frame = 0;
+    let width = W;
+    let height = H;
 
-    const poly = (points: number[][], fill: string, stroke = '#160d16', line = 9) => {
-      ctx.beginPath();
-      points.forEach(([x,y],i) => i ? ctx.lineTo(x,y) : ctx.moveTo(x,y));
-      ctx.closePath(); ctx.fillStyle=fill; ctx.fill();
-      ctx.strokeStyle=stroke; ctx.lineWidth=line; ctx.lineJoin='miter'; ctx.stroke();
+    const smooth = (a: number, b: number, t: number) => {
+      const n = Math.max(0, Math.min(1, (t - a) / (b - a)));
+      return n * n * (3 - 2 * n);
     };
-    const rect = (x:number,y:number,w:number,h:number,fill:string,stroke='#160d16',line=8) => {
-      ctx.fillStyle=fill; ctx.fillRect(x,y,w,h);
-      if(line){ctx.strokeStyle=stroke;ctx.lineWidth=line;ctx.strokeRect(x,y,w,h);}
-    };
-    const ellipse = (x:number,y:number,rx:number,ry:number,fill:string,stroke='#160d16',line=7) => {
-      ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();
-      if(line){ctx.strokeStyle=stroke;ctx.lineWidth=line;ctx.stroke();}
-    };
-    const glow = (x:number,y:number,r:number) => {
-      const g=ctx.createRadialGradient(x,y,1,x,y,r);
-      g.addColorStop(0,'#ffffff');g.addColorStop(.22,'#9fffff');g.addColorStop(.55,'#00bfff');g.addColorStop(1,'rgba(0,110,255,0)');
-      ellipse(x,y,r,r,g,'#087dff',3);
-    };
-    const armor = '#ed1724', bright = '#ff3440', gold = '#ffb51c', lightGold = '#ffe05a', joint = '#242a39', edge = '#120d18';
+    const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 
-    function drawArm(side:number, wave:number) {
-      ctx.save();
-      if(side===-1){ctx.translate(175,390);ctx.rotate(wave);ctx.translate(-175,-390);}
-      else {ctx.translate(385,390);ctx.rotate(-.04);ctx.translate(-385,-390);}
-      const left=side===-1;
-      if(left){
-        // upper arm and elbow
-        poly([[119,352],[160,337],[198,369],[195,432],[163,464],[119,439],[102,391]],armor);
-        poly([[118,355],[150,346],[175,378],[157,403],[122,392]],gold,edge,6);
-        ellipse(158,450,35,38,joint);
-        poly([[111,454],[159,445],[184,478],[172,546],[135,570],[96,540],[91,488]],armor);
-        poly([[105,468],[132,456],[151,480],[136,520],[106,516]],gold,edge,6);
-        // palm raised in greeting
-        ctx.save();ctx.translate(114,355);ctx.rotate(-.12);
-        poly([[-42,10],[-38,-55],[-23,-75],[-5,-68],[0,-27],[9,-87],[28,-91],[41,-77],[35,-20],[48,-64],[66,-62],[75,-45],[56,2],[62,34],[47,72],[5,86],[-36,62]],armor);
-        poly([[-30,-43],[-26,-67],[-13,-67],[-8,-35]],gold,edge,5);
-        poly([[8,-42],[12,-82],[25,-82],[25,-34]],gold,edge,5);
-        poly([[46,-23],[54,-54],[65,-52],[57,-17]],gold,edge,5);
-        ellipse(12,31,48,43,'#c70e27',edge,8);
-        glow(12,31,37);
-        ctx.restore();
-      } else {
-        poly([[382,346],[428,337],[468,365],[485,416],[464,459],[421,455],[391,416]],armor);
-        poly([[397,353],[427,349],[455,376],[441,401],[409,394]],gold,edge,7);
-        ellipse(438,456,35,38,joint);
-        poly([[411,465],[463,447],[488,482],[486,548],[455,576],[414,547],[398,500]],armor);
-        poly([[424,471],[450,461],[468,485],[459,520],[433,513]],gold,edge,6);
-        // closed fist
-        ellipse(452,563,35,34,'#c91025',edge,8);
-        poly([[423,545],[440,530],[463,536],[480,555],[474,580],[453,592],[430,577]],armor);
-        for(let i=0;i<3;i++) rect(432+i*14,552+i%2*8,9,10,gold,edge,3);
-        glow(481,492,13);
+    function path(points: number[][], fill: string | CanvasGradient, stroke = palette.ink, line = 9) {
+      ctx!.beginPath();
+      points.forEach(([x, y], i) => i ? ctx!.lineTo(x, y) : ctx!.moveTo(x, y));
+      ctx!.closePath();
+      ctx!.fillStyle = fill;
+      ctx!.fill();
+      if (line > 0) {
+        ctx!.strokeStyle = stroke;
+        ctx!.lineWidth = line;
+        ctx!.lineJoin = 'round';
+        ctx!.lineCap = 'round';
+        ctx!.stroke();
       }
-      ctx.restore();
     }
 
-    function drawRobot(now:number) {
-      const t=reduced?0:(now-start)%4000;
-      const phase=Math.floor(t/1000), local=(t%1000)/1000;
-      const wave=phase===0?Math.sin(local*Math.PI*2)*.55:phase===3?Math.sin(local*Math.PI*2)*.55:0;
-      const breath=phase===2?Math.sin(local*Math.PI*2)*.012:0;
-      ctx.clearRect(0,0,W,H);
-      ctx.save();ctx.translate(0,breath*90);ctx.scale(1,1+breath);
-      // ground shadow
-      ellipse(280,842,170,16,'rgba(0,0,0,.18)','transparent',0);
-
-      // legs, rear joints
-      poly([[191,575],[258,578],[261,696],[236,758],[184,754],[161,681]],joint);
-      poly([[301,578],[371,575],[399,681],[373,755],[321,755],[298,693]],joint);
-      // left thigh
-      poly([[177,584],[239,576],[264,641],[247,715],[202,753],[160,717],[157,642]],armor);
-      poly([[174,604],[211,594],[239,629],[222,686],[187,707],[169,668]],gold,edge,7);
-      poly([[211,650],[245,641],[251,688],[222,718],[199,699]],bright,edge,6);
-      // right thigh
-      poly([[319,576],[382,585],[404,646],[393,716],[350,753],[308,714],[296,643]],armor);
-      poly([[345,594],[382,606],[389,668],[366,706],[335,684],[326,629]],gold,edge,7);
-      poly([[312,647],[347,650],[360,699],[334,719],[306,687]],bright,edge,6);
-      // knees
-      ellipse(205,739,48,39,joint);ellipse(357,739,48,39,joint);
-      poly([[163,711],[216,704],[243,742],[225,791],[169,793],[143,757]],gold);
-      poly([[319,742],[347,704],[401,711],[421,757],[393,793],[337,791]],gold);
-      // shins
-      poly([[157,768],[225,770],[239,832],[215,852],[143,852],[135,812]],armor);
-      poly([[335,770],[403,768],[425,812],[417,852],[345,852],[321,832]],armor);
-      poly([[159,781],[190,777],[208,820],[185,839],[151,831]],gold,edge,6);
-      poly([[368,777],[399,781],[407,831],[373,839],[352,820]],gold,edge,6);
-      glow(184,810,17);glow(382,810,17);
-      // boots
-      poly([[128,831],[211,830],[238,857],[230,875],[73,875],[70,859],[94,842]],armor);
-      poly([[326,857],[351,830],[433,831],[468,859],[466,875],[309,875]],armor);
-      poly([[96,846],[169,843],[193,859],[174,867],[91,865]],gold,edge,5);
-      poly([[363,843],[437,846],[443,865],[360,867],[341,859]],gold,edge,5);
-      // waist and abdomen
-      poly([[217,522],[343,522],[370,582],[343,628],[278,644],[212,628],[188,582]],joint);
-      poly([[232,528],[328,528],[345,583],[321,626],[278,633],[235,626],[213,583]],armor);
-      poly([[242,541],[314,541],[325,584],[302,602],[255,602],[232,584]],gold,edge,6);
-      poly([[246,605],[310,605],[302,670],[278,690],[254,670]],armor);
-      // torso
-      poly([[183,332],[230,310],[330,310],[377,332],[406,420],[385,526],[339,566],[220,566],[175,526],[154,420]],joint);
-      poly([[190,340],[236,326],[324,326],[370,340],[390,425],[365,509],[330,540],[225,540],[195,509],[170,425]],armor);
-      poly([[193,363],[226,346],[249,369],[230,405],[200,397]],gold);
-      poly([[367,363],[334,346],[311,369],[330,405],[360,397]],gold);
-      poly([[184,416],[225,400],[278,418],[331,400],[374,416],[356,492],[326,521],[230,521],[201,492]],bright,edge,8);
-      // chest crest panel
-      poly([[226,411],[334,411],[348,494],[322,530],[238,530],[212,494]],gold,edge,9);
-      poly([[237,421],[323,421],[334,486],[312,515],[247,515],[226,486]],'#a70d1b',edge,5);
-      rect(241,426,78,31,'#a70d1b',gold,3);
-      ctx.fillStyle='#fff4dc';ctx.font='28px Georgia';ctx.textAlign='center';ctx.fillText('DTIC',280,451);
-      // simplified crest details
-      poly([[251,468],[309,468],[315,493],[280,509],[245,493]],'#161d2a',gold,3);
-      glow(280,478,10);
-      for(let i=0;i<4;i++){ellipse(257+(i%2)*45,480+Math.floor(i/2)*15,4,4,'#e8e9ed','transparent',0);}
-      // shoulders
-      ellipse(169,370,48,53,armor,edge,10);ellipse(391,370,48,53,armor,edge,10);
-      poly([[133,350],[156,327],[188,336],[204,373],[185,394],[150,389]],gold,edge,7);
-      poly([[357,336],[389,327],[427,350],[410,389],[375,394],[356,373]],gold,edge,7);
-      glow(408,371,16);glow(153,371,12);
-      // neck
-      rect(244,284,72,49,joint,edge,8);
-      rect(253,297,54,24,'#394052',edge,4);
-      // helmet silhouette
-      poly([[190,95],[215,63],[249,49],[311,49],[345,63],[370,95],[382,150],[376,247],[349,292],[318,312],[242,312],[211,292],[184,247],[178,150]],armor,edge,12);
-      poly([[204,103],[229,76],[255,64],[305,64],[331,76],[356,103],[365,151],[354,213],[333,253],[309,274],[251,274],[227,253],[206,213],[195,151]],bright,edge,7);
-      poly([[253,54],[307,54],[318,174],[303,204],[257,204],[242,174]],gold,edge,8);
-      rect(264,83,31,50,lightGold,edge,4);
-      // helmet side guards
-      rect(173,151,22,87,gold,edge,7);rect(365,151,22,87,gold,edge,7);
-      // visor
-      poly([[199,160],[233,147],[327,147],[361,160],[352,225],[324,249],[236,249],[208,225]],'#06152e',edge,9);
-      const eyeX=pointer.active?Math.max(-5,Math.min(5,(pointer.x-280)/25)):0;
-      const eyeY=pointer.active?Math.max(-3,Math.min(3,(pointer.y-190)/35)):0;
-      glow(239+eyeX,193+eyeY,22);glow(321+eyeX,193+eyeY,22);
-      // jaw / mask
-      poly([[212,232],[247,246],[313,246],[348,232],[337,277],[311,299],[249,299],[223,277]],gold,edge,8);
-      poly([[249,266],[311,266],[303,289],[257,289]],lightGold,edge,4);
-      // arms on top of torso, waving left arm is rotated at shoulder
-      drawArm(-1,wave);
-      drawArm(1,0);
-      ctx.restore();
+    function rounded(x: number, y: number, w: number, h: number, r: number, fill: string, stroke = palette.ink, line = 7) {
+      ctx!.beginPath();
+      ctx!.roundRect(x, y, w, h, r);
+      ctx!.fillStyle = fill;
+      ctx!.fill();
+      if (line > 0) {
+        ctx!.strokeStyle = stroke;
+        ctx!.lineWidth = line;
+        ctx!.stroke();
+      }
     }
 
-    const onPointer=(event:PointerEvent)=>{
-      const r=canvas.getBoundingClientRect();
-      pointer.x=(event.clientX-r.left)/r.width*W;
-      pointer.y=(event.clientY-r.top)/r.height*H;
-      pointer.active=true;
-    };
-    canvas.addEventListener('pointermove',onPointer,{passive:true});
-    canvas.addEventListener('pointerleave',()=>{pointer.active=false;},{passive:true});
-    let raf=0;
-    const render=(now:number)=>{drawRobot(now);if(!reduced)raf=requestAnimationFrame(render);};
-    render(performance.now());
-    if(reduced) cancelAnimationFrame(raf);
+    function oval(x: number, y: number, rx: number, ry: number, fill: string, stroke = palette.ink, line = 7) {
+      ctx!.beginPath();
+      ctx!.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+      ctx!.fillStyle = fill;
+      ctx!.fill();
+      if (line > 0) {
+        ctx!.strokeStyle = stroke;
+        ctx!.lineWidth = line;
+        ctx!.stroke();
+      }
+    }
+
+    function gradient(x: number, y: number, w: number, h: number, stops: [number, string][]) {
+      const g = ctx!.createLinearGradient(x, y, x + w, y + h);
+      stops.forEach(([at, color]) => g.addColorStop(at, color));
+      return g;
+    }
+
+    function glow(x: number, y: number, radius: number, color = palette.cyan) {
+      const g = ctx!.createRadialGradient(x, y, 0, x, y, radius);
+      g.addColorStop(0, '#ffffff');
+      g.addColorStop(0.16, color);
+      g.addColorStop(0.5, color + '99');
+      g.addColorStop(1, color + '00');
+      ctx!.fillStyle = g;
+      ctx!.beginPath();
+      ctx!.arc(x, y, radius, 0, Math.PI * 2);
+      ctx!.fill();
+    }
+
+    function joint(x: number, y: number, radius: number) {
+      oval(x, y, radius, radius, gradient(x - radius, y - radius, radius * 2, radius * 2, [
+        [0, '#8290a3'], [0.35, palette.steel], [1, '#111722'],
+      ]), palette.ink, 7);
+      oval(x, y, radius * 0.48, radius * 0.48, palette.gold, palette.ink, 4);
+      oval(x, y, radius * 0.2, radius * 0.2, palette.goldLight, 'transparent', 0);
+    }
+
+    function plate(points: number[][], highlight = true) {
+      path(points, gradient(140, 100, 300, 650, [
+        [0, palette.redLight], [0.38, palette.red], [1, palette.redDark],
+      ]));
+      if (highlight) {
+        ctx!.save();
+        ctx!.globalAlpha = 0.36;
+        ctx!.strokeStyle = '#ff9a9f';
+        ctx!.lineWidth = 5;
+        ctx!.lineJoin = 'round';
+        ctx!.beginPath();
+        points.slice(0, Math.max(2, Math.floor(points.length / 2))).forEach(([x, y], i) => i ? ctx!.lineTo(x, y) : ctx!.moveTo(x, y));
+        ctx!.stroke();
+        ctx!.restore();
+      }
+    }
+
+    function drawBootsAndLegs() {
+      // Silhueta traseira e juntas das pernas.
+      path([[188, 572], [260, 568], [270, 720], [239, 787], [171, 781], [150, 682]], palette.steel);
+      path([[300, 568], [373, 572], [411, 682], [389, 781], [321, 787], [290, 720]], palette.steel);
+
+      plate([[169, 589], [236, 577], [265, 640], [247, 713], [205, 750], [160, 711], [151, 644]]);
+      path([[177, 608], [213, 594], [242, 630], [226, 681], [188, 704], [169, 664]], palette.gold, palette.ink, 6);
+      path([[193, 646], [240, 638], [248, 688], [218, 722], [186, 696]], palette.redLight, palette.ink, 5);
+
+      plate([[324, 577], [391, 589], [409, 644], [400, 711], [355, 750], [313, 713], [295, 640]]);
+      path([[347, 594], [383, 608], [392, 665], [368, 704], [333, 681], [326, 629]], palette.gold, palette.ink, 6);
+      path([[311, 641], [359, 648], [370, 696], [340, 722], [307, 690]], palette.redLight, palette.ink, 5);
+
+      joint(205, 735, 39);
+      joint(357, 735, 39);
+      path([[158, 713], [215, 703], [245, 744], [224, 792], [166, 795], [140, 756]], palette.gold);
+      path([[319, 744], [349, 703], [405, 713], [424, 756], [396, 795], [338, 792]], palette.gold);
+
+      plate([[157, 772], [222, 770], [240, 834], [216, 855], [143, 855], [134, 812]]);
+      plate([[338, 770], [403, 772], [426, 812], [417, 855], [344, 855], [320, 834]]);
+      path([[158, 786], [190, 782], [211, 821], [185, 841], [150, 831]], palette.gold, palette.ink, 5);
+      path([[370, 782], [402, 786], [411, 831], [376, 841], [350, 821]], palette.gold, palette.ink, 5);
+      path([[130, 835], [210, 833], [240, 859], [229, 876], [72, 876], [70, 859], [96, 844]], palette.red);
+      path([[330, 859], [360, 833], [440, 835], [470, 859], [466, 876], [310, 876]], palette.red);
+      rounded(92, 847, 91, 17, 7, palette.gold, palette.ink, 4);
+      rounded(365, 847, 91, 17, 7, palette.gold, palette.ink, 4);
+      glow(184, 814, 18);
+      glow(382, 814, 18);
+    }
+
+    function drawTorso() {
+      // Cintura e abdômen segmentados.
+      path([[213, 520], [347, 520], [374, 581], [345, 630], [280, 647], [215, 630], [186, 581]], palette.steel);
+      path([[231, 529], [329, 529], [349, 583], [322, 626], [280, 636], [238, 626], [211, 583]], palette.red);
+      path([[241, 543], [319, 543], [328, 584], [307, 607], [253, 607], [232, 584]], palette.gold, palette.ink, 5);
+      path([[245, 605], [315, 605], [305, 669], [280, 691], [255, 669]], palette.redDark);
+
+      // Peitoral: placas sobrepostas e ombreiras.
+      path([[182, 331], [231, 307], [329, 307], [378, 331], [409, 420], [385, 523], [340, 565], [220, 565], [175, 523], [151, 420]], palette.steel);
+      plate([[190, 340], [237, 323], [323, 323], [370, 340], [393, 423], [365, 510], [331, 543], [229, 543], [195, 510], [167, 423]]);
+      path([[192, 362], [226, 345], [252, 370], [230, 405], [198, 397]], palette.gold);
+      path([[368, 362], [334, 345], [308, 370], [330, 405], [362, 397]], palette.gold);
+      path([[184, 416], [225, 398], [280, 418], [335, 398], [376, 416], [357, 491], [326, 523], [234, 523], [203, 491]], palette.redLight);
+      path([[226, 411], [334, 411], [350, 493], [322, 532], [238, 532], [210, 493]], palette.gold, palette.ink, 8);
+      path([[238, 422], [322, 422], [335, 486], [311, 516], [249, 516], [225, 486]], palette.redDark, palette.ink, 5);
+
+      // Identificação central e pequeno núcleo luminoso.
+      rounded(241, 427, 78, 29, 5, '#8f1022', palette.gold, 3);
+      ctx!.fillStyle = palette.white;
+      ctx!.font = 'bold 24px system-ui, sans-serif';
+      ctx!.textAlign = 'center';
+      ctx!.textBaseline = 'middle';
+      ctx!.fillText('DTIC', 280, 442);
+      path([[251, 468], [309, 468], [316, 493], [280, 509], [244, 493]], '#151e2c', palette.gold, 3);
+      glow(280, 481, 13, '#ffdc66');
+      for (let i = 0; i < 4; i++) oval(258 + (i % 2) * 44, 480 + Math.floor(i / 2) * 14, 3.5, 3.5, '#e8f5ff', 'transparent', 0);
+
+      // Ombreiras.
+      oval(169, 370, 49, 54, palette.red);
+      oval(391, 370, 49, 54, palette.red);
+      path([[133, 350], [156, 326], [190, 336], [205, 374], [185, 397], [150, 389]], palette.gold);
+      path([[357, 336], [391, 326], [427, 350], [410, 389], [375, 397], [355, 374]], palette.gold);
+      glow(408, 371, 16);
+      glow(153, 371, 13);
+    }
+
+    function drawHelmet(lookX: number, lookY: number, blink: number) {
+      rounded(244, 282, 72, 56, 12, palette.steel);
+      rounded(253, 295, 54, 29, 6, palette.steelLight, palette.ink, 4);
+
+      // Capacete com crista e proteção lateral.
+      path([[190, 96], [215, 63], [250, 47], [310, 47], [345, 63], [370, 96], [384, 151], [376, 247], [350, 293], [318, 314], [242, 314], [210, 293], [184, 247], [176, 151]], palette.red);
+      path([[204, 104], [229, 76], [255, 63], [305, 63], [331, 76], [356, 104], [366, 151], [354, 213], [333, 255], [309, 276], [251, 276], [227, 255], [206, 213], [194, 151]], palette.redLight, palette.ink, 6);
+      path([[252, 54], [308, 54], [321, 171], [303, 205], [257, 205], [239, 171]], palette.gold);
+      rounded(264, 80, 32, 55, 5, palette.goldLight, palette.ink, 4);
+      rounded(172, 149, 25, 92, 7, palette.gold);
+      rounded(363, 149, 25, 92, 7, palette.gold);
+
+      // Visor profundo com reflexo.
+      path([[198, 160], [232, 146], [328, 146], [362, 160], [353, 226], [324, 250], [236, 250], [207, 226]], palette.visor, palette.ink, 9);
+      ctx!.save();
+      ctx!.globalAlpha = 0.24;
+      path([[216, 165], [247, 154], [286, 154], [245, 202]], '#a9f7ff', 'transparent', 0);
+      ctx!.restore();
+
+      const eyeScale = Math.max(0.08, 1 - blink);
+      for (const x of [239 + lookX, 321 + lookX]) {
+        ctx!.save();
+        ctx!.translate(x, 194 + lookY);
+        ctx!.scale(1, eyeScale);
+        glow(0, 0, 23);
+        oval(0, 0, 7, 10, '#ffffff', 'transparent', 0);
+        ctx!.restore();
+      }
+
+      // Mandíbula e grelha de voz.
+      path([[212, 232], [247, 247], [313, 247], [348, 232], [337, 278], [311, 301], [249, 301], [223, 278]], palette.gold);
+      path([[249, 266], [311, 266], [303, 290], [257, 290]], palette.goldLight, palette.ink, 4);
+      for (let i = 0; i < 5; i++) rounded(260 + i * 10, 272, 4, 10, 2, palette.redDark, 'transparent', 0);
+    }
+
+    function drawArticulatedArm(side: -1 | 1, shoulderAngle: number, elbowAngle: number, wristAngle: number) {
+      ctx!.save();
+      const shoulderX = side === -1 ? 169 : 391;
+      const shoulderY = 371;
+      ctx!.translate(shoulderX, shoulderY);
+      ctx!.rotate(shoulderAngle * side);
+
+      // Braço superior articulado.
+      path([[-22, -5], [-58, 8], [-76, 48], [-55, 92], [-15, 83], [12, 39]], palette.red);
+      path([[-51, 15], [-30, 4], [-13, 31], [-34, 55], [-58, 46]], palette.gold, palette.ink, 5);
+      joint(-35, 83, 25);
+
+      ctx!.translate(-35, 83);
+      ctx!.rotate(elbowAngle * side);
+      path([[-23, -10], [-48, 4], [-51, 54], [-27, 88], [19, 79], [31, 37], [13, 2]], palette.red);
+      path([[-34, 8], [-12, -2], [10, 19], [-5, 48], [-32, 42]], palette.gold, palette.ink, 5);
+      joint(0, 78, 21);
+
+      ctx!.translate(0, 78);
+      ctx!.rotate(wristAngle * side);
+      if (side === -1) {
+        // Mão aberta: palma e dedos têm pivôs independentes no gesto.
+        path([[-28, -10], [-43, -37], [-45, -83], [-33, -94], [-20, -88], [-17, -47], [-8, -111], [8, -116], [20, -106], [15, -45], [28, -95], [44, -97], [53, -83], [37, -37], [48, -5], [39, 39], [4, 58], [-34, 39]], palette.red);
+        path([[-35, -57], [-36, -88], [-26, -88], [-21, -48]], palette.gold, palette.ink, 4);
+        path([[-6, -62], [-4, -108], [8, -108], [9, -52]], palette.gold, palette.ink, 4);
+        path([[27, -53], [36, -89], [45, -86], [34, -40]], palette.gold, palette.ink, 4);
+        oval(5, 12, 39, 35, palette.redDark, palette.ink, 6);
+        glow(5, 11, 29);
+        rounded(-22, 27, 47, 10, 5, palette.gold, palette.ink, 3);
+      } else {
+        // Punho fechado da mão oposta.
+        oval(4, 8, 35, 34, palette.redDark, palette.ink, 7);
+        path([[-25, -10], [-9, -29], [17, -27], [35, -8], [32, 20], [10, 36], [-18, 23]], palette.red);
+        for (let i = 0; i < 3; i++) rounded(-17 + i * 15, -7 + (i % 2) * 5, 10, 17, 4, palette.gold, palette.ink, 3);
+        glow(36, -42, 12);
+      }
+      ctx!.restore();
+      ctx!.restore();
+    }
+
+    function drawRobot(now: number) {
+      const elapsed = reducedMotion ? 0 : (now - start) % 4000;
+      const phase = Math.floor(elapsed / 1000);
+      const local = (elapsed % 1000) / 1000;
+      const waveIn = smooth(0, 0.2, local);
+      const waveOut = 1 - smooth(0.78, 1, local);
+      const wavePulse = Math.sin(local * Math.PI * 4) * 0.13;
+      const waving = phase === 0 || phase === 3;
+      const greeting = waving ? waveIn * waveOut : 0;
+      const shoulder = greeting * (0.58 + wavePulse);
+      const elbow = greeting * (-0.48 + Math.sin(local * Math.PI * 4) * 0.1);
+      const wrist = greeting * (0.18 + Math.sin(local * Math.PI * 4) * 0.16);
+      const breathing = phase === 2 ? Math.sin(local * Math.PI * 2) : 0;
+      const bob = reducedMotion ? 0 : Math.sin((now - start) / 900) * 1.8;
+      const blink = reducedMotion ? 0 : Math.pow(Math.max(0, Math.sin((now - start) / 2600)), 36);
+      const lookX = pointer.active ? Math.max(-5, Math.min(5, (pointer.x - 280) / 28)) : 0;
+      const lookY = pointer.active ? Math.max(-3, Math.min(3, (pointer.y - 190) / 38)) : 0;
+
+      ctx!.clearRect(0, 0, W, H);
+      ctx!.save();
+      ctx!.translate(0, bob);
+      // Sombra de contato.
+      oval(280, 858, 166, 15, 'rgba(12, 10, 20, .18)', 'transparent', 0);
+
+      drawBootsAndLegs();
+
+      // Respiração desloca o tórax de forma sutil, sem deformar as pernas.
+      ctx!.save();
+      ctx!.translate(280, 430);
+      ctx!.scale(1, 1 + breathing * 0.006);
+      ctx!.translate(-280, -430);
+      drawTorso();
+      ctx!.restore();
+
+      // Braço direito em repouso; esquerdo executa o aceno com três articulações.
+      drawArticulatedArm(1, 0.05, 0.04, 0);
+      drawArticulatedArm(-1, -0.12 - shoulder, -0.08 + elbow, wrist);
+      drawHelmet(lookX, lookY, blink);
+
+      // Pequenos detalhes de acabamento no corpo.
+      ctx!.save();
+      ctx!.globalAlpha = 0.55;
+      rounded(179, 427, 9, 40, 4, palette.goldLight, 'transparent', 0);
+      rounded(372, 427, 9, 40, 4, palette.goldLight, 'transparent', 0);
+      ctx!.restore();
+      ctx!.restore();
+    }
+
+    function resize() {
+      const rect = canvas!.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+      canvas!.width = Math.round(width * dpr);
+      canvas!.height = Math.round(height * dpr);
+      ctx!.setTransform(canvas!.width / W, 0, 0, canvas!.height / H, 0, 0);
+      drawRobot(performance.now());
+    }
+
+    function onPointerMove(event: PointerEvent) {
+      const rect = canvas!.getBoundingClientRect();
+      pointer.x = (event.clientX - rect.left) / rect.width * W;
+      pointer.y = (event.clientY - rect.top) / rect.height * H;
+      pointer.active = true;
+    }
+
+    function onPointerLeave() {
+      pointer.active = false;
+    }
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(canvas);
+    canvas.addEventListener('pointermove', onPointerMove, { passive: true });
+    canvas.addEventListener('pointerleave', onPointerLeave, { passive: true });
+    canvas.addEventListener('pointercancel', onPointerLeave, { passive: true });
+    resize();
+
+    function render(now: number) {
+      drawRobot(now);
+      if (!reducedMotion) frame = requestAnimationFrame(render);
+    }
+
+    if (!reducedMotion) frame = requestAnimationFrame(render);
+
+    document.addEventListener('astro:before-swap', () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      canvas?.removeEventListener('pointermove', onPointerMove);
+      canvas?.removeEventListener('pointerleave', onPointerLeave);
+      canvas?.removeEventListener('pointercancel', onPointerLeave);
+    }, { once: true });
   }
 </script>
