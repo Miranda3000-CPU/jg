@@ -48,7 +48,6 @@
     const pointer = { x: 0, y: 0, active: false };
     const palette = {
       ink: '#17101b',
-      inkSoft: '#302638',
       red: '#d9142b',
       redLight: '#ff4050',
       redDark: '#870d25',
@@ -63,8 +62,6 @@
     };
     const start = performance.now();
     let frame = 0;
-    let width = W;
-    let height = H;
 
     const smooth = (a: number, b: number, t: number) => {
       const n = Math.max(0, Math.min(1, (t - a) / (b - a)));
@@ -346,8 +343,6 @@
     function resize() {
       const rect = canvas!.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = Math.max(1, rect.width);
-      height = Math.max(1, rect.height);
       canvas!.width = Math.round(width * dpr);
       canvas!.height = Math.round(height * dpr);
       ctx!.setTransform(canvas!.width / W, 0, 0, canvas!.height / H, 0, 0);
