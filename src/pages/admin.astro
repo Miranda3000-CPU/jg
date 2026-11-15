@@ -12,7 +12,7 @@ import { SITE_TITLE } from '../consts';
 	<body>
 		<header class="topo">
 			<a class="marca" href="/admin">JG · Painel</a>
-			<button type="button" id="btn-tema" class="btn-secundario" aria-label="Alternar tema">☀️ Tema claro</button>
+			<button type="button" id="btn-tema" data-theme-toggle class="btn-secundario" aria-label="Alternar tema">☀️ Tema claro</button>
 			<nav id="acoes-usuario" hidden>
 				<a href="/" target="_blank" rel="noopener">Ver site</a>
 				<button type="button" id="btn-sair" class="btn-secundario">Sair</button>
@@ -332,6 +332,7 @@ import { SITE_TITLE } from '../consts';
 			body[data-theme="light"] input,body[data-theme="light"] textarea,body[data-theme="light"] select{background:#fff;color:#172033;border-color:#94a3b8}
 			body[data-theme="light"] .toolbar{background:#e2e8f0;border-color:#94a3b8}
 			body[data-theme="light"] .toolbar button{background:#fff;color:#172033;border-color:#94a3b8}
+			:root[data-theme="light"]{color-scheme:light}
 			@media(max-width:600px){.topo{flex-wrap:wrap}.linha{grid-template-columns:1fr}.acoes{align-items:stretch}.acoes button{width:100%}}
 
 		</style>
@@ -696,11 +697,6 @@ import { SITE_TITLE } from '../consts';
 					fConteudo.dispatchEvent(new Event('input', { bubbles: true }));
 				});
 			}
-
-			const themeButton=$<HTMLButtonElement>('btn-tema');
-			const applyTheme=(theme:string)=>{document.body.dataset.theme=theme;themeButton.textContent=theme==='dark'?'☀️ Tema claro':'🌙 Tema escuro';localStorage.setItem('jg-theme',theme);};
-			applyTheme(localStorage.getItem('jg-theme')||'dark');
-			themeButton.addEventListener('click',()=>applyTheme(document.body.dataset.theme==='dark'?'light':'dark'));
 			// Estado inicial
 			void carregarDashboard();
 		</script>
