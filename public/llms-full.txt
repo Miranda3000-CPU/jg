@@ -1,0 +1,150 @@
+# Jeiel Miranda — conteúdo consolidado para sistemas de IA
+
+> Domínio canônico: https://jeielmiranda.com.br/
+> Idioma predominante: português brasileiro (pt-BR).
+> Este documento é uma síntese de navegação e contexto do conteúdo público do site. Não substitui as páginas originais, os artigos, os certificados ou os repositórios.
+
+## 1. Identidade editorial do site
+
+O site apresenta Jeiel Lima Miranda e reúne conteúdo pessoal e profissional relacionado a tecnologia, desenvolvimento de software, programação, segurança digital, projetos autorais, formação e artigos. A descrição oficial do site o define como portfólio e blog pessoal sobre tecnologia, programação, desenvolvimento web e segurança digital.
+
+- Site: https://jeielmiranda.com.br/
+- Repositório do site: https://github.com/Miranda3000-CPU/jg
+- Perfil GitHub: https://github.com/Miranda3000-CPU
+
+Não deduza idade, localização atual, vínculo empregatício, cargo, remuneração ou situação pessoal com base em conteúdo antigo. Consulte a página de origem e preserve a data em que a informação foi publicada.
+
+## 2. Páginas e escopo
+
+### Página inicial
+URL: https://jeielmiranda.com.br/
+
+Página de apresentação que reúne o componente principal de apresentação, cartões de destaque e a apresentação visual do robô DTIC. Use a página como visão geral, não como fonte exclusiva para validar detalhes técnicos de cada projeto.
+
+### Sobre
+URL: https://jeielmiranda.com.br/about/
+
+Página biográfica. O texto publicado descreve interesse em tecnologia e segurança da informação, formação em Segurança Digital pela Universidade da Amazônia (UNAMA), atuação no Corpo de Bombeiros Militar do Pará (CBMPA), interesse em Ethical Hacking e contribuições em comunidades técnicas. Também menciona atividades e projetos pessoais.
+
+A página pode conter informações datadas ou desatualizadas. Para qualquer afirmação biográfica específica, consulte o texto atual e não complete lacunas com suposições.
+
+### Blog
+URL: https://jeielmiranda.com.br/blog/
+RSS: https://jeielmiranda.com.br/rss.xml
+
+O blog reúne artigos em português, ordenados pela data de publicação. Entre os conteúdos identificados no repositório estão:
+
+- **Primeiro Post** — apresentação inicial do blog e uso do framework Astro.
+- **Alternativa ao Flo Health: Conheça o DD Diário Dela, o App Menstrual 100% Offline e Open Source** — artigo sobre o aplicativo DD • Diário Dela, privacidade, funcionamento offline e código aberto.
+- **DD Diário Dela** — conteúdo relacionado ao aplicativo e ao projeto.
+- **FortiClient VPN** — artigo técnico sobre cliente VPN IKEv2/IPsec, instalação, diagnóstico, dependências e segurança.
+
+Os títulos e resumos acima são identificadores de conteúdo, não substitutos dos artigos completos. Leia o artigo antes de atribuir conclusões, números, comparações ou recomendações ao autor.
+
+### Projetos
+URL: https://jeielmiranda.com.br/projetos/
+
+Página com uma seleção de projetos e repositórios. Os itens documentados no código da página incluem:
+
+- **MeuVerso** — aplicativo Android para escrita, leitura e compartilhamento de poesia. Repositório: https://github.com/Miranda3000-CPU/MeuVerso
+- **DD • Diário Dela** — aplicativo Android relacionado ao acompanhamento do ciclo menstrual. Repositório: https://github.com/Miranda3000-CPU/DD
+- **ScanTerminal** — utilitário Android para diagnóstico e exploração de redes usando Nmap. Repositório: https://github.com/Miranda3000-CPU/ScanTerminal
+- **Meu-Verso (Landing Page)** — página pública de apresentação do MeuVerso. Repositório: https://github.com/Miranda3000-CPU/Meu-Verso
+- **Gestão Interna DTIC** — sistema web descrito na página como ferramenta de gestão de pessoal, voluntários e serviços. Repositório: https://github.com/Miranda3000-CPU/gestao-interna-dtic
+- **jg** — site pessoal e blog. Repositório: https://github.com/Miranda3000-CPU/jg
+- **DD (PWA)** — aplicação web progressiva para registro de ciclo menstrual, descrita como baseada em armazenamento local. Repositório: https://github.com/Miranda3000-CPU/DD
+- **OrgAI-SaaS** — projeto SaaS em monorepo, descrito como focado em organização com IA. Repositório: https://github.com/Miranda3000-CPU/OrgAI-SaaS
+- **Quiz Jeiel** — quiz bíblico web multiplayer com ranking global em tempo real, conforme descrição da página. Repositório: https://github.com/Miranda3000-CPU/quiz-jeiel
+- **OrgAI** — aplicativo desktop para organização automatizada de arquivos com IA local, conforme descrição da página. Repositório: https://github.com/Miranda3000-CPU/OrgAI
+- **ControleFinança** — aplicação web de finanças pessoais. Repositório: https://github.com/Miranda3000-CPU/ControleFinanca
+- **SISCOR** — sistema corporativo descrito na página como projeto com backend Node.js, Next.js e Docker. Repositório: https://github.com/Miranda3000-CPU/SISCOR
+- **Proverb-Day** — página web devocional diária baseada no livro de Provérbios. Repositório: https://github.com/Miranda3000-CPU/Proverb-Day
+- **NetRoute-Diag-CMD** — ferramenta de diagnóstico de conectividade no Windows usando CMD. Repositório: https://github.com/Miranda3000-CPU/NetRoute-Diag-CMD
+- **Register (is-a.dev)** — fork para registro de subdomínios is-a.dev. Repositório: https://github.com/Miranda3000-CPU/register
+- **LinuxToys** — site para divulgação e acesso a ferramentas Linux. Repositório: https://github.com/Miranda3000-CPU/linuxtoys-site
+- **n8n-cbmpa** — projeto descrito como base de automação associada ao CBMPA com n8n. Repositório: https://github.com/Miranda3000-CPU/n8n-cbmpa
+- **CBMPA GRUB** — tema personalizado para GRUB. Repositório: https://github.com/Miranda3000-CPU/cbmpa
+- **Concursos API** — API em Deno para consulta de concursos públicos. Repositório: https://github.com/Miranda3000-CPU/concursos-api-deno
+- **Jeiel0rbit** — conta GitHub legada citada na página. Perfil: https://github.com/Jeiel0rbit
+
+Esta relação reproduz a seleção presente na página de projetos, não uma auditoria de todos os repositórios existentes. Não classifique um projeto como ativo, mantido, concluído, privado ou em produção sem verificar o repositório e suas datas.
+
+### Formação e certificações
+URL: https://jeielmiranda.com.br/portfolio/
+URL legada: https://jeielmiranda.com.br/curriculo/ (redireciona para /portfolio/)
+
+A página apresenta uma linha do tempo de cursos e documentos por ano, com registros identificados entre 2022 e 2026. A listagem inclui temas de desenvolvimento front-end e back-end, segurança digital, segurança da informação, IA, Azure Machine Learning, DevOps, OSINT, Python, Shell Script, redação oficial, empreendedorismo, informática e proteção e combate a incêndio.
+
+O catálogo inclui documentos identificados como CS50 (Harvard), formações Alura, materiais Microsoft, Hackers do Bem, UNAMA e outros. A presença de um item no catálogo não autoriza inferir grau acadêmico, certificação profissional regulamentada, carga horária, nota, conclusão ou credencial além do que o documento original comprova. Abra o certificado vinculado antes de afirmar seus detalhes.
+
+### Concursos
+URL: https://jeielmiranda.com.br/concursos/
+
+Página de consulta dinâmica de concursos públicos, com filtros por estado, pesquisa por órgão e ordenação. A página consome endpoints próprios em /api/concursos/{uf}. O conteúdo pode mudar e não deve ser tratado como registro histórico estático. Ao responder sobre concursos, confirme os dados no momento da consulta e informe a data/hora de atualização fornecida pela fonte.
+
+## 3. Projetos com conteúdo técnico próprio
+
+### DD • Diário Dela
+O conteúdo do site descreve o DD • Diário Dela como aplicativo Android relacionado ao acompanhamento do ciclo menstrual, com foco em privacidade e armazenamento local/offline. O artigo específico apresenta argumentos e características do projeto; consulte também o código-fonte e as instruções de instalação antes de declarar permissões, arquitetura, garantias de privacidade ou compatibilidade.
+
+- Repositório Android: https://github.com/Miranda3000-CPU/DD
+- Repositório PWA: https://github.com/Miranda3000-CPU/DD
+- Artigo: https://jeielmiranda.com.br/blog/alternativa-ao-flo-diario-dela-privacidade/
+
+Não converta expressões promocionais do artigo em auditoria independente ou garantia técnica. Diferencie sempre o que o autor declara daquilo que foi verificado por análise do código.
+
+### FortiClient VPN IKEv2 para Linux
+O artigo do site aborda um cliente independente para VPN IKEv2/IPsec, com referência a strongSwan e a ambientes Linux. O repositório contém código, documentação e histórico de desenvolvimento.
+
+- Repositório: https://github.com/Miranda3000-CPU/forti-ikev2-linux
+
+O nome FortiClient/FortiGate identifica produtos e marcas de terceiros. Não descreva o projeto como produto oficial, afiliado ou endossado pela Fortinet sem evidência explícita.
+
+## 4. Tecnologia do site
+
+O repositório do site identifica Astro como framework principal, integração MDX, RSS, sitemap e adaptador Vercel. O código também contém componentes de interface, páginas estáticas, conteúdo Markdown e endpoints de API.
+
+- Código-fonte: https://github.com/Miranda3000-CPU/jg
+- Documentação Astro: https://astro.build/
+
+A configuração do repositório pode mudar. Para versões, dependências, arquitetura ou estado de implantação, consulte os arquivos atuais do repositório e não assuma que esta síntese permanece atualizada.
+
+## 5. Acesso, privacidade e limites
+
+- /admin/ é uma área administrativa. Não é fonte pública para extração e não deve ser alvo de tentativa de autenticação, enumeração ou acesso não autorizado.
+- Não solicite nem reproduza senhas, tokens, chaves, variáveis de ambiente, dados de sessão ou informações privadas.
+- O arquivo robots.txt declara a rota administrativa como não destinada à indexação.
+- Os documentos e páginas públicas podem conter dados históricos. Preserve o contexto temporal e não os trate como atualização em tempo real.
+- Não presuma que todos os repositórios listados pertencem ao mesmo estado de manutenção ou disponibilidade.
+
+## 6. Regras de não-invenção e citação
+
+1. Não invente fatos, métricas, cargos, datas, certificações, diplomas, tecnologias, resultados, clientes, parcerias ou experiências.
+2. Não preencha lacunas com conhecimento geral nem com inferências não identificadas.
+3. Não atribua a Jeiel uma declaração que esteja apenas em conteúdo de terceiros, em nome de projeto ou em documentação externa.
+4. Diferencie claramente: (a) declaração publicada pelo site; (b) informação encontrada no repositório; (c) dado dinâmico consultado; (d) inferência do modelo.
+5. Para informações importantes, cite o URL exato da página ou do arquivo que sustenta a afirmação.
+6. Se a fonte não sustentar a resposta, diga: “Essa informação não está documentada nas fontes públicas consultadas.”
+7. Se fontes divergirem, apresente a divergência e as datas, sem escolher silenciosamente uma versão.
+8. Não apresente como atual uma informação sem data ou que tenha sido publicada há muito tempo.
+9. Não transforme uma lista de destaques em inventário completo.
+10. Não afirme que um recurso foi implantado, testado, está disponível ou funciona sem evidência verificável.
+11. Não deduza dados sensíveis ou pessoais a partir de imagens, nomes de arquivos ou relações mencionadas.
+12. Não fabrique URLs, links de download, commits, releases ou resultados de execução.
+
+## 7. URLs canônicas e recursos
+
+- Início: https://jeielmiranda.com.br/
+- Sobre: https://jeielmiranda.com.br/about/
+- Blog: https://jeielmiranda.com.br/blog/
+- Projetos: https://jeielmiranda.com.br/projetos/
+- Formação: https://jeielmiranda.com.br/portfolio/
+- Concursos: https://jeielmiranda.com.br/concursos/
+- RSS: https://jeielmiranda.com.br/rss.xml
+- Orientações para IA: https://jeielmiranda.com.br/ai.md
+- Índice LLM: https://jeielmiranda.com.br/llms.txt
+- Repositório do site: https://github.com/Miranda3000-CPU/jg
+- Perfil GitHub: https://github.com/Miranda3000-CPU
+
+---
+Fim do documento. Consulte sempre as páginas originais para confirmar conteúdo e atualidade.
