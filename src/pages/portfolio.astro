@@ -1,326 +1,174 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Layout from '../layouts/Layout.astro';
 import { SITE_TITLE } from '../consts';
 
-const projects = [
-  {
-    name: "MeuVerso",
-    description: "Aplicativo Android nativo para escrita, leitura e compartilhamento de poesia.",
-    tech: "Java/Kotlin, XML",
-    url: "https://github.com/Miranda3000-CPU/MeuVerso",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`
-  },
-  {
-    name: "DD-Diário-Dela",
-    description: "Versão Android nativa para acompanhamento do ciclo menstrual.",
-    tech: "Kotlin, Android",
-    url: "https://github.com/Miranda3000-CPU/DD-Di-rio-Dela",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
-  },
-  {
-    name: "ScanTerminal",
-    description: "Utilitário de diagnóstico e exploração de redes usando Nmap.",
-    tech: "Kotlin, Android",
-    url: "https://github.com/Miranda3000-CPU/ScanTerminal",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>`
-  },
-  {
-    name: "Meu-Verso (Landing Page)",
-    description: "Página estática de apresentação pública do aplicativo MeuVerso.",
-    tech: "HTML",
-    url: "https://github.com/Miranda3000-CPU/Meu-Verso",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`
-  },
-  {
-    name: "Gestão Interna DTIC",
-    description: "Sistema institucional web para gerir pessoal, voluntários e serviços.",
-    tech: "Node.js, Tailwind CSS",
-    url: "https://github.com/Miranda3000-CPU/gestao-interna-dtic",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`
-  },
-  {
-    name: "jg (Site Pessoal)",
-    description: "Meu site de perfil e blog (este mesmo que você está vendo).",
-    tech: "Astro",
-    url: "https://github.com/Miranda3000-CPU/jg",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`
-  },
-  {
-    name: "DD (PWA)",
-    description: "Aplicação web progressiva para registro de ciclo menstrual com privacidade local.",
-    tech: "TypeScript, PWA, IndexedDB",
-    url: "https://github.com/Miranda3000-CPU/DD",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`
-  },
-  {
-    name: "OrgAI-SaaS",
-    description: "Produto SaaS em monorepo focado em organização com IA.",
-    tech: "TypeScript, pnpm",
-    url: "https://github.com/Miranda3000-CPU/OrgAI-SaaS",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>`
-  },
-  {
-    name: "Quiz Jeiel",
-    description: "Quiz bíblico web multiplayer com ranking global em tempo real.",
-    tech: "Next.js, Tailwind, Pusher",
-    url: "https://github.com/Miranda3000-CPU/quiz-jeiel",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`
-  },
-  {
-    name: "OrgAI",
-    description: "Aplicativo desktop para organização automatizada de arquivos com IA local.",
-    tech: "Python, PyQt6",
-    url: "https://github.com/Miranda3000-CPU/OrgAI",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`
-  },
-  {
-    name: "ControleFinança",
-    description: "Aplicação web de finanças pessoais para controle de gastos e lançamentos.",
-    tech: "Next.js, Prisma",
-    url: "https://github.com/Miranda3000-CPU/ControleFinanca",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`
-  },
-  {
-    name: "SISCOR",
-    description: "Sistema corporativo (CBMPA) com backend Node.js, Next.js e Docker.",
-    tech: "Node.js, Next.js",
-    url: "https://github.com/Miranda3000-CPU/SISCOR",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>`
-  },
-  {
-    name: "Proverb-Day",
-    description: "Página web para consulta diária devocional do livro de Provérbios.",
-    tech: "HTML",
-    url: "https://github.com/Miranda3000-CPU/Proverb-Day",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`
-  },
-  {
-    name: "NetRoute-Diag-CMD",
-    description: "Ferramenta de diagnóstico de conectividade no Windows usando CMD.",
-    tech: "Batch/CMD",
-    url: "https://github.com/Miranda3000-CPU/NetRoute-Diag-CMD",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>`
-  },
-  {
-    name: "Register (is-a.dev)",
-    description: "Fork para registro de subdomínios .is-a.dev.",
-    tech: "JavaScript, DNS",
-    url: "https://github.com/Miranda3000-CPU/register",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>`
-  },
-  {
-    name: "LinuxToys",
-    description: "Site para divulgação e acesso a ferramentas Linux.",
-    tech: "HTML",
-    url: "https://github.com/Miranda3000-CPU/linuxtoys-site",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 0-2 2c0 1.1.9 2 2 2s2-.9 2-2a2 2 0 0 0-2-2z"></path><path d="M14 6a6 6 0 0 1 6 6v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a6 6 0 0 1 6-6"></path><path d="M8 14h8"></path></svg>`
-  },
-  {
-    name: "n8n-cbmpa",
-    description: "Base de automação associada ao CBMPA com n8n.",
-    tech: "Node.js, n8n",
-    url: "https://github.com/Miranda3000-CPU/n8n-cbmpa",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`
-  },
-  {
-    name: "CBMPA GRUB",
-    description: "Tema personalizado para carregador de inicialização GRUB.",
-    tech: "Bash, GRUB",
-    url: "https://github.com/Miranda3000-CPU/cbmpa",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>`
-  },
-  {
-    name: "Concursos API",
-    description: "API em Deno para consultar concursos públicos.",
-    tech: "TypeScript, Deno",
-    url: "https://github.com/Miranda3000-CPU/concursos-api-deno",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>`
-  },
-  {
-    name: "Jeiel0rbit (Conta Legada)",
-    description: "Conta desvinculada com 147 projetos arquivados, incluindo o destaque LoFi_Square (+20 estrelas ⭐).",
-    tech: "Múltiplas",
-    url: "https://github.com/Jeiel0rbit",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`
-  }
+const basePath = '/drive-download-20260821T235514Z-1-001';
+const fileUrl = (name: string) => basePath + '/' + encodeURIComponent(name);
+const certs = [
+  { year:2026,title:'Preditivo Azure Machine Learning',desc:'Machine Learning no Azure',file:'Preditivo_Azure_Machine_Learning.pdf' },
+  { year:2025,title:'Microsoft - IA',desc:'Inteligência Artificial',file:'IA_microsoft.pdf' },
+  { year:2025,title:'Alura - Inteligência Artificial',desc:'Fundamentos de IA',file:'IA_alura.pdf' },
+  { year:2025,title:'Redação Oficial',desc:'Comunicação Escrita',file:'redacao_oficial.pdf' },
+  { year:2025,title:'Sebrae - Empreendedorismo',desc:'Negócios e Gestão',file:'sebrae_empreendedorismo.pdf' },
+  { year:2024,title:'Alura - Formação Front-end',desc:'Desenvolvimento Web Front-end',file:'front_alura.pdf' },
+  { year:2024,title:'Alura - Formação Back-end',desc:'Desenvolvimento Web Back-end',file:'alura_back.pdf' },
+  { year:2024,title:'Segurança Digital (Pós)',desc:'Especialização em Segurança Cibernética',file:'segurança_digital_pós.pdf' },
+  { year:2024,title:'Hackers do Bem',desc:'Nivelamento em Cibersegurança',file:'hackers_bem_nivelamento.pdf' },
+  { year:2024,title:'OSINT',desc:'Open Source Intelligence',file:'osint.pdf' },
+  { year:2024,title:'ChatGPT',desc:'IA Generativa',file:'chatgpt.pdf' },
+  { year:2024,title:'Declaração Unama',desc:'Formação / Graduação',file:'declaração_unama.pdf' },
+  { year:2024,title:'Shell Script',desc:'Automação em Linux',file:'shell_script.pdf' },
+  { year:2024,title:'Python',desc:'Linguagem de Programação',file:'python.pdf' },
+  { year:2024,title:'Introduction to Blue Team',desc:'Segurança Defensiva',file:'Introduction to Blue Team.png' },
+  { year:2024,title:'DevOps',desc:'Práticas e Ferramentas (Partes I, II e III)',file:'devops.pdf',extraFiles:[{label:'Parte II',file:'devops2.pdf'},{label:'Parte III',file:'devops3.pdf'}] },
+  { year:2024,title:'Segurança da Informação',desc:'Módulos 1 e 2',file:'segurança_informacao.png',extraFiles:[{label:'Parte 2',file:'segurança_informacao2.png'}] },
+  { year:2023,title:'Proteção e Combate a Incêndio',desc:'Segurança e Prevenção',file:'Proteção e Combate a Incêndio – certificado.pdf' },
+  { year:2022,title:'CS50 (Harvard)',desc:'Introdução à Ciência da Computação',file:'CS50_cert_havard.pdf' },
+  { year:2022,title:'HTML 2022',desc:'Estruturação Web',file:'html_2022.pdf' },
+  { year:2022,title:'TDI',desc:'Tecnologia da Informação',file:'tdi.pdf' },
+  { year:2022,title:'Fundação Bradesco',desc:'TI, Hardware e Sites',file:'bradesco_ti.pdf',extraFiles:[{label:'Hardware',file:'bradesco_hardware.pdf'},{label:'Sites',file:'site_bradesco.pdf'}] },
+  { year:2022,title:'T&T Informática',desc:'Informática Básica/Avançada',file:'t&t_informatica.pdf' },
+  { year:2022,title:'Microsoft - Privacidade e Segurança',desc:'Segurança da Informação',file:'Microsoft_privacidade_seguranca.pdf' }
 ];
+const years = [...new Set(certs.map((cert) => cert.year))].sort((a,b) => b-a);
 ---
-
-<!doctype html>
-<html lang="pt-br">
-	<head>
-		<BaseHead title={`Portfólio | ${SITE_TITLE}`} description="Meu portfólio de projetos e repositórios." />
-		<style>
-			main {
-				width: min(980px, calc(100% - 2rem));
-				margin: auto;
-				padding: clamp(2.5rem, 6vw, 5rem) 0;
-				color: #e6edf7;
-			}
-			main h1 {
-				margin: 0 0 .65rem;
-				color: #f8fafc;
-				font-size: clamp(2rem, 5vw, 3rem);
-				letter-spacing: -.035em;
-			}
-			main > p {
-				max-width: 66ch;
-				margin: 0;
-				color: #a8b7ce;
-				line-height: 1.75;
-			}
-			.portfolio-grid {
-				position: relative;
-				display: grid;
-				grid-template-columns: minmax(0, 1fr);
-				gap: 1.1rem;
-				list-style: none;
-				margin: 2.5rem 0 0;
-				padding: .25rem 0 .25rem 2.1rem;
-			}
-			.portfolio-grid::before {
-				content: "";
-				position: absolute;
-				left: .62rem;
-				top: 1.4rem;
-				bottom: 1.4rem;
-				width: 2px;
-				border-radius: 2px;
-				background: linear-gradient(180deg, #438cff 0%, #438cff 100%);
-			}
-			.project-card {
-				position: relative;
-				display: flex;
-				flex-direction: column;
-				gap: .9rem;
-				min-width: 0;
-				padding: 1.35rem 1.5rem;
-				border: 1px solid #3b5274;
-				border-radius: 1.15rem;
-				background: #172943;
-				color: #e6edf7;
-				box-shadow: 0 10px 26px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.045);
-				transition: transform .18s ease, border-color .18s ease, background .18s ease;
-			}
-			.project-card::before {
-				content: "";
-				position: absolute;
-				left: -2.1rem;
-				top: 1.65rem;
-				width: .85rem;
-				height: .85rem;
-				border: 3px solid #0d172b;
-				border-radius: 50%;
-				background: #60a5fa;
-				box-shadow: 0 0 0 2px #3b82f6;
-			}
-			.project-card:hover {
-				transform: translateX(4px);
-				border-color: #6b94d0;
-				box-shadow: 0 12px 28px rgba(0,0,0,.3);
-			}
-			.project-header {
-				display: flex;
-				align-items: center;
-				gap: 1rem;
-				min-width: 0;
-			}
-			.project-icon {
-				flex: 0 0 3rem;
-				width: 3rem;
-				height: 3rem;
-				padding: .7rem;
-				border: 1px solid rgba(116,155,215,.2);
-				border-radius: .9rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: #203b60;
-				color: #8dbaff;
-			}
-			.project-icon :global(svg) { width: 100%; height: 100%; }
-			.project-card h3 {
-				min-width: 0;
-				margin: 0;
-				color: #f1f5fb;
-				font-size: clamp(1.05rem, 2.4vw, 1.25rem);
-				line-height: 1.35;
-				overflow-wrap: anywhere;
-			}
-			.project-card p {
-				margin: 0;
-				color: #b7c5d9;
-				line-height: 1.7;
-			}
-			.project-tech {
-				align-self: flex-start;
-				max-width: 100%;
-				padding: .35rem .7rem;
-				border: 1px solid rgba(105,145,205,.25);
-				border-radius: 999px;
-				background: #102039;
-				color: #9fc2f3;
-				font-size: .8rem;
-				font-weight: 650;
-				line-height: 1.4;
-				overflow-wrap: anywhere;
-			}
-			.project-card a {
-				align-self: flex-start;
-				margin-top: .1rem;
-				padding: .65rem 1rem;
-				border: 1px solid rgba(91,148,235,.5);
-				border-radius: 999px;
-				background: #203f69;
-				color: #c7ddff;
-				font-weight: 700;
-				text-decoration: none;
-				transition: background .18s ease, border-color .18s ease;
-			}
-			.project-card a:hover {
-				border-color: #6ba5ff;
-				background: #2a5286;
-				text-decoration: none;
-			}
-			.project-card a:focus-visible {
-				outline: 2px solid #93c5fd;
-				outline-offset: 3px;
-			}
-			@media (max-width: 600px) {
-				main { width: calc(100% - 2rem); padding: 2.25rem 0 3rem; }
-				.portfolio-grid { gap: .9rem; margin-top: 1.8rem; padding-left: 1.65rem; }
-				.portfolio-grid::before { left: .48rem; }
-				.project-card { padding: 1.05rem; gap: .8rem; border-radius: 1rem; }
-				.project-card::before { left: -1.65rem; top: 1.35rem; width: .75rem; height: .75rem; }
-				.project-header { align-items: flex-start; gap: .8rem; }
-				.project-icon { flex-basis: 2.65rem; width: 2.65rem; height: 2.65rem; padding: .6rem; }
-				.project-card a { min-height: 42px; display: inline-flex; align-items: center; }
-			}
-
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Portfólio de Projetos</h1>
-			<p>Aqui estão listados meus principais repositórios e projetos (autorais, forks e sistemas institucionais).</p>
-			
-			<ul class="portfolio-grid">
-				{projects.map((project) => (
-					<li class="project-card">
-						<div class="project-header">
-							<div class="project-icon" set:html={project.icon} />
-							<h3>{project.name}</h3>
-						</div>
-						<p>{project.description}</p>
-						<span class="project-tech">{project.tech}</span>
-						<a href={project.url} target="_blank" rel="noopener noreferrer">Acessar Projeto</a>
-					</li>
-				))}
-			</ul>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title={'Formação e Certificações | ' + SITE_TITLE} description="Linha do tempo interativa de cursos, formações e certificados de Jeiel Miranda.">
+  <main class="learning-page">
+    <header class="learning-heading">
+      <span class="eyebrow">Aprendizado contínuo</span>
+      <h1>Formação e certificações</h1>
+      <p>Uma linha do tempo de cursos e formações, organizada pelo ano registrado no catálogo de certificados.</p>
+      <div class="learning-summary"><strong>{certs.length}</strong><span>registros de formação</span><span class="summary-separator">·</span><strong>{years.length}</strong><span>anos</span></div>
+    </header>
+    <nav class="year-filters" aria-label="Filtrar formações por ano">
+      <button type="button" data-year-filter="all" aria-pressed="true">Todos</button>
+      {years.map((year)=><button type="button" data-year-filter={String(year)} aria-pressed="false">{year}</button>)}
+    </nav>
+    <div class="learning-timeline" id="learning-timeline">
+      <span class="timeline-rail" aria-hidden="true"></span>
+      <span class="timeline-progress" id="timeline-progress" aria-hidden="true"></span>
+      {years.map((year)=>(
+        <section class="year-group" data-year-group={String(year)} aria-labelledby={'year-'+year}>
+          <header class="year-heading"><h2 id={'year-'+year}>{year}</h2><span>{certs.filter((cert)=>cert.year===year).length} formações</span></header>
+          <ol class="event-list">
+            {certs.filter((cert)=>cert.year===year).map((cert)=>(
+              <li class="timeline-event">
+                <span class="event-marker" aria-hidden="true"></span>
+                <article class="certificate-card">
+                  <div class="certificate-meta"><span class="certificate-kind">Curso / formação</span><span class="certificate-year">{year}</span></div>
+                  <h3>{cert.title}</h3><p>{cert.desc}</p>
+                  <div class="certificate-actions">
+                    <button type="button" class="view-document" data-document={fileUrl(cert.file)} data-document-title={cert.title}>Visualizar certificado</button>
+                    {cert.extraFiles?.map((extra)=><button type="button" class="extra-document" data-document={fileUrl(extra.file)} data-document-title={cert.title+' · '+extra.label}>{extra.label}</button>)}
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  </main>
+  <dialog class="certificate-dialog" id="certificate-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-heading"><div><span class="eyebrow">Documento</span><h2 id="dialog-title">Certificado</h2></div><button type="button" id="close-document" class="close-document" aria-label="Fechar visualização">×</button></div>
+    <iframe id="document-frame" title="Visualização do certificado" src="about:blank"></iframe>
+    <div class="dialog-actions"><a id="open-original" href="#" target="_blank" rel="noopener noreferrer">Abrir em nova aba</a><button type="button" id="close-document-bottom">Fechar</button></div>
+  </dialog>
+</Layout>
+<style>
+  .learning-page{width:min(960px,calc(100% - 2rem));margin-inline:auto;padding:clamp(2.5rem,6vw,5rem) 0 4rem;color:var(--site-text)}
+  .learning-heading{max-width:720px;margin-bottom:2rem}
+  .eyebrow{display:inline-block;margin-bottom:.5rem;color:var(--site-blue);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .learning-heading h1{margin:0 0 .65rem;color:var(--site-text);font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.045em}
+  .learning-heading>p{max-width:68ch;margin:0;color:var(--site-muted);line-height:1.7}
+  .learning-summary{display:flex;align-items:baseline;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem;color:var(--site-muted);font-size:.9rem}
+  .learning-summary strong{color:var(--site-text);font-size:1.2rem}.summary-separator{padding-inline:.3rem;color:var(--site-border)}
+  .year-filters{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.6rem 0 2rem}
+  .year-filters button,.extra-document,.dialog-actions button{min-height:40px;padding:.45rem .9rem;border:1px solid var(--site-border);border-radius:999px;background:var(--site-card);color:var(--site-text);font:inherit;font-size:.86rem;font-weight:700;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+  .year-filters button:hover,.extra-document:hover,.dialog-actions button:hover{border-color:var(--site-blue);transform:translateY(-1px)}
+  .year-filters button[aria-pressed="true"]{background:var(--site-blue);border-color:var(--site-blue);color:#fff}
+  .learning-timeline{position:relative;padding:.2rem 0 .5rem 2.15rem}
+  .timeline-rail,.timeline-progress{position:absolute;left:.52rem;top:.5rem;bottom:.5rem;width:2px;border-radius:10px}
+  .timeline-rail{background:var(--site-border)}
+  .timeline-progress{height:calc(100% - 1rem);bottom:auto;background:linear-gradient(180deg,#3b82f6,#06b6d4);transform:scaleY(0);transform-origin:top}
+  .year-group{margin:0 0 2.4rem}.year-group[hidden]{display:none}
+  .year-heading{display:flex;align-items:center;gap:1rem;margin:0 0 1rem}
+  .year-heading h2{margin:0;color:var(--site-blue);font-size:1.7rem;letter-spacing:-.03em}
+  .year-heading span{padding:.2rem .65rem;border:1px solid var(--site-border);border-radius:999px;color:var(--site-muted);font-size:.75rem}
+  .event-list{display:grid;gap:.9rem;margin:0;padding:0;list-style:none}
+  .timeline-event{position:relative;min-width:0}
+  .event-marker{position:absolute;top:1.35rem;left:-2.03rem;z-index:1;width:.75rem;height:.75rem;border:3px solid var(--site-page);border-radius:50%;background:#60a5fa;box-shadow:0 0 0 2px #3b82f6}
+  .certificate-card{padding:1.1rem 1.25rem;border:1px solid var(--site-border);border-radius:17px;background:var(--site-card);color:var(--site-text);box-shadow:var(--box-shadow);transition:transform .18s,border-color .18s}
+  .certificate-card:hover{transform:translateX(3px);border-color:var(--site-blue)}
+  .certificate-meta{display:flex;align-items:center;justify-content:space-between;gap:.7rem;margin-bottom:.55rem}
+  .certificate-kind{color:var(--site-blue);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .certificate-year{color:var(--site-muted);font-size:.75rem;font-variant-numeric:tabular-nums}
+  .certificate-card h3{margin:0 0 .3rem;color:var(--site-text);font-size:1.12rem;line-height:1.35}
+  .certificate-card p{margin:0;color:var(--site-muted);font-size:.92rem;line-height:1.55}
+  .certificate-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-top:1rem}
+  .view-document{min-height:40px;padding:.45rem .9rem;border:1px solid var(--site-blue);border-radius:999px;background:rgba(47,123,255,.14);color:var(--site-blue);font:inherit;font-size:.84rem;font-weight:800;cursor:pointer}
+  .view-document:hover{background:var(--site-blue);color:#fff}.extra-document{min-height:40px}
+  .certificate-dialog{width:min(920px,calc(100% - 1.5rem));max-width:920px;max-height:min(92vh,900px);padding:0;overflow:hidden;border:1px solid var(--site-border);border-radius:18px;background:var(--site-card);color:var(--site-text);box-shadow:0 24px 80px rgba(0,0,0,.4)}
+  .certificate-dialog::backdrop{background:rgba(2,6,23,.75);backdrop-filter:blur(4px)}
+  .dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--site-border)}
+  .dialog-heading .eyebrow{margin:0}.dialog-heading h2{margin:.15rem 0 0;color:var(--site-text);font-size:1.1rem}
+  .close-document{width:40px;height:40px;border:1px solid var(--site-border);border-radius:50%;background:var(--site-night-2);color:var(--site-text);font-size:1.5rem;cursor:pointer}
+  .certificate-dialog iframe{display:block;width:100%;height:min(68vh,680px);border:0;background:#fff}
+  .dialog-actions{display:flex;justify-content:flex-end;gap:.65rem;padding:.85rem 1.1rem;border-top:1px solid var(--site-border)}
+  .dialog-actions a{display:inline-flex;align-items:center;min-height:40px;padding:.45rem .9rem;border-radius:999px;background:var(--site-blue);color:#fff;font-size:.85rem;font-weight:800;text-decoration:none}
+  @media(max-width:600px){.learning-page{width:calc(100% - 1.5rem);padding-top:2rem}.learning-timeline{padding-left:1.65rem}.timeline-rail,.timeline-progress{left:.38rem}.event-marker{left:-1.58rem}.certificate-card{padding:1rem;border-radius:14px}.year-heading h2{font-size:1.5rem}.certificate-dialog iframe{height:66vh}}
+  @media(prefers-reduced-motion:reduce){.certificate-card,.year-filters button,.extra-document,.view-document{transition:none}}
+</style>
+<script>
+  const filterButtons=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-year-filter]'));
+  const yearGroups=Array.from(document.querySelectorAll<HTMLElement>('[data-year-group]'));
+  let refreshTimeline=()=>{};
+  filterButtons.forEach((button)=>{
+    button.addEventListener('click',()=>{
+      const filter=button.dataset.yearFilter||'all';
+      filterButtons.forEach((item)=>item.setAttribute('aria-pressed',String(item===button)));
+      yearGroups.forEach((group)=>{group.hidden=filter!=='all'&&group.dataset.yearGroup!==filter;});
+      refreshTimeline();
+    });
+  });
+  const dialog=document.querySelector<HTMLDialogElement>('#certificate-dialog');
+  const frame=document.querySelector<HTMLIFrameElement>('#document-frame');
+  const dialogTitle=document.querySelector<HTMLElement>('#dialog-title');
+  const openOriginal=document.querySelector<HTMLAnchorElement>('#open-original');
+  const closeDialog=()=>{dialog?.close();if(frame)frame.src='about:blank';};
+  document.querySelectorAll<HTMLButtonElement>('[data-document]').forEach((button)=>{
+    button.addEventListener('click',()=>{
+      const source=button.dataset.document||'';
+      if(!dialog||!frame||!openOriginal||!source)return;
+      frame.src=source;openOriginal.href=source;
+      if(dialogTitle)dialogTitle.textContent=button.dataset.documentTitle||'Certificado';
+      dialog.showModal();
+    });
+  });
+  document.querySelector('#close-document')?.addEventListener('click',closeDialog);
+  document.querySelector('#close-document-bottom')?.addEventListener('click',closeDialog);
+  dialog?.addEventListener('click',(event)=>{if(event.target===dialog)closeDialog();});
+  const loadScript=(src:string)=>new Promise<void>((resolve,reject)=>{
+    const script=document.createElement('script');script.src=src;script.async=true;
+    script.onload=()=>resolve();script.onerror=()=>reject(new Error('Falha ao carregar a biblioteca de animação.'));
+    document.head.appendChild(script);
+  });
+  const animateTimeline=async()=>{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    try{
+      await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js');
+      await loadScript('https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/ScrollTrigger.min.js');
+      const animationWindow=window as any;
+      const gsap=animationWindow.gsap,ScrollTrigger=animationWindow.ScrollTrigger;
+      if(!gsap||!ScrollTrigger)return;
+      gsap.registerPlugin(ScrollTrigger);
+      document.querySelectorAll<HTMLElement>('.timeline-event').forEach((event)=>{
+        gsap.fromTo(event,{autoAlpha:0,y:28},{autoAlpha:1,y:0,duration:.65,ease:'power2.out',scrollTrigger:{trigger:event,start:'top 88%',once:true}});
+      });
+      const progress=document.querySelector<HTMLElement>('#timeline-progress');
+      if(progress)gsap.fromTo(progress,{scaleY:0},{scaleY:1,ease:'none',scrollTrigger:{trigger:'#learning-timeline',start:'top 70%',end:'bottom 85%',scrub:.5}});
+      refreshTimeline=()=>ScrollTrigger.refresh();
+    }catch(error){console.warn('Animação indisponível; conteúdo segue acessível.',error);}
+  };
+  void animateTimeline();
+</script>
