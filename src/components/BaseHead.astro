@@ -70,3 +70,27 @@ const structuredData = {
 <meta name="twitter:image" content={imageUrl.href} />
 <meta name="twitter:image:alt" content="Jeiel Miranda e sua companheira em uma ilustração pixel art sob um céu azul noturno." />
 <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+<script>
+  const root = document.documentElement;
+  const applyTheme = (theme: 'dark' | 'light') => {
+    root.dataset.theme = theme;
+    document.body?.setAttribute('data-theme', theme);
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((button) => {
+      const light = theme === 'light';
+      button.textContent = button.id === 'btn-tema' ? (light ? '🌙 Tema escuro' : '☀️ Tema claro') : (light ? '🌙' : '☀️');
+      button.setAttribute('aria-label', light ? 'Ativar tema escuro' : 'Ativar tema claro');
+      button.setAttribute('aria-pressed', String(light));
+    });
+    try { localStorage.setItem('jg-theme', theme); } catch {}
+  };
+  const initializeTheme = () => {
+    applyTheme(root.dataset.theme === 'light' ? 'light' : 'dark');
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element) || !target.closest('[data-theme-toggle]')) return;
+      applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initializeTheme, { once: true });
+  else initializeTheme();
+</script>
