@@ -50,7 +50,11 @@
       const showPose = (name: string, hold: number, breathing = false) => {
         const next = poseMap[name];
         if (!next) return;
-        poses.forEach((pose) => pose.classList.remove('is-active'));
+        const previous = poses.find((pose) => pose.classList.contains('is-active'));
+        if (previous && previous !== next) {
+          previous.classList.remove('is-active');
+          gsap.to(previous, { opacity: 0, y: 7, scale: .985, duration: .34, ease: 'power2.inOut', overwrite: true });
+        }
         next.classList.add('is-active');
         gsap.fromTo(next, { opacity: 0, y: 7, scale: .985 }, {
           opacity: 1, y: 0, scale: 1, duration: .34, ease: 'power2.out', overwrite: true
